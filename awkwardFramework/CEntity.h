@@ -8,6 +8,7 @@
 #include "CCamera.h"
 #include <SDL_opengl.h>
 #include <SDL_image.h>
+#include "Sprite.h"
 
 enum {
 	ENTITY_TYPE_GENERIC = 0,
@@ -27,12 +28,14 @@ public:
 
 protected:
 	CAnimation Anim_Control;
-
+	Vector2 position;
 	GLuint texture;
 	float SpeedX;
 	float SpeedY;
 	float AccelX;
 	float AccelY;
+
+	Sprite *sprite;
 
 	int CurrentFrameCol;
 	int CurrentFrameRow;
@@ -41,7 +44,6 @@ protected:
 	int Col_Width;
 	int Col_Height;
 	bool CanJump;
-
 	bool PosValid(int NewX, int NewY);
 	//bool PosValidTile(CTile* Tile);
 	//bool PosValidEntity(CEntity* Entity, int NewX, int NewY);
@@ -51,6 +53,7 @@ public:
 	float Y;
 	bool Jump();
 
+	void SetPos(Vector2 pos);
 	int Width;
 	int Height;
 	bool MoveLeft;
@@ -62,7 +65,6 @@ public:
 	float MaxSpeedX;
 	float MaxSpeedY;
 
-
 	int AnimState;
 	
 
@@ -70,9 +72,9 @@ public:
 	CEntity();
 	virtual ~CEntity();
 
-	virtual bool OnLoad(char* File, int Width, int Height, int MaxFrames);
+	virtual bool OnLoad(char* File, float width, float height, int MaxFrames);
 	virtual void OnLoop();
-	virtual void OnRender(SDL_Surface* Surf_Display);
+	virtual void OnRender();
 	virtual void OnCleanup();
 	virtual void OnAnimate();
 	virtual bool OnCollision(CEntity* Entity);

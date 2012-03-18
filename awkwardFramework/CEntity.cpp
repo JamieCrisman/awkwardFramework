@@ -6,14 +6,14 @@ std::vector<CEntity*> CEntity::EntityList;
 
 CEntity::CEntity()
 {
-
-	GLuint texture;
-	X = Y = 0.0f;
+	//X = Y = 0.0f;
 	Width = Height = 0;
-
+	position = Vector2(0,0);
 	MoveRight = false;
 	MoveLeft = false;
 	CanJump = false;
+
+	sprite = new Sprite();
 
 	Type= ENTITY_TYPE_GENERIC;
 	Dead = false;
@@ -34,9 +34,9 @@ CEntity::CEntity()
 CEntity::~CEntity(){
 }
 
-bool CEntity::OnLoad(char* File, int Width, int Height, int MaxFrames){
+bool CEntity::OnLoad(char* File, float Width, float Height, int MaxFrames){
 	
-
+	sprite->Load(File, Width, Height);
 	Anim_Control.MaxFrames = MaxFrames;
 
 	return true;
@@ -70,35 +70,12 @@ void CEntity::OnLoop(){
 	OnMove(SpeedX, SpeedY);
 }
 
-void CEntity::OnRender(SDL_Surface* Surf_Display){
-	if(texture == NULL)
-		return;
+void CEntity::SetPos(Vector2 pos){
+	position = pos;
+}
 
-	//CSurface::OnDraw(Surf_Display, Surf_Entity, X - CCamera::CameraControl.GetX(), Y - CCamera::CameraControl.GetY(), CurrentFrameCol * Width, (CurrentFrameRow + Anim_Control.GetCurrentFrame()) * Height, Width, Height);
-	glLoadIdentity();
-
-	glBindTexture( GL_TEXTURE_2D, texture);
-
-	glTranslatef(X, Y, 0.0f);
-	//glRotatef(25.0f, 0,0,1);
-
-	glPushMatrix();
-		glTranslatef(-50.0f, -50.0f, 0);
-		glBegin(GL_QUADS);
-			glTexCoord2i(0,0);
-			glVertex3i(0, 0, 0);
-
-			glTexCoord2i(1,0);
-			glVertex3i(Width, 0, 0);
-
-			glTexCoord2i(1,1);
-			glVertex3i(Width, Height, 0);
-
-			glTexCoord2i(0,1);
-			glVertex3i(0, Height, 0);
-		glEnd();
-	glPopMatrix();
-
+void CEntity::OnRender(){
+	sprite->Render();
 }
 
 void CEntity::OnCleanup(){

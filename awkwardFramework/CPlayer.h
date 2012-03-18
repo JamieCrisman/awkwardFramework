@@ -6,7 +6,7 @@
 class CPlayer : public CEntity {
 public:
 	CPlayer();
-	bool OnLoad(char* File, int Width, int Height, int MaxFrames);
+	bool OnLoad(char* File, float width, float height, int MaxFrames);
 	void OnLoop();
 
 	void OnRender(SDL_Surface* Surf_Display);

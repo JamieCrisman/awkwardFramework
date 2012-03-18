@@ -5,8 +5,8 @@ CPlayer::CPlayer(){
 
 }
 
-bool CPlayer::OnLoad(char* File, int Width, int Height, int MaxFrames){
-	if(CEntity::OnLoad(File, Width, Height, MaxFrames) == false){
+bool CPlayer::OnLoad(char* File, float width, float height, int MaxFrames){
+	if(CEntity::OnLoad(File, width, height, MaxFrames) == false){
 		return false;
 	}
 	return true;
@@ -17,7 +17,7 @@ void CPlayer::OnLoop(){
 }
 
 void CPlayer::OnRender(SDL_Surface* Surf_Display){
-	CEntity::OnRender(Surf_Display);
+	CEntity::OnRender();
 }
 
 void CPlayer::OnCleanup(){

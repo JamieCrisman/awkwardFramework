@@ -11,13 +11,12 @@ public:
 	Sprite(const char *fileName, float width=-1, float height=-1);
 	Sprite();
 	~Sprite();
-	void Render(Entity *Entity);
+	void Render();
 	//void GetWidthHeight(int *width, int *height);
 	GLuint texture;
 	float width, height, rotation;
 	Vector2 textureOffset;
 	Vector2 textureScale;
 	bool Load(const char *fileName, float width, float height);
-
 
 };

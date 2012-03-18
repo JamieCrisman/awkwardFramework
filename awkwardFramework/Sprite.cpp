@@ -8,7 +8,6 @@ Sprite::Sprite(const char *fileName, float width, float height){
 		//if it fails to load do something
 	}
 	rotation = 0.0f;
-
 }
 
 Sprite::Sprite(){
@@ -21,6 +20,7 @@ Sprite::Sprite(){
 	textureScale = Vector2::one;
 
 }
+
 
 bool Sprite::Load(const char *fileName, float width=-1, float height=-1){
 	SDL_Surface *textureTest;
@@ -64,4 +64,34 @@ bool Sprite::Load(const char *fileName, float width=-1, float height=-1){
 	}
 	return true;
 
+}
+
+void Sprite::Render(){
+	if(texture == NULL)
+		return;
+
+	//CSurface::OnDraw(Surf_Display, Surf_Entity, X - CCamera::CameraControl.GetX(), Y - CCamera::CameraControl.GetY(), CurrentFrameCol * Width, (CurrentFrameRow + Anim_Control.GetCurrentFrame()) * Height, Width, Height);
+	glLoadIdentity();
+
+	glBindTexture( GL_TEXTURE_2D, texture);
+
+	glTranslatef((width * 0.5f), (height * 0.5f), 0.0f); //get entity position and add it to w and h
+	glRotatef(rotation, 0,0,1);
+
+	glPushMatrix();
+		glTranslatef(-(width * 0.5f), -(height * 0.5f), 0); //allows rotation to occur at center rather than at top left
+		glBegin(GL_QUADS);
+			glTexCoord2i(0,0);
+			glVertex3f(0, 0, 0);
+
+			glTexCoord2i(1,0);
+			glVertex3f(width, 0, 0);
+
+			glTexCoord2i(1,1);
+			glVertex3f(width, height, 0);
+
+			glTexCoord2i(0,1);
+			glVertex3f(0, height, 0);
+		glEnd();
+	glPopMatrix();
 }
