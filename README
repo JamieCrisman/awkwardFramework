@@ -1,5 +1,8 @@
-awkwardFramework is a C++ SDL/openGL framework aimed towards games.
+awkwardFramework is a C++ SDL/openGL framework aimed towards 2D games.
 
 I'm using bits of Monocle Engine and the framework from SDLTutorials.com as a launchng pad.
 
-First step is to make it work.
+1. make it work.
+2. Make good tools for playable enjoyments
+3. Don't over do step 2
+4. Make game.
