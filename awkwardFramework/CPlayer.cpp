@@ -26,9 +26,9 @@ void CPlayer::OnCleanup(){
 
 void CPlayer::OnAnimate(){
 	if(SpeedX != 0){
-		Anim_Control.MaxFrames = 8;
+	//	Anim_Control.MaxFrames = 8;
 	}else{
-		Anim_Control.MaxFrames = 0;
+	//	Anim_Control.MaxFrames = 0;
 	}
 	CEntity::OnAnimate();
 }

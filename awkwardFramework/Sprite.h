@@ -1,22 +1,55 @@
+#ifndef _SPRITE_H_
+	#define _SPRITE_H_
+
 #pragma once
 
 #include <SDL_image.h>
 #include <string>
 #include <SDL_opengl.h>
-#include "Vector2.h"
+#include "Transform.h"
+#include <list>
+#include "CFPS.h"
+#include "AFTexture.h"
 
-class Entity;
-class Sprite{
+class CEntity;
+class Sprite : public Transform{
 public:
-	Sprite(const char *fileName, float width=-1, float height=-1);
+	Sprite(AFTexture &texture, float width=-1, float height=-1);
 	Sprite();
 	~Sprite();
-	void Render();
+	void Render(CEntity *entity);
 	//void GetWidthHeight(int *width, int *height);
-	GLuint texture;
-	float width, height, rotation;
+	AFTexture texture;
+	float width, height;
 	Vector2 textureOffset;
 	Vector2 textureScale;
-	bool Load(const char *fileName, float width, float height);
+	float RGBA[4];
+	//bool Load(const char *fileName, float width, float height);
+};
+
+class Animation{
+public:
+	Animation(const std::string &name, int start, int end, float speed);
+	Animation();
+	bool isPlaying;
+	const std::string name;
+	float frame, speed;
+	int start, end;
+};
+
+class AnimControl : public Sprite{
+public:
+	AnimControl(AFTexture &texture, float width, float height);
+	void Add(const std::string &name, int start, int end, float speed);
+	void Play(const std::string &name);
+	void Stop(const std::string &name);
+	Animation* GetAnimation(const std::string &name);
+	void Render(CEntity *entity);
+	std::list<Animation> animations;
+	Animation* anim;
+	float fullWidth, fullHeight;
 
 };
+
+
+#endif

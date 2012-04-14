@@ -3,17 +3,12 @@
 std::vector<CEntity*> CEntity::EntityList;
 
 
-
-CEntity::CEntity()
-{
+CEntity::CEntity(){
 	//X = Y = 0.0f;
 	Width = Height = 0;
-	position = Vector2(0,0);
 	MoveRight = false;
 	MoveLeft = false;
 	CanJump = false;
-
-	sprite = new Sprite();
 
 	Type= ENTITY_TYPE_GENERIC;
 	Dead = false;
@@ -29,6 +24,7 @@ CEntity::CEntity()
 	Col_Y = 0;
 	Col_Width = 0;
 	Col_Height = 0;
+	Sprite();
 }
 
 CEntity::~CEntity(){
@@ -36,8 +32,7 @@ CEntity::~CEntity(){
 
 bool CEntity::OnLoad(char* File, float Width, float Height, int MaxFrames){
 	
-	sprite->Load(File, Width, Height);
-	Anim_Control.MaxFrames = MaxFrames;
+	//Anim_Control.MaxFrames = MaxFrames;
 
 	return true;
 }
@@ -74,12 +69,17 @@ void CEntity::SetPos(Vector2 pos){
 	position = pos;
 }
 
+float CEntity::getX(){
+	return position.x;
+}
+float CEntity::getY(){
+	return position.y;
+}
+
 void CEntity::OnRender(){
-	sprite->Render();
 }
 
 void CEntity::OnCleanup(){
-	glDeleteTextures(1, &texture);
 }
 
 void CEntity::OnAnimate(){
@@ -89,7 +89,7 @@ void CEntity::OnAnimate(){
 		CurrentFrameCol = 1;
 
 
-	Anim_Control.OnAnimate();
+	//Anim_Control.OnAnimate();
 }
 
 bool CEntity::OnCollision(CEntity* Entity){

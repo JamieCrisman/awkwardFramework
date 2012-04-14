@@ -1,13 +1,14 @@
 #ifndef _CENTITY_H_
 	#define _CENTITY_H_
 
-#include "CAnimation.h"
+//#include "CAnimation.h"
 #include <vector>
+#include "Transform.h"
 //#include "CArea.h"
 #include "CFPS.h"
 #include "CCamera.h"
-#include <SDL_opengl.h>
-#include <SDL_image.h>
+//#include <SDL_opengl.h>
+//#include <SDL_image.h>
 #include "Sprite.h"
 
 enum {
@@ -22,20 +23,22 @@ enum {
 
 };
 
-class CEntity{
+class Sprite;
+
+class CEntity : public Transform{
 public:
 	static std::vector<CEntity*> EntityList;
 
 protected:
-	CAnimation Anim_Control;
-	Vector2 position;
-	GLuint texture;
 	float SpeedX;
 	float SpeedY;
 	float AccelX;
 	float AccelY;
 
-	Sprite *sprite;
+	Sprite sprite;
+
+	float getX();
+	float getY();
 
 	int CurrentFrameCol;
 	int CurrentFrameRow;

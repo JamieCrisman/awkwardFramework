@@ -69,6 +69,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AFTexture.cpp" />
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CApp.cpp" />
     <ClCompile Include="CAppState.cpp" />
@@ -92,9 +93,11 @@
     <ClCompile Include="OnLoop.cpp" />
     <ClCompile Include="OnRender.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AFTexture.h" />
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CApp.h" />
     <ClInclude Include="CAppState.h" />
@@ -113,6 +116,7 @@
     <ClInclude Include="CTile.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
