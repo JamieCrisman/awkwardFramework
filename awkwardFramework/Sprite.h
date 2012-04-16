@@ -18,6 +18,7 @@ public:
 	Sprite();
 	~Sprite();
 	void Render(CEntity *entity);
+	void setTexture(AFTexture t);
 	//void GetWidthHeight(int *width, int *height);
 	AFTexture texture;
 	float width, height;
@@ -39,7 +40,9 @@ public:
 
 class AnimControl : public Sprite{
 public:
+	AnimControl();
 	AnimControl(AFTexture &texture, float width, float height);
+	void SetTexture(AFTexture &texture);
 	void Add(const std::string &name, int start, int end, float speed);
 	void Play(const std::string &name);
 	void Stop(const std::string &name);

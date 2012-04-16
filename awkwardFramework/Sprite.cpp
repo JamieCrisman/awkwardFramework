@@ -8,8 +8,10 @@ Sprite::Sprite(AFTexture &texture, float width, float height){
 		//if it fails to load do something
 	//}
 	this->texture = texture;
-	width = 0.0f;
-	height = 0.0f;
+	//width = 0.0f;
+	//height = 0.0f;
+	width = texture.width;
+	height = texture.height;
 	textureOffset = Vector2::zero;
 	textureScale = Vector2::one;
 	float RGBA[4] = {1.0, 1.0, 1.0, 1.0};
@@ -24,6 +26,12 @@ Sprite::Sprite(){
 	float RGBA[4] = {1.0, 1.0, 1.0, 1.0};
 }
 
+void Sprite::setTexture(AFTexture t){
+	width = t.width;
+	height = t.height;
+	texture.set(t);
+}
+
 Sprite::~Sprite(){
 	//glDeleteTextures(1, &texture);
 }
@@ -35,15 +43,21 @@ void Sprite::Render(CEntity *entity){
 
 	//CSurface::OnDraw(Surf_Display, Surf_Entity, X - CCamera::CameraControl.GetX(), Y - CCamera::CameraControl.GetY(), CurrentFrameCol * Width, (CurrentFrameRow + Anim_Control.GetCurrentFrame()) * Height, Width, Height);
 	glLoadIdentity();
-
 	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
 	//float posx = position.x + (width * 0.5f);
 	//float posy = position.y (height * 0.5f);
-	glTranslatef(position.x, position.y , 0.0f); //get entity position and add it to w and h
-	glRotatef(rotation, 0,0,1);
-
+	//glTranslatef(position.x, position.y , 0.0f); //get entity position and add it to w and h
+	//glRotatef(rotation, 0,0,1);
+	
+	glBegin(GL_QUADS);
+        glTexCoord2i(0,0);glColor3f(1, 0, 0); glVertex3f(0, 0, 0);
+        glTexCoord2i(1,0);glColor3f(1, 1, 0); glVertex3f(width, 0, 0);
+        glTexCoord2i(1,1);glColor3f(1, 0, 1); glVertex3f(width, height, 0);
+        glTexCoord2i(0,1);glColor3f(1, 1, 1); glVertex3f(0, height, 0);
+    glEnd();
+	/*
 	glPushMatrix();
-		glTranslatef(-(width * 0.5f), -(height * 0.5f), 0); //allows rotation to occur at center rather than at top left
+		//glTranslatef(-(width * 0.5f), -(height * 0.5f), 0); //allows rotation to occur at center rather than at top left
 		glBegin(GL_QUADS);
 			glTexCoord2i(0,0);
 			glVertex3f(0, 0, 0);
@@ -58,6 +72,7 @@ void Sprite::Render(CEntity *entity){
 			glVertex3f(0, height, 0);
 		glEnd();
 	glPopMatrix();
+	*/
 }
 
 Animation::Animation(const std::string &name, int start, int end, float speed):
@@ -71,6 +86,15 @@ Animation::Animation(const std::string &name, int start, int end, float speed):
 
 AnimControl::AnimControl(AFTexture &texture, float width, float height) : Sprite(texture, width, height){
 	
+}
+
+AnimControl::AnimControl() : Sprite(){
+	
+}
+
+void AnimControl::SetTexture(AFTexture &texture){
+	Sprite::texture.set(texture);
+
 }
 
 void AnimControl::Add(const std::string &name, int start, int end, float speed){

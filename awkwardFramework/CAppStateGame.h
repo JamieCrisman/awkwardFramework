@@ -11,9 +11,10 @@
 class CAppStateGame : public CAppState{
 private:
 	static CAppStateGame Instance;
-
-		CEntity Entity;
-		CEntity Entity2;
+		AFTexture texture;
+		CPlayer player;
+		//CEntity Entity;
+		//CEntity Entity2;
 
 	CAppStateGame();
 

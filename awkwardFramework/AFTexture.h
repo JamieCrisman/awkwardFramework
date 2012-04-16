@@ -6,13 +6,14 @@
 #include <SDL_opengl.h>
 #include "Transform.h"
 
-class AFTexture : public Transform{
+class AFTexture{
 public:
 	AFTexture();
 	AFTexture(const char *fileName, float width, float height);
 	GLuint GL_texture;
 	float width, height;
 	bool Load(const char *fileName, float width, float height);
+	void set(AFTexture t);
 };
 
 #endif

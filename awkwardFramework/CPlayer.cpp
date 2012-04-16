@@ -2,12 +2,21 @@
 
 
 CPlayer::CPlayer(){
-
+	//texture.GL_texture = NULL;
+	sprite.texture.GL_texture = NULL;
 }
 
-bool CPlayer::OnLoad(char* File, float width, float height, int MaxFrames){
-	if(CEntity::OnLoad(File, width, height, MaxFrames) == false){
+CPlayer::CPlayer(AFTexture t, float width, float height){
+	sprite.texture.set(t);
+	Width = width;
+	Height = height;
+}
+
+bool CPlayer::OnLoad(char* File, float width, float height){
+	if(!texture.Load(File, width, height)){
 		return false;
+	}else{
+		//Animation.SetTexture(texture);
 	}
 	return true;
 }
@@ -16,8 +25,9 @@ void CPlayer::OnLoop(){
 	CEntity::OnLoop();
 }
 
-void CPlayer::OnRender(SDL_Surface* Surf_Display){
-	CEntity::OnRender();
+void CPlayer::OnRender(){
+	//Animation.Render(this);
+	sprite.Render(this);
 }
 
 void CPlayer::OnCleanup(){
@@ -35,4 +45,9 @@ void CPlayer::OnAnimate(){
 
 bool CPlayer::OnCollision(CEntity* Entity){
 	return true;
+}
+
+void CPlayer::setTexture(AFTexture t){
+	//texture.set(t);
+	sprite.setTexture(t);
 }

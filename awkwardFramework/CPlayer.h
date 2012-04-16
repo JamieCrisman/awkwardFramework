@@ -6,15 +6,19 @@
 class CPlayer : public CEntity {
 public:
 	CPlayer();
-	bool OnLoad(char* File, float width, float height, int MaxFrames);
+	CPlayer(AFTexture t, float width, float height );
+	bool OnLoad(char* File, float width, float height);
 	void OnLoop();
 
-	void OnRender(SDL_Surface* Surf_Display);
+	void OnRender();
 
 	void OnCleanup();
 	void OnAnimate();
 	bool OnCollision(CEntity* Entity);
-
+	AFTexture texture;
+	//AnimControl Animation;
+	Sprite sprite;
+	void setTexture(AFTexture t);
 
 };
 
