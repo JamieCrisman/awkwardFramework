@@ -27,7 +27,7 @@ void CPlayer::OnLoop(){
 
 void CPlayer::OnRender(){
 	//Animation.Render(this);
-	sprite.Render(this);
+	sprite.Render(this->position, this->rotation, this->scale);
 }
 
 void CPlayer::OnCleanup(){

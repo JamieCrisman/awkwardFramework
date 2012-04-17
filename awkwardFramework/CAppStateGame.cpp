@@ -32,11 +32,12 @@ void CAppStateGame::OnActivate(){
 	//}
 	
 	if( !texture.Load("Assets/Images/Sprites/yoshi.png", 128, 512) ){
-		SDL_WM_SetCaption("Didn't load texture", NULL);
+		//SDL_WM_SetCaption("Didn't load texture", NULL);
 		return;
 	}
 	player.setTexture(texture);
 	player.SetPos(Vector2(200, 300));
+	player.rotation = 20.0;
 	//player.Animation.Add("S", 0, 2, 1.0);
 	//player.Animation.Play("S");
 

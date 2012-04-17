@@ -11,6 +11,7 @@ public:
 	float rotation;
 	Vector2 scale;
 
+
 };
 
 

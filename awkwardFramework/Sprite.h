@@ -17,14 +17,14 @@ public:
 	Sprite(AFTexture &texture, float width=-1, float height=-1);
 	Sprite();
 	~Sprite();
-	void Render(CEntity *entity);
+	void Render(Vector2 p, float r, Vector2 s);
 	void setTexture(AFTexture t);
 	//void GetWidthHeight(int *width, int *height);
 	AFTexture texture;
 	float width, height;
 	Vector2 textureOffset;
 	Vector2 textureScale;
-	float RGBA[4];
+	float RGBA[3];
 	//bool Load(const char *fileName, float width, float height);
 };
 
@@ -47,7 +47,7 @@ public:
 	void Play(const std::string &name);
 	void Stop(const std::string &name);
 	Animation* GetAnimation(const std::string &name);
-	void Render(CEntity *entity);
+	void Render(Vector2 p, float r, Vector2 s);
 	std::list<Animation> animations;
 	Animation* anim;
 	float fullWidth, fullHeight;

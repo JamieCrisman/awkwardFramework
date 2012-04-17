@@ -11,3 +11,4 @@ Transform::Transform(const Transform &transform){
 	rotation = transform.rotation;
 	scale    = transform.scale;
 }
+
