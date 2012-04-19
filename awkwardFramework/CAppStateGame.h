@@ -13,6 +13,7 @@ private:
 	static CAppStateGame Instance;
 		AFTexture texture;
 		CPlayer player;
+		CPlayer player2;
 		//CEntity Entity;
 		//CEntity Entity2;
 

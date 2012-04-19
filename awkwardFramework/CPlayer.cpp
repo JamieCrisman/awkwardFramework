@@ -3,7 +3,7 @@
 
 CPlayer::CPlayer(){
 	//texture.GL_texture = NULL;
-	sprite.texture.GL_texture = NULL;
+	//sprite.texture.GL_texture = NULL;
 }
 
 CPlayer::CPlayer(AFTexture t, float width, float height){
@@ -27,7 +27,7 @@ void CPlayer::OnLoop(){
 
 void CPlayer::OnRender(){
 	//Animation.Render(this);
-	sprite.Render(this->position, this->rotation, this->scale);
+	Animation.Render(this->position, this->rotation, this->scale);
 }
 
 void CPlayer::OnCleanup(){
@@ -49,5 +49,7 @@ bool CPlayer::OnCollision(CEntity* Entity){
 
 void CPlayer::setTexture(AFTexture t){
 	//texture.set(t);
-	sprite.setTexture(t);
+	//sprite.setTexture(t);
+	Animation.setTexture(t);
+
 }

@@ -12,28 +12,35 @@ Sprite::Sprite(AFTexture &texture, float width, float height){
 	//height = 0.0f;
 	width = texture.width;
 	height = texture.height;
-	textureOffset = Vector2::zero;
-	textureScale = Vector2::one;
-	RGBA[0] = 1.0;
-	RGBA[1] = 1.0;
-	RGBA[2] = 1.0;
+	textureOffset = Vector2(0, 0);
+	textureScale = Vector2(1.0, 1.0);
+	RGB[0] = 1.0;
+	RGB[1] = 1.0;
+	RGB[2] = 1.0;
 }
 
 Sprite::Sprite(){
 	width = 0.0f;
 	height = 0.0f;
 	this->texture.GL_texture = NULL;
-	textureOffset = Vector2::zero;
-	textureScale = Vector2::one;
-	RGBA[0] = 1.0;
-	RGBA[1] = 1.0;
-	RGBA[2] = 1.0;
+	textureOffset = Vector2(0, 0);
+	textureScale = Vector2(1.0, 1.0);
+	RGB[0] = 1.0;
+	RGB[1] = 1.0;
+	RGB[2] = 1.0;
 }
 
 void Sprite::setTexture(AFTexture t){
 	width = t.width;
 	height = t.height;
 	texture.set(t);
+}
+
+void Sprite::setColor(float r, float g, float b){
+	RGB[0] = r;
+	RGB[1] = g;
+	RGB[2] = b;
+	
 }
 
 Sprite::~Sprite(){
@@ -49,14 +56,10 @@ void Sprite::Render(Vector2 p, float r, Vector2 s){
 	//CSurface::OnDraw(Surf_Display, Surf_Entity, X - CCamera::CameraControl.GetX(), Y - CCamera::CameraControl.GetY(), CurrentFrameCol * Width, (CurrentFrameRow + Anim_Control.GetCurrentFrame()) * Height, Width, Height);
 	
 	glLoadIdentity();
-	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
-	
+	//glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
 	//no idea
-	//float posx = position.x + (width * 0.5f);
-	//float posy = position.y (height * 0.5f);
-
-	glTranslatef(p.x, p.y , 0.0f); //get entity position and add it to w and h
-	glRotatef(r, 0,0,1);
+	//glScalef(s.x, s.y, 1.0);
+	//glTranslatef(p.x, p.y , 0.0f); //get entity position and add it to w and h
 	
 	/*glBegin(GL_QUADS);
         glTexCoord2i(0,0); glVertex3f(0, 0, 0);
@@ -65,29 +68,44 @@ void Sprite::Render(Vector2 p, float r, Vector2 s){
         glTexCoord2i(0,1);glColor3f(1, 1, 1); glVertex3f(0, height, 0);
     glEnd();
 	*/
-
+	float halfWidth = width*0.5f*s.x;
+	float halfHeight = height*0.5f*s.y;
+	if(r != 0.0){ //no idea how much this will actually trim off but lettuce try it.
+		glTranslatef((p.x), (p.y), 0); //allows rotation to occur at center rather than at top left
+		glRotatef(r, 0,0, 1.0);
+		glTranslatef(-(p.x), -(p.y), 0); //allows rotation to occur at center rather than at top left
+	}
 	//renders a quad
+	glEnable(GL_BLEND); 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glPushMatrix();
-		glTranslatef(-(width * 0.5f), -(height * 0.5f), 0); //allows rotation to occur at center rather than at top left
 		glBegin(GL_QUADS);
-			glTexCoord2i(0,0);
-			glColor3f(RGBA[0], RGBA[1], RGBA[2]);
-			glVertex3f(0, 0, 0);
-			
-			glTexCoord2i(1,0);
-			glColor3f(RGBA[0], RGBA[1], RGBA[2]);
-			glVertex3f(width, 0, 0);
-			
-			glTexCoord2i(1,1);
-			glColor3f(RGBA[0], RGBA[1], RGBA[2]);
-			glVertex3f(width, height, 0);
+			// bottom left
+			glColor3f(RGB[0], RGB[1], RGB[2]);
+			glTexCoord2f(textureOffset.x, textureOffset.y + textureScale.y);
+			glVertex3f(-halfWidth + p.x, halfHeight + p.y, 0.0f);
 
-			glTexCoord2i(0,1);
-			glColor3f(RGBA[0], RGBA[1], RGBA[2]);
-			glVertex3f(0, height, 0);
+
+			// top left
+			glTexCoord2f(textureOffset.x, textureOffset.y);
+			glColor3f(RGB[0], RGB[1], RGB[2]);
+			glVertex3f(-halfWidth + p.x, -halfHeight + p.y, 0.0f);
+
+			// top right
+			glTexCoord2f(textureOffset.x + textureScale.x, textureOffset.y);
+			glColor3f(RGB[0], RGB[1], RGB[2]);
+			glVertex3f(halfWidth + p.x, -halfHeight + p.y, 0.0f);
+
+			// bottom right
+			glTexCoord2f(textureOffset.x + textureScale.x, textureOffset.y + textureScale.y);
+			glColor3f(RGB[0], RGB[1], RGB[2]);
+			glVertex3f(halfWidth + p.x, halfHeight + p.y, 0.0f);
+			
 		glEnd();
+			
 	glPopMatrix();
 	
+
 }
 
 Animation::Animation(const std::string &name, int start, int end, float speed):
@@ -100,16 +118,23 @@ Animation::Animation(const std::string &name, int start, int end, float speed):
 }
 
 AnimControl::AnimControl(AFTexture &texture, float width, float height) : Sprite(texture, width, height){
-	
+	//this->texture.width = width;
+	//this->texture.width = width;
 }
 
 AnimControl::AnimControl() : Sprite(){
 	
 }
 
-void AnimControl::SetTexture(AFTexture &texture){
-	Sprite::texture.set(texture);
-
+void AnimControl::setTexture(AFTexture t, float width, float height){
+	this->width = width;
+	this->height = height;
+	this->texture.set(t);
+}
+void AnimControl::setTexture(AFTexture t){
+	//this->width = width;
+	//this->height = height;
+	Sprite::setTexture(t);
 }
 
 void AnimControl::Add(const std::string &name, int start, int end, float speed){
@@ -138,7 +163,7 @@ void AnimControl::Render(Vector2 p, float r, Vector2 s)
 	{
 		if(anim->isPlaying)
 		{
-			anim->frame += anim->speed * CFPS::FPSControl.GetSpeedFactor();
+			anim->frame += anim->speed * CFPS::FPSControl.GetDeltaTime();
 			if(anim->frame > anim->end + 1) { anim->frame = anim->start; }
 		}
 		x = (int) anim->frame % (int) (texture.width / width);

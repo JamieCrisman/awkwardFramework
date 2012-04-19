@@ -25,7 +25,6 @@ bool CApp::OnInit()
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 1);
 
 
-
 	if((Surf_Display = SDL_SetVideoMode(WWIDTH, WHEIGHT, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL)
 	{
 		return false;

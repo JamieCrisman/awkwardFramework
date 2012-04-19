@@ -1,2 +1,8 @@
 awkwardFramework.sdf
 awkwardFramework.opensdf
+Thumbs.db
+awkwardFramework/Debug*/
+ipch*/
+*.ilk
+*.log
+*.suo

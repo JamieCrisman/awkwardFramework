@@ -16,8 +16,9 @@ public:
 	void OnAnimate();
 	bool OnCollision(CEntity* Entity);
 	AFTexture texture;
-	//AnimControl Animation;
-	Sprite sprite;
+	AnimControl Animation;
+	//Sprite sprite;
+
 	void setTexture(AFTexture t);
 
 };

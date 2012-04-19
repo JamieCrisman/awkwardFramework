@@ -1,9 +1,9 @@
 #include "Transform.h"
 
 Transform::Transform(){
-	position = Vector2::zero;
+	position = Vector2(0,0);
 	rotation = 0.0f;
-	scale = Vector2::one;
+	scale = Vector2(1.0, 1.0);
 }
 
 Transform::Transform(const Transform &transform){

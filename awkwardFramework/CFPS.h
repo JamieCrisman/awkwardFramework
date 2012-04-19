@@ -13,13 +13,14 @@ public:
 	int GetFPS();
 
 	float GetSpeedFactor();
-
+	float GetDeltaTime();
 private:
 	int OldTime;
 	int LastTime;
 	float SpeedFactor;
 	int NumFrames;
 	int Frames;
+	float deltaTime;
 
 
 };

@@ -1,5 +1,6 @@
 #include "CFPS.h"
-
+#define MIN(a, b) (((a) < (b)) ? (a) : (b)) 
+#define MAX_DELTA_TIME 1.0/30.0
 CFPS CFPS::FPSControl;
 
 CFPS::CFPS(){
@@ -7,7 +8,7 @@ CFPS::CFPS(){
 	LastTime = 0;
 
 	SpeedFactor = 0;
-
+	deltaTime = 0.0;
 	Frames = 0;
 	NumFrames = 0;
 }
@@ -23,6 +24,7 @@ void CFPS::OnLoop(){
 	}
 
 	SpeedFactor = ((SDL_GetTicks() - LastTime)/1000.0f) * 32.0f;
+	deltaTime = MIN(((SDL_GetTicks() - LastTime)/1000.0f), MAX_DELTA_TIME);
 	LastTime = SDL_GetTicks();
 	Frames++;
 }
@@ -33,4 +35,8 @@ int CFPS::GetFPS(){
 
 float CFPS::GetSpeedFactor(){
 	return SpeedFactor;
+}
+
+float CFPS::GetDeltaTime(){
+	return deltaTime;
 }
