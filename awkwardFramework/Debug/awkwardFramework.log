@@ -1,12 +1,14 @@
-﻿Build started 4/17/2012 4:38:37 PM.
+﻿Build started 4/19/2012 4:12:52 PM.
      1>Project "C:\gitRepo\awkwardFramework\awkwardFramework\awkwardFramework.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\awkwardFramework.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Sprite.cpp
-         Sprite.cpp
-     1>c:\gitrepo\awkwardframework\awkwardframework\sprite.cpp(142): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\gitrepo\awkwardframework\awkwardframework\sprite.cpp(145): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt CAppStateGame.cpp
+         CAppStateGame.cpp
+     1>c:\gitrepo\awkwardframework\awkwardframework\cappstategame.cpp(71): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\gitrepo\awkwardframework\awkwardframework\cappstategame.cpp(79): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\gitrepo\awkwardframework\awkwardframework\cappstategame.cpp(84): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\gitrepo\awkwardframework\awkwardframework\cappstategame.cpp(110): warning C4018: '<' : signed/unsigned mismatch
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\gitRepo\awkwardFramework\Debug\awkwardFramework.exe" /NOLOGO SDLmain.lib SDL.lib SDL_image.lib SDL_mixer.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\awkwardFramework.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\gitRepo\awkwardFramework\Debug\awkwardFramework.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\gitRepo\awkwardFramework\Debug\awkwardFramework.lib" /MACHINE:X86 Debug\AFTexture.obj
          Debug\CAnimation.obj
@@ -45,4 +47,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.37
+Time Elapsed 00:00:01.48
