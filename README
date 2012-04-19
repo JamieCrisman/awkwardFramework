@@ -6,3 +6,13 @@ I'm using bits of Monocle Engine and the framework from SDLTutorials.com as a la
 2. Make good tools for playable enjoyments
 3. Don't over do step 2
 4. Make game.
+
+
+
+make sure you have set up for the proj
+SDLmain
+SDL
+SDL_image
+SDL_mixer
+opengl32
+glu32
