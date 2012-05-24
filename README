@@ -16,3 +16,4 @@ SDL_image
 SDL_mixer
 opengl32
 glu32
+freetype
