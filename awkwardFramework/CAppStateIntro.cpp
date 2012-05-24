@@ -30,10 +30,11 @@ void CAppStateIntro::OnLoop(){
 	}
 }
 
-void CAppStateIntro::OnRender(SDL_Surface* Surf_Display){
-	if(Surf_Logo){
+void CAppStateIntro::OnRender(){
+	/*if(Surf_Logo){
 		CSurface::OnDraw(Surf_Display, Surf_Logo, 0, 0);
 	}
+	*/
 }
 
 CAppStateIntro* CAppStateIntro::GetInstance(){

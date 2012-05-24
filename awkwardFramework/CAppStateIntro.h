@@ -16,7 +16,7 @@ public:
 	void OnActivate();
 	void OnDeactivate();
 	void OnLoop();
-	void OnRender(SDL_Surface* Surf_Display);
+	void OnRender();
 	static CAppStateIntro* GetInstance();
 
 

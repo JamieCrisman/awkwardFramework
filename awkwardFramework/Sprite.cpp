@@ -51,12 +51,11 @@ Sprite::~Sprite(){
 void Sprite::Render(Vector2 p, float r, Vector2 s){
 	if(texture.GL_texture == NULL)
 		return;
-	
+
 	//old
 	//CSurface::OnDraw(Surf_Display, Surf_Entity, X - CCamera::CameraControl.GetX(), Y - CCamera::CameraControl.GetY(), CurrentFrameCol * Width, (CurrentFrameRow + Anim_Control.GetCurrentFrame()) * Height, Width, Height);
-	
 	glLoadIdentity();
-	//glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
+	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
 	//no idea
 	//glScalef(s.x, s.y, 1.0);
 	//glTranslatef(p.x, p.y , 0.0f); //get entity position and add it to w and h
@@ -147,9 +146,10 @@ void AnimControl::Play(const std::string &name){
 		anim->isPlaying = true;
 	}
 }
-void AnimControl::Stop(const std::string &name){
-	anim = GetAnimation(name);
-	if(anim){
+//void AnimControl::Stop(const std::string &name){ //why do I need to know what the name is?
+void AnimControl::Stop(){
+	//anim = GetAnimation(name);
+	if(anim->isPlaying){
 		anim->isPlaying = false;
 	}
 }

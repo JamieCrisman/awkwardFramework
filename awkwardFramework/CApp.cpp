@@ -3,7 +3,7 @@
 CApp::CApp()
 {
 	Running = true;
-	Surf_Display = NULL;
+	//Surf_Display = NULL;
 	
 }
 

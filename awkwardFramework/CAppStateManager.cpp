@@ -16,8 +16,8 @@ void CAppStateManager::OnLoop(){
 
 }
 
-void CAppStateManager::OnRender(SDL_Surface* Surf_Display){
-	if(ActiveAppState) ActiveAppState->OnRender(Surf_Display);
+void CAppStateManager::OnRender(){
+	if(ActiveAppState) ActiveAppState->OnRender();
 
 }
 

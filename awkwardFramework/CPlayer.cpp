@@ -21,8 +21,23 @@ bool CPlayer::OnLoad(char* File, float width, float height){
 	return true;
 }
 
-void CPlayer::OnLoop(){
-	CEntity::OnLoop();
+void CPlayer::OnLoop(Uint8 *keys){
+	/*
+	if(keys[SDLK_LEFT]){
+		SetPos(Vector2((getX() - 5.0), (getY())));
+	}
+	if(keys[SDLK_UP]){
+		SetPos(Vector2((getX()), (getY() - 5.0)));
+	}
+	if(keys[SDLK_RIGHT]){
+		SetPos(Vector2((getX() + 5.0), (getY())));
+	}
+	if(keys[SDLK_DOWN]){
+		SetPos(Vector2((getX()), (getY() + 5.0)));
+	}
+	*/
+	CEntity::OnLoop(keys);
+
 }
 
 void CPlayer::OnRender(){
@@ -35,11 +50,11 @@ void CPlayer::OnCleanup(){
 }
 
 void CPlayer::OnAnimate(){
-	if(SpeedX != 0){
+//	if(SpeedX != 0){
 	//	Anim_Control.MaxFrames = 8;
-	}else{
+//	}else{
 	//	Anim_Control.MaxFrames = 0;
-	}
+//	}
 	CEntity::OnAnimate();
 }
 

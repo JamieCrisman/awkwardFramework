@@ -10,6 +10,7 @@
 #include <list>
 #include "CFPS.h"
 #include "AFTexture.h"
+#include "Define.h"
 
 class CEntity;
 class Sprite : public Transform{
@@ -44,7 +45,8 @@ public:
 	//void SetTexture(AFTexture &texture);
 	void Add(const std::string &name, int start, int end, float speed);
 	void Play(const std::string &name);
-	void Stop(const std::string &name);
+	//void Stop(const std::string &name);
+	void Stop();
 	void setTexture(AFTexture t, float width, float height);
 	void setTexture(AFTexture t);
 	Animation* GetAnimation(const std::string &name);

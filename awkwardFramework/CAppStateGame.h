@@ -7,6 +7,7 @@
 #include "CEntity.h"
 #include "CSurface.h"
 #include "CPlayer.h"
+#include "FreeType.h"
 
 class CAppStateGame : public CAppState{
 private:
@@ -16,17 +17,18 @@ private:
 		CPlayer player2;
 		//CEntity Entity;
 		//CEntity Entity2;
-
+		freetype::font_data our_font;
 	CAppStateGame();
 
 public:
+	Uint8 *keys;
 	void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
 	void OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode);
 
 	void OnActivate();
 	void OnDeactivate();
 	void OnLoop();
-	void OnRender(SDL_Surface* Surf_Display);
+	void OnRender();
 	static CAppStateGame* GetInstance();
 };
 

@@ -14,10 +14,12 @@ CEntity::CEntity(){
 	Dead = false;
 	Flags= ENTITY_FLAG_GRAVITY;
 
-	SpeedX = 0;
-	SpeedY = 0;
-	MaxSpeedX = 5;
-	MaxSpeedY = 5;
+	//SpeedX = 0;
+	//SpeedY = 0;
+	//MaxSpeedX = 5;
+	//MaxSpeedY = 5;
+	Speed = Vector2(0.0, 0.0);
+	maxSpeed = Vector2(5.0, 0.0);
 	CurrentFrameCol = 0;
 	CurrentFrameRow = 0;
 	Col_X = 0;
@@ -37,7 +39,7 @@ bool CEntity::OnLoad(char* File, float Width, float Height, int MaxFrames){
 	return true;
 }
 
-void CEntity::OnLoop(){
+void CEntity::OnLoop(Uint8 *keys){
 	
 	if(!MoveLeft && !MoveRight){
 		StopMove();
@@ -52,7 +54,7 @@ void CEntity::OnLoop(){
 	/*if(Flags & ENTITY_FLAG_GRAVITY){
 		AccelY = 0.75f;
 	}*/
-
+	/*
 	SpeedX += AccelX * CFPS::FPSControl.GetSpeedFactor();
 	SpeedY += AccelY * CFPS::FPSControl.GetSpeedFactor();
 
@@ -60,9 +62,9 @@ void CEntity::OnLoop(){
 	if(SpeedX < -MaxSpeedX) SpeedX = -MaxSpeedX;
 	if(SpeedY > MaxSpeedY) SpeedY = MaxSpeedY;
 	if(SpeedY < -MaxSpeedY) SpeedY = -MaxSpeedY;
-
-	OnAnimate();
-	OnMove(SpeedX, SpeedY);
+	*/
+	//OnAnimate();
+	//OnMove(SpeedX, SpeedY);
 }
 
 void CEntity::SetPos(Vector2 pos){
@@ -98,6 +100,7 @@ bool CEntity::OnCollision(CEntity* Entity){
 
 void CEntity::OnMove(float MoveX, float MoveY)
 {
+	/*
 	if(MoveX == 0 && MoveY == 0) return;
 
 	double NewX = 0;
@@ -155,10 +158,11 @@ void CEntity::OnMove(float MoveX, float MoveY)
 		if(MoveX == 0 && MoveY == 0) break;
 		if(NewX == 0 && NewY == 0) break;
 	}
+	*/
 }
 
 void CEntity::StopMove(){
-	if(SpeedX > 0){
+	/*if(SpeedX > 0){
 		AccelX = -1;
 	}
 	if(SpeedX < 0){
@@ -169,7 +173,7 @@ void CEntity::StopMove(){
 		AccelX = 0;
 		SpeedX = 0;
 	}
-
+	*/
 
 }
 
@@ -266,7 +270,7 @@ bool CEntity::PosValidEntity(CEntity* Entity, int NewX, int NewY){
 bool CEntity::Jump(){
 	if(!CanJump) return false;
 
-	SpeedY = -MaxSpeedY;
+//	SpeedY = -MaxSpeedY;
 	return true;
 
 }

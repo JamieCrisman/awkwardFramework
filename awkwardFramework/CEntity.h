@@ -30,15 +30,13 @@ public:
 	static std::vector<CEntity*> EntityList;
 
 protected:
-	float SpeedX;
-	float SpeedY;
+	//float SpeedX;
+	//float SpeedY;
+	Vector2 Speed;
 	float AccelX;
 	float AccelY;
 
 	Sprite sprite;
-
-	float getX();
-	float getY();
 
 	int CurrentFrameCol;
 	int CurrentFrameRow;
@@ -55,7 +53,8 @@ public:
 	float X;
 	float Y;
 	bool Jump();
-
+	float getX();
+	float getY();
 	void SetPos(Vector2 pos);
 	int Width;
 	int Height;
@@ -64,9 +63,9 @@ public:
 	int Type;
 	bool Dead;
 	int Flags;
-
-	float MaxSpeedX;
-	float MaxSpeedY;
+	Vector2 maxSpeed;
+	//float MaxSpeedX;
+	//float MaxSpeedY;
 
 	int AnimState;
 	
@@ -76,7 +75,7 @@ public:
 	virtual ~CEntity();
 
 	virtual bool OnLoad(char* File, float width, float height, int MaxFrames);
-	virtual void OnLoop();
+	virtual void OnLoop(Uint8 *keys);
 	virtual void OnRender();
 	virtual void OnCleanup();
 	virtual void OnAnimate();

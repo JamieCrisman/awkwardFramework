@@ -8,7 +8,7 @@ public:
 	CPlayer();
 	CPlayer(AFTexture t, float width, float height );
 	bool OnLoad(char* File, float width, float height);
-	void OnLoop();
+	void OnLoop(Uint8 *keys);
 
 	void OnRender();
 
