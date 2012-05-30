@@ -263,7 +263,7 @@ void print(const font_data &ft_font, float x, float y, const char *fmt, ...)  {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
 	
 	glListBase(font);
-
+	glColor3f(1, 1, 1);
 	float modelview_matrix[16];	
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelview_matrix);
 	//This is where the text display actually happens.
