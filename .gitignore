@@ -31,7 +31,5 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
-awkwardFramework/*.vcxproj
-awkwardFramework/*.vcxproj.filters
 Debug/*.exe
 Debug/*.pdb
