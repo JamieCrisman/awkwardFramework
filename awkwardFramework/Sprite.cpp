@@ -44,7 +44,7 @@ void Sprite::setColor(float r, float g, float b){
 }
 
 Sprite::~Sprite(){
-	//glDeleteTextures(1, &texture);
+	glDeleteTextures(1, &texture.GL_texture);
 }
 
 
