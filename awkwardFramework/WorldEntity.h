@@ -22,7 +22,6 @@ public:
 	int Width;
 	int Height;
 	int Type;
-	bool Dead;
 	int Flags;
 	Vector2 maxSpeed;
 	AFTexture worldTexture;
@@ -32,6 +31,7 @@ public:
 
 
 	WorldEntity();
+	WorldEntity(char* File, float width, float height, Vector2 pos);
 	virtual ~WorldEntity();
 
 	virtual bool Load(char* File, float width, float height, Vector2 pos);

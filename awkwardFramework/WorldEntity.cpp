@@ -9,10 +9,20 @@ WorldEntity::WorldEntity(){
 
 	//Type= come up with types?;
 
-	Dead = false;
 
 	Sprite();
 }
+
+WorldEntity::WorldEntity(char* File, float width, float height, Vector2 pos){
+	Sprite();
+	worldTexture.Load(File, width, height);
+	if(worldTexture.GL_texture != NULL){
+		sprite.setTexture(worldTexture);
+		position = pos;
+	}
+
+}
+
 
 WorldEntity::~WorldEntity(){
 }
@@ -44,6 +54,7 @@ float WorldEntity::getY(){
 }
 
 void WorldEntity::OnRender(){
+	sprite.Render(this->position, this->rotation, this->scale);
 }
 
 void WorldEntity::OnCleanup(){
