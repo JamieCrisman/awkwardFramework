@@ -5,7 +5,7 @@
 //#include "CArea.h"
 #include "CCamera.h"
 #include "CEntity.h"
-#include "CSurface.h"
+//#include "CSurface.h"
 #include "CPlayer.h"
 #include "FreeType.h"
 

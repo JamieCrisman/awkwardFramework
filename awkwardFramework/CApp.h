@@ -3,9 +3,9 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include "CEvent.h"
-#include "CSurface.h"
+//#include "CSurface.h"
 #include "Define.h"
-#include "CSoundBank.h"
+//#include "CSoundBank.h"
 #include "CAppStateManager.h"
 #include "CFPS.h"
 #include "Vector2.h"

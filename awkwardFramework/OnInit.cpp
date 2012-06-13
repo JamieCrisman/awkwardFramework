@@ -29,9 +29,9 @@ bool CApp::OnInit()
 	{
 		return false;
 	}
-	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) < 0){
-		return false;
-	}
+	//if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) < 0){
+	//	return false;
+	//}
 
 
 	glClearColor(0,0,0,0);

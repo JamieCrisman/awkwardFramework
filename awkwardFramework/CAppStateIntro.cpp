@@ -9,7 +9,7 @@ CAppStateIntro::CAppStateIntro(){
 }
 
 void CAppStateIntro::OnActivate(){
-	Surf_Logo = CSurface::OnLoad("test.bmp");
+	//Surf_Logo = CSurface::OnLoad("test.bmp");
 
 	StartTime = SDL_GetTicks();
 	SDL_WM_SetCaption("Intro State", NULL);

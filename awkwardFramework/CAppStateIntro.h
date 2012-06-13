@@ -2,7 +2,7 @@
 	#define _CAPPSTATEINTRO_H_
 
 #include "CAppState.h"
-#include "CSurface.h"
+//#include "CSurface.h"
 
 class CAppStateIntro : public CAppState{
 private:
