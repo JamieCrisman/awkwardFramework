@@ -5,10 +5,11 @@
 #include "Transform.h"
 #include "CFPS.h"
 #include "Sprite.h"
+#include "CEntity.h"
 
 class Sprite;
 
-class WorldEntity : public Transform{
+class WorldEntity : public CEntity{
 public:
 	//static std::vector<CEntity*> EntityList;
 
@@ -21,8 +22,6 @@ public:
 	void SetPos(Vector2 pos);
 	int Width;
 	int Height;
-	int Type;
-	int Flags;
 	Vector2 maxSpeed;
 	AFTexture worldTexture;
 	//float MaxSpeedX;
@@ -35,13 +34,7 @@ public:
 	virtual ~WorldEntity();
 
 	virtual bool Load(char* File, float width, float height, Vector2 pos);
-	virtual void OnLoop(Uint8 *keys);
 	virtual void OnRender();
-	virtual void OnCleanup();
-	virtual void OnAnimate();
-	//virtual bool OnCollision(CEntity* Entity);
-
-	//bool Collides(int oX, int oY, int oW, int oH);
 
 };
 

@@ -70,7 +70,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AFTexture.cpp" />
-    <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CApp.cpp" />
     <ClCompile Include="CAppState.cpp" />
     <ClCompile Include="CAppStateGame.cpp" />
@@ -95,7 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AFTexture.h" />
-    <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CApp.h" />
     <ClInclude Include="CAppState.h" />
     <ClInclude Include="CAppStateGame.h" />

@@ -8,13 +8,15 @@
 //#include "CSurface.h"
 #include "CPlayer.h"
 #include "FreeType.h"
+#include "WorldEntity.h"
 
 class CAppStateGame : public CAppState{
 private:
 	static CAppStateGame Instance;
 		AFTexture texture;
 		CPlayer player;
-		CPlayer player2;
+		WorldEntity floor;
+		//CPlayer player2;
 		//CEntity Entity;
 		//CEntity Entity2;
 		freetype::font_data our_font;

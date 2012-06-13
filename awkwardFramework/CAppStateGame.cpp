@@ -72,33 +72,37 @@ void CAppStateGame::OnActivate(){
 		return;
 	}
 
+	floor.Load("Assets/Images/World/placeholder_grass.png", 140, 10, Vector2(320, 475));
+	floor.scale.x = 5.0;
+	floor.scale.y = 5.0;
+	CEntity::EntityList.push_back(&floor);
 
 	player.Animation.setTexture(texture, 8, 8);
-	player2.Animation.setTexture(texture, 8, 8);
+	//player2.Animation.setTexture(texture, 8, 8);
 
 	player.Animation.setColor(1.0, 0.0, 1.0);
-	player2.Animation.setColor(1.0, 0.0, 0.0);
+	//player2.Animation.setColor(1.0, 0.0, 0.0);
 	
 	player.SetPos(Vector2(250, 300));
-	player2.SetPos(Vector2(200, 300));
+	//player2.SetPos(Vector2(200, 300));
 
-	player2.rotation = 45.0;
+	//player2.rotation = 45.0;
 	
-	player.scale.x = 10.0;
-	player.scale.y = 10.0;
+	player.scale.x = 5.0;
+	player.scale.y = 5.0;
 
-	player2.scale.x = 10.0;
-	player2.scale.y = 10.0;
+	//player2.scale.x = 10.0;
+	//player2.scale.y = 10.0;
 	
-	player2.Animation.Add("S", 0, 3, 10.0);
-	player2.Animation.Play("S");
+	//player2.Animation.Add("S", 0, 3, 10.0);
+	//player2.Animation.Play("S");
 
 	player.Animation.Add("S", 0, 3, 10.0);
 	player.Animation.Play("S");
 	player.Animation.Stop();
 
 	CEntity::EntityList.push_back(&player);
-	CEntity::EntityList.push_back(&player2);
+	//CEntity::EntityList.push_back(&player2);
 
 	//CCamera::CameraControl.TargetMode = TARGET_MODE_CENTER;
 	//CCamera::CameraControl.SetTarget(&player.X, &player.Y);

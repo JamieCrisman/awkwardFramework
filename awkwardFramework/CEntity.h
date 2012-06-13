@@ -1,29 +1,29 @@
 #ifndef _CENTITY_H_
 	#define _CENTITY_H_
 
-//#include "CAnimation.h"
 #include <vector>
 #include "Transform.h"
-//#include "CArea.h"
 #include "CFPS.h"
 #include "CCamera.h"
 //#include <SDL_opengl.h>
 //#include <SDL_image.h>
 #include "Sprite.h"
-
-enum {
-	ENTITY_TYPE_GENERIC = 0,
-	ENTITY_TYPE_PLAYER
-};
-enum {
-	ENTITY_FLAG_NONE = 0,
-	ENTITY_FLAG_GRAVITY= 0x00000001,
-	ENTITY_FLAG_GHOST= 0x00000002,
-	ENTITY_FLAG_MAPONLY= 0x00000004,
-
-};
+#include <vector>
 
 class Sprite;
+
+class EntityTagData
+{
+public:
+	EntityTagData();
+	EntityTagData(const std::string &name, bool save);
+	EntityTagData(const EntityTagData &);
+
+	std::string name;
+	bool save;
+};
+
+typedef std::vector<EntityTagData> EntityTags;
 
 class CEntity : public Transform{
 public:
@@ -38,37 +38,33 @@ protected:
 
 	Sprite sprite;
 
-	int CurrentFrameCol;
-	int CurrentFrameRow;
-	int Col_X;
-	int Col_Y;
-	int Col_Width;
-	int Col_Height;
-	bool CanJump;
-	bool PosValid(int NewX, int NewY);
-	//bool PosValidTile(CTile* Tile);
-	//bool PosValidEntity(CEntity* Entity, int NewX, int NewY);
+	std::vector<EntityTagData> tags;
 
 public:
 	float X;
 	float Y;
-	bool Jump();
 	float getX();
 	float getY();
 	void SetPos(Vector2 pos);
 	int Width;
 	int Height;
-	bool MoveLeft;
-	bool MoveRight;
 	int Type;
-	bool Dead;
-	int Flags;
 	Vector2 maxSpeed;
 	//float MaxSpeedX;
 	//float MaxSpeedY;
 
 	int AnimState;
-	
+
+	//! Associates this entity with the given tag
+	void AddTag(const std::string& tag, bool save=false);
+	//! Checks whether this entity is associated with a given tag
+	bool HasTag(const std::string& tag);
+	//! Removes a tag from this Entity
+	void RemoveTag(const std::string& tag);
+	//! Gets the tag at the given offset from the list of tags
+	const std::string& GetTag(int index);
+	//! Gets the number of tags associated with this entity
+	int GetNumberOfTags();
 
 
 	CEntity();
