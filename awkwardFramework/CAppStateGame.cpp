@@ -10,12 +10,14 @@ CAppStateGame::CAppStateGame(){
 void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
 	if(keys[SDLK_LEFT]){
 		player.SetPos(Vector2((player.getX() - 5.0), (player.getY())));
+		player.Animation.Play("walk");
 	}
 	if(keys[SDLK_UP]){
 		player.SetPos(Vector2((player.getX()), (player.getY() - 5.0)));
 	}
 	if(keys[SDLK_RIGHT]){
 		player.SetPos(Vector2((player.getX() + 5.0), (player.getY())));
+		player.Animation.Play("walk");
 	}
 	if(keys[SDLK_DOWN]){
 		player.SetPos(Vector2((player.getX()), (player.getY() + 5.0)));
@@ -56,18 +58,19 @@ void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
 
 }
 void CAppStateGame::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode){
+	//player.Animation.Stop();
 }
 
 void CAppStateGame::OnActivate(){
 	SDL_WM_SetCaption("Game State", NULL);
 
-	our_font.init("Test.ttf",16);
+	our_font.init("Assets/Fonts/Arial.ttf",16);
 
 	//if(Entity.OnLoad("Assets/Images/Sprites/yoshi.png", 64, 64, 8) == false){
 	//	return;
 	//}
 	
-	if( !texture.Load("Assets/Images/Sprites/player.png", 64, 32) ){
+	if( !texture.Load("Assets/Images/Sprites/placeholder_player.png", 256, 64) ){
 		//SDL_WM_SetCaption("Didn't load texture", NULL);
 		return;
 	}
@@ -77,10 +80,10 @@ void CAppStateGame::OnActivate(){
 	floor.scale.y = 5.0;
 	CEntity::EntityList.push_back(&floor);
 
-	player.Animation.setTexture(texture, 8, 8);
+	player.Animation.setTexture(texture, 32, 32);
 	//player2.Animation.setTexture(texture, 8, 8);
 
-	player.Animation.setColor(1.0, 0.0, 1.0);
+	player.Animation.setColor(1.0, 1.0, 1.0);
 	//player2.Animation.setColor(1.0, 0.0, 0.0);
 	
 	player.SetPos(Vector2(250, 300));
@@ -96,10 +99,10 @@ void CAppStateGame::OnActivate(){
 	
 	//player2.Animation.Add("S", 0, 3, 10.0);
 	//player2.Animation.Play("S");
-
-	player.Animation.Add("S", 0, 3, 10.0);
-	player.Animation.Play("S");
-	player.Animation.Stop();
+	player.Animation.Add("idle", 0, 0, 1.0);
+	player.Animation.Add("walk", 8, 15, 10.0);
+	//player.Animation.Play("walk");
+	//player.Animation.Stop();
 
 	CEntity::EntityList.push_back(&player);
 	//CEntity::EntityList.push_back(&player2);
