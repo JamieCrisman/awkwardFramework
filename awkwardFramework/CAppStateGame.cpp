@@ -58,7 +58,7 @@ void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
 
 }
 void CAppStateGame::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode){
-	//player.Animation.Stop();
+	//player.Animation.Play("idle");
 }
 
 void CAppStateGame::OnActivate(){
@@ -101,6 +101,7 @@ void CAppStateGame::OnActivate(){
 	//player2.Animation.Play("S");
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);
+	player.Animation.Add("16", 16, 16, 8.0);
 	//player.Animation.Play("walk");
 	//player.Animation.Stop();
 

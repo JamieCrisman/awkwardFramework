@@ -110,7 +110,7 @@ void Sprite::Render(Vector2 p, float r, Vector2 s){
 Animation::Animation(const std::string &name, int start, int end, float speed):
 	name(name),
 	isPlaying(false),
-	frame(0),
+	frame(start),
 	speed(speed),
 	start(start),
 	end(end){
@@ -164,7 +164,7 @@ void AnimControl::Render(Vector2 p, float r, Vector2 s)
 		if(anim->isPlaying)
 		{
 			anim->frame += anim->speed * CFPS::FPSControl.GetDeltaTime();
-			if(anim->frame > anim->end + 1) { anim->frame = anim->start; }
+			if(anim->frame > anim->end) { anim->frame = anim->start; }
 		}
 		x = (int) anim->frame % (int) (texture.width / width);
 		y = (int) anim->frame / (texture.width / width);
