@@ -11,11 +11,10 @@ class Sprite;
 
 class WorldEntity : public CEntity{
 public:
-	//static std::vector<CEntity*> EntityList;
+	//static std::vector<WorldEntity*> WorldEntityList;
 
 protected:
 	Sprite sprite;
-
 public:
 	float getX();
 	float getY();

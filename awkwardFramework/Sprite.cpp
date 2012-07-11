@@ -1,15 +1,9 @@
 #pragma once
 
 #include "Sprite.h"
-//#include "CEntity.h"
 
 Sprite::Sprite(AFTexture &texture, float width, float height){
-	//if(!Load(fileName, width, height)){
-		//if it fails to load do something
-	//}
 	this->texture = texture;
-	//width = 0.0f;
-	//height = 0.0f;
 	width = texture.width;
 	height = texture.height;
 	textureOffset = Vector2(0, 0);
@@ -18,6 +12,19 @@ Sprite::Sprite(AFTexture &texture, float width, float height){
 	RGB[1] = 1.0;
 	RGB[2] = 1.0;
 }
+
+//need one with textureoffset for static sprites that share a sheet
+Sprite::Sprite(AFTexture &texture, Vector2 offset, float width, float height){
+	this->texture = texture;
+	width = texture.width;
+	height = texture.height;
+	textureOffset = offset;
+	textureScale = Vector2(1.0, 1.0);
+	RGB[0] = 1.0;
+	RGB[1] = 1.0;
+	RGB[2] = 1.0;
+}
+
 
 Sprite::Sprite(){
 	width = 0.0f;
@@ -52,21 +59,8 @@ void Sprite::Render(Vector2 p, float r, Vector2 s){
 	if(texture.GL_texture == NULL)
 		return;
 
-	//old
-	//CSurface::OnDraw(Surf_Display, Surf_Entity, X - CCamera::CameraControl.GetX(), Y - CCamera::CameraControl.GetY(), CurrentFrameCol * Width, (CurrentFrameRow + Anim_Control.GetCurrentFrame()) * Height, Width, Height);
 	glLoadIdentity();
 	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
-	//no idea
-	//glScalef(s.x, s.y, 1.0);
-	//glTranslatef(p.x, p.y , 0.0f); //get entity position and add it to w and h
-	
-	/*glBegin(GL_QUADS);
-        glTexCoord2i(0,0); glVertex3f(0, 0, 0);
-        glTexCoord2i(1,0);glColor3f(1, 1, 0); glVertex3f(width, 0, 0);
-        glTexCoord2i(1,1);glColor3f(1, 0, 1); glVertex3f(width, height, 0);
-        glTexCoord2i(0,1);glColor3f(1, 1, 1); glVertex3f(0, height, 0);
-    glEnd();
-	*/
 	float halfWidth = width*0.5f*s.x;
 	float halfHeight = height*0.5f*s.y;
 	if(r != 0.0){ //no idea how much this will actually trim off but lettuce try it.

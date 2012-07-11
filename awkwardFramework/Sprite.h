@@ -16,6 +16,7 @@ class CEntity;
 class Sprite : public Transform{
 public:
 	Sprite(AFTexture &texture, float width=-1, float height=-1);
+	Sprite(AFTexture &texture, Vector2 offset, float width=-1, float height=-1);
 	Sprite();
 	~Sprite();
 	void Render(Vector2 p, float r, Vector2 s);

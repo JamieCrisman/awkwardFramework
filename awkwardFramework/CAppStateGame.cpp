@@ -11,6 +11,9 @@ void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
 	if(keys[SDLK_LEFT]){
 		player.SetPos(Vector2((player.getX() - 5.0), (player.getY())));
 		player.Animation.Play("walk");
+		if(player.scale.x > 0)
+			player.scale.x *= -1;
+
 	}
 	if(keys[SDLK_UP]){
 		player.SetPos(Vector2((player.getX()), (player.getY() - 5.0)));
@@ -18,6 +21,9 @@ void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
 	if(keys[SDLK_RIGHT]){
 		player.SetPos(Vector2((player.getX() + 5.0), (player.getY())));
 		player.Animation.Play("walk");
+		if(player.scale.x < 0)
+			player.scale.x *= -1;
+
 	}
 	if(keys[SDLK_DOWN]){
 		player.SetPos(Vector2((player.getX()), (player.getY() + 5.0)));
@@ -27,38 +33,13 @@ void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
 			CAppStateManager::SetActiveAppState(APPSTATE_INTRO);
 			break;
 		}
-		/*
-		case SDLK_UP: {
-			 player.SetPos(Vector2((player.getX()), (player.getY() - 5.0)));
-			 player.Animation.Play("S");
-			break;
-		}
-		case SDLK_DOWN: {
-			 player.SetPos(Vector2((player.getX()), (player.getY() + 5.0)));
-			 player.Animation.Play("S");
-			break;
-		}
-		case SDLK_LEFT: {
-			 player.SetPos(Vector2((player.getX() - 5.0), (player.getY())));
-			 player.Animation.Play("S");
-			 if(player.scale.x > 0)
-				player.scale.x *= -1;
-			break;
-		}
-		case SDLK_RIGHT: {
-			 player.SetPos(Vector2((player.getX() + 5.0), (player.getY())));
-			 player.Animation.Play("S");
-			 if(player.scale.x < 0)
-				player.scale.x *= -1;
-			break;
-		}*/
 		default:{
 		}
 	}
 
 }
 void CAppStateGame::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode){
-	//player.Animation.Play("idle");
+	player.Animation.Play("idle");
 }
 
 void CAppStateGame::OnActivate(){
@@ -66,54 +47,32 @@ void CAppStateGame::OnActivate(){
 
 	our_font.init("Assets/Fonts/Arial.ttf",16);
 
-	//if(Entity.OnLoad("Assets/Images/Sprites/yoshi.png", 64, 64, 8) == false){
-	//	return;
-	//}
-	
 	if( !texture.Load("Assets/Images/Sprites/placeholder_player.png", 256, 64) ){
-		//SDL_WM_SetCaption("Didn't load texture", NULL);
 		return;
 	}
 
 	floor.Load("Assets/Images/World/placeholder_grass.png", 140, 10, Vector2(320, 475));
 	floor.scale.x = 5.0;
 	floor.scale.y = 5.0;
-	CEntity::EntityList.push_back(&floor);
 
 	player.Animation.setTexture(texture, 32, 32);
-	//player2.Animation.setTexture(texture, 8, 8);
 
 	player.Animation.setColor(1.0, 1.0, 1.0);
-	//player2.Animation.setColor(1.0, 0.0, 0.0);
 	
 	player.SetPos(Vector2(250, 300));
-	//player2.SetPos(Vector2(200, 300));
-
-	//player2.rotation = 45.0;
 	
 	player.scale.x = 5.0;
 	player.scale.y = 5.0;
 
-	//player2.scale.x = 10.0;
-	//player2.scale.y = 10.0;
-	
-	//player2.Animation.Add("S", 0, 3, 10.0);
-	//player2.Animation.Play("S");
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);
 	player.Animation.Add("16", 16, 16, 8.0);
-	//player.Animation.Play("walk");
-	//player.Animation.Stop();
 
-	CEntity::EntityList.push_back(&player);
-	//CEntity::EntityList.push_back(&player2);
-
-	//CCamera::CameraControl.TargetMode = TARGET_MODE_CENTER;
-	//CCamera::CameraControl.SetTarget(&player.X, &player.Y);
+	//CEntity::EntityList.push_back(&player);
+	//CEntity::EntityList.push_back(&floor);
 }
 
 void CAppStateGame::OnDeactivate(){
-	//CArea::AreaControl.OnCleanup();
 	for(int i = 0;i < CEntity::EntityList.size(); i++){
 		if(!CEntity::EntityList[i])continue;
 		CEntity::EntityList[i]->OnCleanup();
@@ -145,22 +104,11 @@ void CAppStateGame::OnLoop(){
 }
 
 void CAppStateGame::OnRender(){
-	/*SDL_Rect Rect;
-	Rect.x = 0;
-	Rect.y = 0;
-	Rect.h = WHEIGHT;
-	Rect.w = WWIDTH;
-	*/
-	//SDL_FillRect(Surf_Display, &Rect, 0);
-	//player.OnRender();
-	/*
-	CArea::AreaControl.OnRender(Surf_Display, -CCamera::CameraControl.GetX(), -CCamera::CameraControl.GetY());
-	*/
 	for(int i = 0;i < CEntity::EntityList.size(); i++){
 		if(!CEntity::EntityList[i])continue;
 		CEntity::EntityList[i]->OnRender();
 	}
-	freetype::print(our_font, 200,200,"testing font rendering :O");
+	freetype::print(our_font, 200,200,"Bleep Bloop!");
 	
 }
 

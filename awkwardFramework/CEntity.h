@@ -30,12 +30,12 @@ public:
 	static std::vector<CEntity*> EntityList;
 
 protected:
+	void Add();
 	//float SpeedX;
 	//float SpeedY;
 	Vector2 Speed;
 	float AccelX;
 	float AccelY;
-
 	Sprite sprite;
 
 	std::vector<EntityTagData> tags;

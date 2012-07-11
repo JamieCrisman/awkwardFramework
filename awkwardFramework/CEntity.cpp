@@ -17,7 +17,9 @@ EntityTagData::EntityTagData(const EntityTagData &entityTagData)
 {
 }
 
-
+void CEntity::Add(){
+	EntityList.push_back(this);
+}
 
 CEntity::CEntity(){
 	//X = Y = 0.0f;
