@@ -11,6 +11,7 @@
 #include "CFPS.h"
 #include "AFTexture.h"
 #include "Define.h"
+#include "Box2D\Box2D.h"
 
 class CEntity;
 class Sprite : public Transform{
@@ -20,6 +21,7 @@ public:
 	Sprite();
 	~Sprite();
 	void Render(Vector2 p, float r, Vector2 s);
+	void Render(b2Vec2 p, float r, Vector2 s);
 	void setTexture(AFTexture t);
 	void setColor(float r, float g, float b);
 	AFTexture texture;
@@ -52,6 +54,7 @@ public:
 	void setTexture(AFTexture t);
 	Animation* GetAnimation(const std::string &name);
 	void Render(Vector2 p, float r, Vector2 s);
+	void Render(b2Vec2 p, float r, Vector2 s);
 	std::list<Animation> animations;
 	Animation* anim;
 	//float fullWidth, fullHeight;

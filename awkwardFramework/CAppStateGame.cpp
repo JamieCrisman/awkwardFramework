@@ -3,31 +3,11 @@
 
 CAppStateGame CAppStateGame::Instance;
 
-CAppStateGame::CAppStateGame(){
+CAppStateGame::CAppStateGame() : world(b2Vec2(0.0f, 10.0f)){
 
 }
 
 void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
-	if(keys[SDLK_LEFT]){
-		player.SetPos(Vector2((player.getX() - 5.0), (player.getY())));
-		player.Animation.Play("walk");
-		if(player.scale.x > 0)
-			player.scale.x *= -1;
-
-	}
-	if(keys[SDLK_UP]){
-		player.SetPos(Vector2((player.getX()), (player.getY() - 5.0)));
-	}
-	if(keys[SDLK_RIGHT]){
-		player.SetPos(Vector2((player.getX() + 5.0), (player.getY())));
-		player.Animation.Play("walk");
-		if(player.scale.x < 0)
-			player.scale.x *= -1;
-
-	}
-	if(keys[SDLK_DOWN]){
-		player.SetPos(Vector2((player.getX()), (player.getY() + 5.0)));
-	}
 	switch(sym){
 		case SDLK_1: {
 			CAppStateManager::SetActiveAppState(APPSTATE_INTRO);
@@ -45,6 +25,40 @@ void CAppStateGame::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode){
 void CAppStateGame::OnActivate(){
 	SDL_WM_SetCaption("Game State", NULL);
 
+	//b2Vec2 gravity(0.0f, -10.0f);
+	doSleep = true;
+	//b2World world(gravity);
+	world.SetAllowSleeping(doSleep);
+	b2BodyDef groundBodyDef;
+
+	groundBodyDef.position.Set(320.0f, 475.0f);
+
+	b2Body* groundBody = world.CreateBody(&groundBodyDef);
+
+	b2PolygonShape groundBox;
+	groundBox.SetAsBox(140.0f, 10.0f);
+	groundBodyDef.userData = floor.getThis();
+	groundBody->CreateFixture(&groundBox,0.0f);
+	floor.body = groundBody;
+
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(320.0f, 4.0f);
+	bodyDef.fixedRotation = true;
+	b2Body* body = world.CreateBody(&bodyDef);
+	//bodyDef.awake = true;
+	bodyDef.userData = player.getThis();
+	b2PolygonShape dynamicBox;
+	dynamicBox.SetAsBox(1.0f, 1.0f);
+
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &dynamicBox;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+	
+	body->CreateFixture(&fixtureDef);
+	player.body = body;
+	//player.body->GetPosition();
 	our_font.init("Assets/Fonts/Arial.ttf",16);
 
 	if( !texture.Load("Assets/Images/Sprites/placeholder_player.png", 256, 64) ){
@@ -52,22 +66,32 @@ void CAppStateGame::OnActivate(){
 	}
 
 	floor.Load("Assets/Images/World/placeholder_grass.png", 140, 10, Vector2(320, 475));
-	floor.scale.x = 5.0;
-	floor.scale.y = 5.0;
+	floor.Add();
+	//floor.scale.x = 5.0;
+	//floor.scale.y = 5.0;
 
 	player.Animation.setTexture(texture, 32, 32);
 
 	player.Animation.setColor(1.0, 1.0, 1.0);
 	
-	player.SetPos(Vector2(250, 300));
+	//player.SetPos(Vector2(1, 1));
 	
-	player.scale.x = 5.0;
-	player.scale.y = 5.0;
+	//player.scale.x = 5.0;
+	//player.scale.y = 5.0;
+
+	//b2BodyDef Pbody;
+
+	//Pbody.userData = player.getThis();
+	//Pbody.position.Set(1, 2);
+	//Pbody.fixedRotation = true;
+
+	//b2Body* dbody = world.CreateBody(&Pbody);
+	//player.body = dbody;
 
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);
 	player.Animation.Add("16", 16, 16, 8.0);
-
+	player.Add();
 	//CEntity::EntityList.push_back(&player);
 	//CEntity::EntityList.push_back(&floor);
 }
@@ -101,6 +125,8 @@ void CAppStateGame::OnLoop(){
 
 	}
 	CEntityCol::EntityColList.clear();
+
+	world.Step((2.0f / 60.0f), 6, 2);
 }
 
 void CAppStateGame::OnRender(){
@@ -108,8 +134,9 @@ void CAppStateGame::OnRender(){
 		if(!CEntity::EntityList[i])continue;
 		CEntity::EntityList[i]->OnRender();
 	}
-	freetype::print(our_font, 200,200,"Bleep Bloop!");
-	
+
+	char *test = "the quick brown fox\n jumped over the lazy dog.\noh look another bug";
+	freetype::print(our_font, 200,200, test);
 }
 
 CAppStateGame* CAppStateGame::GetInstance(){

@@ -41,17 +41,25 @@
     <IncludePath>C:\Program Files %28x86%29\GnuWin32\include;C:\Program Files %28x86%29\GnuWin32\include\freetype2;C:\Users\Public\Documents\Programming\SDL\SDL-1.2.14\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Program Files %28x86%29\GnuWin32\lib;C:\Users\Public\Documents\Programming\SDL\SDL-1.2.14\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files %28x86%29\GnuWin32\lib;C:\Users\Public\Documents\Programming\SDL\SDL-1.2.14\lib;C:\gitRepo\awkwardFramework\Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\Program Files %28x86%29\GnuWin32\include;C:\Program Files %28x86%29\GnuWin32\include\freetype2;C:\Users\Public\Documents\Programming\SDL\SDL-1.2.14\include;C:\Users\Public\Documents\Programming\Box2D_v2.2.1\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryPath>C:\Program Files %28x86%29\GnuWin32\lib;C:\Users\Public\Documents\Programming\SDL\SDL-1.2.14\lib;C:\gitRepo\awkwardFramework\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Public\Documents\Programming\Box2D_v2.2.1\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDLmain.lib;SDL.lib;SDL_image.lib;SDL_mixer.lib;opengl32.lib;glu32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDLmain.lib;SDL.lib;SDL_image.lib;SDL_mixer.lib;opengl32.lib;glu32.lib;freetype.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -61,11 +69,13 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDLmain.lib;SDL.lib;SDL_image.lib;SDL_mixer.lib;opengl32.lib;glu32.lib;freetype.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

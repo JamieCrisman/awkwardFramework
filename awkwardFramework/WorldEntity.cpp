@@ -11,7 +11,6 @@ WorldEntity::WorldEntity(){
 
 
 	Sprite();
-	Add();
 }
 
 WorldEntity::WorldEntity(char* File, float width, float height, Vector2 pos){
@@ -21,7 +20,6 @@ WorldEntity::WorldEntity(char* File, float width, float height, Vector2 pos){
 		sprite.setTexture(worldTexture);
 		position = pos;
 	}
-	Add();
 }
 
 

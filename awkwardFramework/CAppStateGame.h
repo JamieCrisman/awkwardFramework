@@ -9,6 +9,7 @@
 #include "CPlayer.h"
 #include "FreeType.h"
 #include "WorldEntity.h"
+#include <Box2D/Box2D.h>
 
 class CAppStateGame : public CAppState{
 private:
@@ -16,10 +17,15 @@ private:
 		AFTexture texture;
 		CPlayer player;
 		WorldEntity floor;
+		bool doSleep;
 		//CPlayer player2;
 		//CEntity Entity;
 		//CEntity Entity2;
+		//b2Vec2 gravity(0.0f, -10.0f);
+		b2World world;
 		freetype::font_data our_font;
+		b2Vec2 x;
+		char* msg;
 	CAppStateGame();
 
 public:

@@ -21,6 +21,10 @@ void CEntity::Add(){
 	EntityList.push_back(this);
 }
 
+void *CEntity::getThis(){
+	return this;
+}
+
 CEntity::CEntity(){
 	//X = Y = 0.0f;
 	Width = Height = 0;

@@ -9,6 +9,7 @@
 //#include <SDL_image.h>
 #include "Sprite.h"
 #include <vector>
+#include <Box2D\Box2D.h>
 
 class Sprite;
 
@@ -30,7 +31,6 @@ public:
 	static std::vector<CEntity*> EntityList;
 
 protected:
-	void Add();
 	//float SpeedX;
 	//float SpeedY;
 	Vector2 Speed;
@@ -41,6 +41,9 @@ protected:
 	std::vector<EntityTagData> tags;
 
 public:
+	b2Body *body;
+	void *getThis();
+	void Add();
 	float X;
 	float Y;
 	float getX();

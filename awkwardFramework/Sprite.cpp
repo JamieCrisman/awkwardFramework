@@ -101,6 +101,54 @@ void Sprite::Render(Vector2 p, float r, Vector2 s){
 
 }
 
+void Sprite::Render(b2Vec2 p, float r, Vector2 s){
+	if(texture.GL_texture == NULL)
+		return;
+
+	glLoadIdentity();
+	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
+	float halfWidth = width*0.5f*s.x;
+	float halfHeight = height*0.5f*s.y;
+	if(r != 0.0){ //no idea how much this will actually trim off but lettuce try it.
+		glTranslatef((p.x), (p.y), 0); //allows rotation to occur at center rather than at top left
+		glRotatef(r, 0,0, 1.0);
+		glTranslatef(-(p.x), -(p.y), 0); //allows rotation to occur at center rather than at top left
+	}
+	//renders a quad
+	glEnable(GL_BLEND); 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glPushMatrix();
+		glBegin(GL_QUADS);
+			// bottom left
+			glColor3f(RGB[0], RGB[1], RGB[2]);
+			glTexCoord2f(textureOffset.x, textureOffset.y + textureScale.y);
+			glVertex3f(-halfWidth + p.x, halfHeight + p.y, 0.0f);
+
+
+			// top left
+			glTexCoord2f(textureOffset.x, textureOffset.y);
+			glColor3f(RGB[0], RGB[1], RGB[2]);
+			glVertex3f(-halfWidth + p.x, -halfHeight + p.y, 0.0f);
+
+			// top right
+			glTexCoord2f(textureOffset.x + textureScale.x, textureOffset.y);
+			glColor3f(RGB[0], RGB[1], RGB[2]);
+			glVertex3f(halfWidth + p.x, -halfHeight + p.y, 0.0f);
+
+			// bottom right
+			glTexCoord2f(textureOffset.x + textureScale.x, textureOffset.y + textureScale.y);
+			glColor3f(RGB[0], RGB[1], RGB[2]);
+			glVertex3f(halfWidth + p.x, halfHeight + p.y, 0.0f);
+			
+		glEnd();
+			
+	glPopMatrix();
+	
+
+}
+
+
+
 Animation::Animation(const std::string &name, int start, int end, float speed):
 	name(name),
 	isPlaying(false),
@@ -149,6 +197,26 @@ void AnimControl::Stop(){
 }
 
 void AnimControl::Render(Vector2 p, float r, Vector2 s)
+{
+	int x = 0;
+	int y = 0;
+
+	if(anim)
+	{
+		if(anim->isPlaying)
+		{
+			anim->frame += anim->speed * CFPS::FPSControl.GetDeltaTime();
+			if(anim->frame > anim->end) { anim->frame = anim->start; }
+		}
+		x = (int) anim->frame % (int) (texture.width / width);
+		y = (int) anim->frame / (texture.width / width);
+	}
+	textureOffset = Vector2((x * width) / texture.width, (y * height) / texture.height);
+	textureScale = Vector2(width / texture.width, height / texture.height);
+
+	Sprite::Render(p, r, s);
+}
+void AnimControl::Render(b2Vec2 p, float r, Vector2 s)
 {
 	int x = 0;
 	int y = 0;
