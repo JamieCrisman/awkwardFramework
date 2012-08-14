@@ -3,7 +3,7 @@
 
 CAppStateGame CAppStateGame::Instance;
 
-CAppStateGame::CAppStateGame() : world(b2Vec2(0.0f, 10.0f)){
+CAppStateGame::CAppStateGame() : world(b2Vec2(0.0f, 30.0f)){
 
 }
 
@@ -31,25 +31,25 @@ void CAppStateGame::OnActivate(){
 	world.SetAllowSleeping(doSleep);
 	b2BodyDef groundBodyDef;
 
-	groundBodyDef.position.Set(320.0f, 475.0f);
-
+	groundBodyDef.position.Set(320.0f, 375.0f);
+	groundBodyDef.angle = 0.70710678118;
 	b2Body* groundBody = world.CreateBody(&groundBodyDef);
 
 	b2PolygonShape groundBox;
-	groundBox.SetAsBox(140.0f, 10.0f);
+	groundBox.SetAsBox(60.0f, 5.0f);
 	groundBodyDef.userData = floor.getThis();
 	groundBody->CreateFixture(&groundBox,0.0f);
 	floor.body = groundBody;
 
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(320.0f, 4.0f);
-	bodyDef.fixedRotation = true;
+	bodyDef.position.Set(320.0f, 240.0f);
+	//bodyDef.fixedRotation = true;
 	b2Body* body = world.CreateBody(&bodyDef);
 	//bodyDef.awake = true;
 	bodyDef.userData = player.getThis();
 	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(1.0f, 1.0f);
+	dynamicBox.SetAsBox(16.0f, 16.0f);
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;

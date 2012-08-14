@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Sprite.h"
+#include <cmath>
 
 Sprite::Sprite(AFTexture &texture, float width, float height){
 	this->texture = texture;
@@ -54,11 +55,13 @@ Sprite::~Sprite(){
 	glDeleteTextures(1, &texture.GL_texture);
 }
 
-
+//r (rotation) should come in as a radian, but GL uses degree
 void Sprite::Render(Vector2 p, float r, Vector2 s){
 	if(texture.GL_texture == NULL)
 		return;
 
+	
+	r = r * (180/(4.0*atan(1.0)));
 	glLoadIdentity();
 	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
 	float halfWidth = width*0.5f*s.x;
@@ -100,16 +103,19 @@ void Sprite::Render(Vector2 p, float r, Vector2 s){
 	
 
 }
-
+//r (rotation) should come in as a radian, but GL uses degree
 void Sprite::Render(b2Vec2 p, float r, Vector2 s){
 	if(texture.GL_texture == NULL)
 		return;
 
 	glLoadIdentity();
+
 	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
 	float halfWidth = width*0.5f*s.x;
 	float halfHeight = height*0.5f*s.y;
 	if(r != 0.0){ //no idea how much this will actually trim off but lettuce try it.
+		//6glMatrixMode(GL_MODELVIEW);
+		r = r * (180/(4.0*atan(1.0)));
 		glTranslatef((p.x), (p.y), 0); //allows rotation to occur at center rather than at top left
 		glRotatef(r, 0,0, 1.0);
 		glTranslatef(-(p.x), -(p.y), 0); //allows rotation to occur at center rather than at top left

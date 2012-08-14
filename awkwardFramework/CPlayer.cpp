@@ -25,13 +25,14 @@ void CPlayer::OnLoop(Uint8 *keys){
 
 	b2Vec2 vel = body->GetLinearVelocity();
 	float desiredVelX = 0;
+	float baseSpeed = 30.0f;
 	if(keys[SDLK_LEFT]){
 		SetPos(Vector2((getX() - 5.0), (getY())));
 		Animation.Play("walk");
 		if(scale.x > 0)
 			scale.x *= -1;
 		
-		desiredVelX = -5;
+		desiredVelX = -baseSpeed;
 	}
 	if(keys[SDLK_UP]){
 		SetPos(Vector2((getX()), (getY() - 5.0)));
@@ -44,7 +45,7 @@ void CPlayer::OnLoop(Uint8 *keys){
 		if(scale.x < 0)
 			scale.x *= -1;
 
-		desiredVelX = 5;
+		desiredVelX = baseSpeed;
 	}
 	if(keys[SDLK_DOWN]){
 		SetPos(Vector2((getX()), (getY() + 5.0)));
@@ -66,7 +67,8 @@ void CPlayer::OnLoop(Uint8 *keys){
 void CPlayer::OnRender(){
 	//Animation.Render(this->position, this->rotation, this->scale);
 	//Animation.Render(this->body->GetPosition(), this->rotation, this->scale);
-	Animation.Render(this->body->GetPosition(), this->rotation, this->scale);
+	//Animation.Render(this->body->GetPosition(), this->rotation, this->scale);
+	Animation.Render(this->body->GetPosition(), this->body->GetAngle(), this->scale);
 }
 
 void CPlayer::OnCleanup(){

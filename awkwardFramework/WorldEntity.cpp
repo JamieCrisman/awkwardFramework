@@ -39,5 +39,6 @@ bool WorldEntity::Load(char* File, float width, float height, Vector2 pos){
 }
 
 void WorldEntity::OnRender(){
-	sprite.Render(this->position, this->rotation, this->scale);
+	//sprite.Render(this->position, this->rotation, this->scale);
+	sprite.Render(this->body->GetPosition(), this->body->GetAngle(), this->scale);
 }
