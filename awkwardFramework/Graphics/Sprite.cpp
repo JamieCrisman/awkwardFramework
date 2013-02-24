@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Sprite.h"
+#include "../Graphics/Sprite.h"
 #include <cmath>
 
-Sprite::Sprite(AFTexture &texture, float width, float height){
+Sprite::Sprite(Shashin &texture, float width, float height){
 	this->texture = texture;
 	width = texture.width;
 	height = texture.height;
@@ -15,7 +15,7 @@ Sprite::Sprite(AFTexture &texture, float width, float height){
 }
 
 //need one with textureoffset for static sprites that share a sheet
-Sprite::Sprite(AFTexture &texture, Vector2 offset, float width, float height){
+Sprite::Sprite(Shashin &texture, Vector2 offset, float width, float height){
 	this->texture = texture;
 	width = texture.width;
 	height = texture.height;
@@ -38,7 +38,7 @@ Sprite::Sprite(){
 	RGB[2] = 1.0;
 }
 
-void Sprite::setTexture(AFTexture t){
+void Sprite::setTexture(Shashin t){
 	width = t.width;
 	height = t.height;
 	texture.set(t);
@@ -164,7 +164,7 @@ Animation::Animation(const std::string &name, int start, int end, float speed):
 	end(end){
 }
 
-AnimControl::AnimControl(AFTexture &texture, float width, float height) : Sprite(texture, width, height){
+AnimControl::AnimControl(Shashin &texture, float width, float height) : Sprite(texture, width, height){
 	//this->texture.width = width;
 	//this->texture.width = width;
 }
@@ -173,12 +173,12 @@ AnimControl::AnimControl() : Sprite(){
 	
 }
 
-void AnimControl::setTexture(AFTexture t, float width, float height){
+void AnimControl::setTexture(Shashin t, float width, float height){
 	this->width = width;
 	this->height = height;
 	this->texture.set(t);
 }
-void AnimControl::setTexture(AFTexture t){
+void AnimControl::setTexture(Shashin t){
 	//this->width = width;
 	//this->height = height;
 	Sprite::setTexture(t);

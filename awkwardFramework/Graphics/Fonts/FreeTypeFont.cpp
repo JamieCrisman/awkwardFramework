@@ -6,7 +6,7 @@
 
 
 //Include our header file.
-#include "freetype.h"
+#include "FreeTypeFont.h"
 
 namespace freetype {
 

@@ -13,125 +13,128 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="mushimushi">
+      <UniqueIdentifier>{e661a8aa-7391-4120-9a3d-913fd52c235c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CApp.cpp">
+    <ClCompile Include="Graphics\Shashin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OnInit.cpp">
+    <ClCompile Include="Graphics\Fonts\FreeTypeFont.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OnRender.cpp">
+    <ClCompile Include="Entity\CEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OnCleanup.cpp">
+    <ClCompile Include="Graphics\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OnEvent.cpp">
+    <ClCompile Include="Entity\CPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OnLoop.cpp">
+    <ClCompile Include="GameStates\CAppState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CEvent.cpp">
+    <ClCompile Include="GameStates\CAppStateGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CEntity.cpp">
+    <ClCompile Include="GameStates\CAppStateIntro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CCamera.cpp">
+    <ClCompile Include="GameStates\CAppStateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CFPS.cpp">
+    <ClCompile Include="Core\OnCleanup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
+    <ClCompile Include="Core\OnEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CEntityCol.cpp">
+    <ClCompile Include="Core\OnInit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CAppStateManager.cpp">
+    <ClCompile Include="Core\OnLoop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CAppState.cpp">
+    <ClCompile Include="Core\OnRender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CAppStateIntro.cpp">
+    <ClCompile Include="Core\CEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CAppStateGame.cpp">
+    <ClCompile Include="Entity\WorldEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
+    <ClCompile Include="Util\CFPS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
+    <ClCompile Include="Util\CCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
+    <ClCompile Include="Util\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AFTexture.cpp">
+    <ClCompile Include="Util\Vector2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FreeType.cpp">
+    <ClCompile Include="Youkozo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WorldEntity.cpp">
+    <ClCompile Include="Entity\CEntityCol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CApp.h">
+    <ClInclude Include="Graphics\Shashin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CEvent.h">
+    <ClInclude Include="Graphics\Fonts\FreeTypeFont.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CEntity.h">
+    <ClInclude Include="Entity\CEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Define.h">
+    <ClInclude Include="Graphics\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CCamera.h">
+    <ClInclude Include="Entity\CPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CFPS.h">
+    <ClInclude Include="GameStates\CAppStateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayer.h">
+    <ClInclude Include="GameStates\CAppState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CAppStateManager.h">
+    <ClInclude Include="GameStates\CAppStateGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CAppState.h">
+    <ClInclude Include="GameStates\CAppStateIntro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CAppStateIntro.h">
+    <ClInclude Include="Core\CEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CAppStateGame.h">
+    <ClInclude Include="Entity\WorldEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
+    <ClInclude Include="Util\CFPS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
+    <ClInclude Include="Util\CCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
+    <ClInclude Include="Util\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AFTexture.h">
+    <ClInclude Include="Util\Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FreeType.h">
+    <ClInclude Include="Youkozo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WorldEntity.h">
+    <ClInclude Include="Core\Define.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

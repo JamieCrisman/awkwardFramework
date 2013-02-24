@@ -1,6 +1,6 @@
-#include "CApp.h"
+#include "../Youkozo.h"
 
-bool CApp::OnInit()
+bool Youkozo::OnInit()
 {
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{

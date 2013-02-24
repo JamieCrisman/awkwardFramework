@@ -2,10 +2,10 @@
 	#define _WORLDENTITY_H_
 
 #include <vector>
-#include "Transform.h"
-#include "CFPS.h"
-#include "Sprite.h"
-#include "CEntity.h"
+#include "../Util/Transform.h"
+#include "../Util/CFPS.h"
+#include "../Graphics/Sprite.h"
+#include "../Entity/CEntity.h"
 
 class Sprite;
 
@@ -22,7 +22,7 @@ public:
 	int Width;
 	int Height;
 	Vector2 maxSpeed;
-	AFTexture worldTexture;
+	Shashin worldTexture;
 	//float MaxSpeedX;
 	//float MaxSpeedY;
 

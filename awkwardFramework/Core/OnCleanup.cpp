@@ -1,6 +1,6 @@
-#include "CApp.h"
+#include "../Youkozo.h"
 
-void CApp::OnCleanup()
+void Youkozo::OnCleanup()
 {
 	CAppStateManager::SetActiveAppState(APPSTATE_NONE);
 	//CSoundBank::SoundControl.OnCleanup();

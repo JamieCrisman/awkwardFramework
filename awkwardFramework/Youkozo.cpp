@@ -1,13 +1,13 @@
-#include "CApp.h"
+#include "Youkozo.h"
 
-CApp::CApp()
+Youkozo::Youkozo()
 {
 	Running = true;
 	//Surf_Display = NULL;
 	
 }
 
-int CApp::OnExecute()
+int Youkozo::OnExecute()
 {
 	if(OnInit() == false)
 	{
@@ -33,6 +33,6 @@ int CApp::OnExecute()
 
 int main(int argc, char* argv[])
 {
-	CApp theApp;
+	Youkozo theApp;
 	return theApp.OnExecute();
 }

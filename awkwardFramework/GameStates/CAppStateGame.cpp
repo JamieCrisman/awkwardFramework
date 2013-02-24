@@ -32,7 +32,6 @@ void CAppStateGame::OnActivate(){
 	b2BodyDef groundBodyDef;
 
 	groundBodyDef.position.Set(320.0f, 375.0f);
-	groundBodyDef.angle = 0.70710678118;
 	b2Body* groundBody = world.CreateBody(&groundBodyDef);
 
 	b2PolygonShape groundBox;
@@ -44,7 +43,7 @@ void CAppStateGame::OnActivate(){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(320.0f, 240.0f);
-	//bodyDef.fixedRotation = true;
+	bodyDef.fixedRotation = true;
 	b2Body* body = world.CreateBody(&bodyDef);
 	//bodyDef.awake = true;
 	bodyDef.userData = player.getThis();
@@ -53,7 +52,7 @@ void CAppStateGame::OnActivate(){
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;
-	fixtureDef.density = 1.0f;
+	fixtureDef.density = 3.0f;
 	fixtureDef.friction = 0.3f;
 	
 	body->CreateFixture(&fixtureDef);

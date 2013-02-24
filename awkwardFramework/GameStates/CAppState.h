@@ -1,7 +1,7 @@
 #ifndef _CAPPSTATE_H_
 	#define _CAPPSTATE_H_
 
-#include "CEvent.h"
+#include "../Core/CEvent.h"
 
 class CAppState : public CEvent {
 

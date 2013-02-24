@@ -1,13 +1,13 @@
-#include "CApp.h"
+#include "../Youkozo.h"
 
-void CApp::OnEvent(SDL_Event* Event)
+void Youkozo::OnEvent(SDL_Event* Event)
 {
 	CEvent::OnEvent(Event);
 
 	CAppStateManager::OnEvent(Event);
 }
 
-void CApp::OnExit()
+void Youkozo::OnExit()
 {
 	Running = false;
 }

@@ -1,21 +1,21 @@
-#include "AFTexture.h"
+#include "Shashin.h"
 
-AFTexture::AFTexture(const char *fileName, float width=-1, float height=-1){
+Shashin::Shashin(const char *fileName, float width=-1, float height=-1){
 	Load(fileName, width, height);
 }
-AFTexture::AFTexture(){
+Shashin::Shashin(){
 	GL_texture = NULL;
 	width = 0;
 	height = 0;
 }
 
-void AFTexture::set(AFTexture t){
+void Shashin::set(Shashin t){
 	GL_texture = t.GL_texture;
 	width = t.width;
 	height = t.height;
 }
 
-bool AFTexture::Load(const char *fileName, float width, float height){
+bool Shashin::Load(const char *fileName, float width, float height){
 	SDL_Surface *textureTest;
 	GLenum texture_format;
 	GLint nOfColors;

@@ -1,16 +1,17 @@
 #ifndef _CAPP_H_
 	#define _CAPP_H_
+
 #include <SDL.h>
 #include <SDL_opengl.h>
-#include "CEvent.h"
+#include "Core/CEvent.h"
 //#include "CSurface.h"
-#include "Define.h"
+#include "Core/Define.h"
 //#include "CSoundBank.h"
-#include "CAppStateManager.h"
-#include "CFPS.h"
-#include "Vector2.h"
+#include "GameStates/CAppStateManager.h"
+#include "Util/CFPS.h"
+#include "Util/Vector2.h"
 
-class CApp : public CEvent
+class Youkozo : public CEvent
 {
 private:
 	bool Running;
@@ -19,7 +20,7 @@ private:
 	
 
 public:
-	CApp();
+	Youkozo();
 
 	int OnExecute();
 

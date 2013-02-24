@@ -2,7 +2,7 @@
 	#define _CCAMERA_H_
 
 #include <SDL.h>
-#include "Define.h"
+#include "../Core/Define.h"
 
 enum {
 	TARGET_MODE_NORMAL = 0,

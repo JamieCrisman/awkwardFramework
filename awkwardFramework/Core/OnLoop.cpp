@@ -1,6 +1,6 @@
-#include "CApp.h"
+#include "../Youkozo.h"
 
-void CApp::OnLoop(){
+void Youkozo::OnLoop(){
 	CAppStateManager::OnLoop();
 	CFPS::FPSControl.OnLoop();
 

@@ -5,7 +5,7 @@ CPlayer::CPlayer(){
 	CEntity::Add();
 }
 
-CPlayer::CPlayer(AFTexture t, float width, float height){
+CPlayer::CPlayer(Shashin t, float width, float height){
 	sprite.texture.set(t);
 	Width = width;
 	Height = height;
@@ -84,6 +84,6 @@ bool CPlayer::OnCollision(CEntity* Entity){
 	return true;
 }
 
-void CPlayer::setTexture(AFTexture t){
+void CPlayer::setTexture(Shashin t){
 	Animation.setTexture(t);
 }

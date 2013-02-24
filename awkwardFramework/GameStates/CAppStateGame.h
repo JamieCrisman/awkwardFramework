@@ -3,18 +3,18 @@
 #include "CAppState.h"
 
 //#include "CArea.h"
-#include "CCamera.h"
-#include "CEntity.h"
+#include "../Util/CCamera.h"
+#include "../Entity/CEntity.h"
 //#include "CSurface.h"
-#include "CPlayer.h"
-#include "FreeType.h"
-#include "WorldEntity.h"
+#include "../Entity/CPlayer.h"
+#include "../Graphics/Fonts/FreeTypeFont.h"
+#include "../Entity/WorldEntity.h"
 #include <Box2D/Box2D.h>
 
 class CAppStateGame : public CAppState{
 private:
 	static CAppStateGame Instance;
-		AFTexture texture;
+		Shashin texture;
 		CPlayer player;
 		WorldEntity floor;
 		bool doSleep;

@@ -6,7 +6,7 @@
 class CPlayer : public CEntity {
 public:
 	CPlayer();
-	CPlayer(AFTexture t, float width, float height );
+	CPlayer(Shashin t, float width, float height );
 	bool OnLoad(char* File, float width, float height);
 	void OnLoop(Uint8 *keys);
 
@@ -15,11 +15,11 @@ public:
 	void OnCleanup();
 	void OnAnimate();
 	bool OnCollision(CEntity* Entity);
-	AFTexture texture;
+	Shashin texture;
 	AnimControl Animation;
 	//Sprite sprite;
 
-	void setTexture(AFTexture t);
+	void setTexture(Shashin t);
 
 };
 

@@ -11,7 +11,7 @@
 //OpenGL Headers SDL should handle that... i think
 #include <SDL_opengl.h>
 
-#include "Define.h"
+#include "../../Core/Define.h"
 
 //Some STL headers
 #include <vector>
