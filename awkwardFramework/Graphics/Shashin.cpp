@@ -1,3 +1,6 @@
+//shashin means picture in japanese :D
+//using as base file of images. sets it up as a GL_texture
+
 #include "Shashin.h"
 
 Shashin::Shashin(const char *fileName, float width=-1, float height=-1){
