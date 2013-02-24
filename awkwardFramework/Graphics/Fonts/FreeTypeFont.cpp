@@ -276,7 +276,7 @@ void print(const font_data &ft_font, float x, float y, const char *fmt, ...)  {
 	for(int i=0;i<lines.size();i++) {
 		glPushMatrix();
 		glLoadIdentity();
-		glTranslatef(x,y-h*i,0);
+		glTranslatef(x,y+h*i,0);
 		glScalef(1,-1,1);
 		glMultMatrixf(modelview_matrix);
 

@@ -134,7 +134,7 @@ void CAppStateGame::OnRender(){
 		CEntity::EntityList[i]->OnRender();
 	}
 
-	char *test = "the quick brown fox\n jumped over the lazy dog.\noh look another bug";
+	char *test = "the quick brown fox\njumped over the lazy dog.\nYay this is on the last line now! :D";
 	freetype::print(our_font, 200,200, test);
 }
 
