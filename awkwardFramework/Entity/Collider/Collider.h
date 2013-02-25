@@ -11,6 +11,7 @@ class Collider {
 public:
 	Collider();
 	int getShape();
+	glm::vec2 colliderPosition();
 	glm::vec2 getPosition();
 	glm::vec2 getOffset();
 private:

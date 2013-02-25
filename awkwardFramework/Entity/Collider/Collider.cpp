@@ -12,9 +12,13 @@ glm::vec2 Collider::getPosition(){
 glm::vec2 Collider::getOffset(){
 	return offset;
 }
+glm::vec2 Collider::colliderPosition(){
+	return glm::vec2(position.x + offset.x, position.y + offset.y);
+}
 int Collider::getShape(){
 	return shape;
 }
+
 
 glm::vec2 BlockCollider::getDimensions(){
 	return dimensions;

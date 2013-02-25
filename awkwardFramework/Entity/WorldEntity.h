@@ -18,10 +18,10 @@ protected:
 public:
 	float getX();
 	float getY();
-	void SetPos(Vector2 pos);
+	void SetPos(glm::vec2 pos);
 	int Width;
 	int Height;
-	Vector2 maxSpeed;
+	glm::vec2 maxSpeed;
 	Shashin worldTexture;
 	//float MaxSpeedX;
 	//float MaxSpeedY;
@@ -29,10 +29,10 @@ public:
 
 
 	WorldEntity();
-	WorldEntity(char* File, float width, float height, Vector2 pos);
+	WorldEntity(char* File, float width, float height, glm::vec2 pos);
 	virtual ~WorldEntity();
 
-	virtual bool Load(char* File, float width, float height, Vector2 pos);
+	virtual bool Load(char* File, float width, float height, glm::vec2 pos);
 	virtual void OnRender();
 
 };

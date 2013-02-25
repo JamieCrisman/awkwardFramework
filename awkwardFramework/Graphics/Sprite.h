@@ -11,23 +11,22 @@
 #include "../Util/CFPS.h"
 #include "../Graphics/Shashin.h"
 #include "../Core/Define.h"
-#include "Box2D\Box2D.h"
+//#include "Box2D\Box2D.h"
 
 class CEntity;
 class Sprite : public Transform{
 public:
 	Sprite(Shashin &texture, float width=-1, float height=-1);
-	Sprite(Shashin &texture, Vector2 offset, float width=-1, float height=-1);
+	Sprite(Shashin &texture, glm::vec2 offset, float width=-1, float height=-1);
 	Sprite();
 	~Sprite();
-	void Render(Vector2 p, float r, Vector2 s);
-	void Render(b2Vec2 p, float r, Vector2 s);
+	void Render(glm::vec2 p, float r, glm::vec2 s);
 	void setTexture(Shashin t);
 	void setColor(float r, float g, float b);
 	Shashin texture;
 	float width, height;
-	Vector2 textureOffset;
-	Vector2 textureScale;
+	glm::vec2 textureOffset;
+	glm::vec2 textureScale;
 	float RGB[3];
 };
 
@@ -53,8 +52,7 @@ public:
 	void setTexture(Shashin t, float width, float height);
 	void setTexture(Shashin t);
 	Animation* GetAnimation(const std::string &name);
-	void Render(Vector2 p, float r, Vector2 s);
-	void Render(b2Vec2 p, float r, Vector2 s);
+	void Render(glm::vec2 p, float r, glm::vec2 s);
 	std::list<Animation> animations;
 	Animation* anim;
 	//float fullWidth, fullHeight;

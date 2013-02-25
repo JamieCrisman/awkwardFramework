@@ -13,7 +13,7 @@ WorldEntity::WorldEntity(){
 	Sprite();
 }
 
-WorldEntity::WorldEntity(char* File, float width, float height, Vector2 pos){
+WorldEntity::WorldEntity(char* File, float width, float height, glm::vec2 pos){
 	Sprite();
 	worldTexture.Load(File, width, height);
 	if(worldTexture.GL_texture != NULL){
@@ -27,7 +27,7 @@ WorldEntity::~WorldEntity(){
 }
 
 
-bool WorldEntity::Load(char* File, float width, float height, Vector2 pos){
+bool WorldEntity::Load(char* File, float width, float height, glm::vec2 pos){
 	worldTexture.Load(File, width, height);
 	if(worldTexture.GL_texture != NULL){
 		sprite.setTexture(worldTexture);

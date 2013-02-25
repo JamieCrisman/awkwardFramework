@@ -29,8 +29,8 @@ Entity::Entity(){
 	//X = Y = 0.0f;
 	Width = Height = 0;
 
-	Speed = Vector2(0.0, 0.0);
-	maxSpeed = Vector2(5.0, 0.0);
+	Speed = glm::vec2(0.0f, 0.0f);
+	maxSpeed = glm::vec2(5.0f, 0.0f);
 	Sprite();
 }
 
@@ -48,7 +48,7 @@ void Entity::OnLoop(Uint8 *keys){
 	
 }
 
-void Entity::SetPos(Vector2 pos){
+void Entity::SetPos(glm::vec2 pos){
 	position = pos;
 }
 

@@ -22,7 +22,6 @@ private:
 		//CEntity Entity2;
 		//b2Vec2 gravity(0.0f, -10.0f);
 		freetype::font_data our_font;
-		b2Vec2 x;
 		char* msg;
 	CAppStateGame();
 

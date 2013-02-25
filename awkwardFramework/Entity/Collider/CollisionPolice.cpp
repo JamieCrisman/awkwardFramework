@@ -34,7 +34,10 @@ void CollisionPolice::CheckCollision(Entity one, Entity two){
 }
 
 void CollisionPolice::SquareSquareCollision(Entity one, Entity two){
-	//TODO
+	Collider ichi = one.getCollider();
+	Collider ni = two.getCollider();
+
+
 }
 
 void CollisionPolice::SquareCircleCollision(Entity one, Entity two){

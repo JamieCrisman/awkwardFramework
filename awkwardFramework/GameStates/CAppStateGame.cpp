@@ -32,7 +32,7 @@ void CAppStateGame::OnActivate(){
 		return;
 	}
 
-	floor.Load("Assets/Images/World/placeholder_grass.png", 140, 10, Vector2(320, 475));
+	floor.Load("Assets/Images/World/placeholder_grass.png", 140, 10, glm::vec2(320, 475));
 	floor.Add();
 	//floor.scale.x = 5.0;
 	//floor.scale.y = 5.0;
@@ -40,7 +40,6 @@ void CAppStateGame::OnActivate(){
 	player.Animation.setTexture(texture, 32, 32);
 
 	player.Animation.setColor(1.0, 1.0, 1.0);
-	
 	//player.SetPos(Vector2(1, 1));
 	
 	//player.scale.x = 5.0;
@@ -54,7 +53,8 @@ void CAppStateGame::OnActivate(){
 
 	//b2Body* dbody = world.CreateBody(&Pbody);
 	//player.body = dbody;
-	player.SetPos(Vector2(200,300));
+
+	player.SetPos(glm::vec2(200,300));
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);
 	player.Animation.Add("16", 16, 16, 8.0);

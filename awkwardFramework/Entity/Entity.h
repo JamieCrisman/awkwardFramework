@@ -7,7 +7,7 @@
 //#include <SDL_opengl.h>
 //#include <SDL_image.h>
 #include "../Graphics/Sprite.h"
-#include "Collider\Collider.h"
+#include "Collider/Collider.h"
 #include <vector>
 
 class Sprite;
@@ -30,27 +30,20 @@ public:
 	static std::vector<Entity*> EntityList;
 
 protected:
-	//float SpeedX;
-	//float SpeedY;
-	Vector2 Speed;
-	float AccelX;
-	float AccelY;
+	glm::vec2 Speed;
+	glm::vec2 acceleration;
 	Sprite sprite;
 	Collider collider;
 	std::vector<EntityTagData> tags;
-
 public:
 	void *getThis();
 	void Add();
-	float X;
-	float Y;
 	float getX();
 	float getY();
-	void SetPos(Vector2 pos);
+	void SetPos(glm::vec2 pos);
 	int Width;
 	int Height;
-	int Type;
-	Vector2 maxSpeed;
+	glm::vec2 maxSpeed;
 	//float MaxSpeedX;
 	//float MaxSpeedY;
 
