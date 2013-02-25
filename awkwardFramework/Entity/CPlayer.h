@@ -1,9 +1,9 @@
 #ifndef _CPLAYER_H_
 	#define _CPLAYER_H_
 
-#include "CEntity.h"
+#include "Entity.h"
 
-class CPlayer : public CEntity {
+class CPlayer : public Entity {
 public:
 	CPlayer();
 	CPlayer(Shashin t, float width, float height );

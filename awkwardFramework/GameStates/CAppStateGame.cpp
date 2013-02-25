@@ -3,7 +3,7 @@
 
 CAppStateGame CAppStateGame::Instance;
 
-CAppStateGame::CAppStateGame() : world(b2Vec2(0.0f, 30.0f)){
+CAppStateGame::CAppStateGame(){
 
 }
 
@@ -25,38 +25,6 @@ void CAppStateGame::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode){
 void CAppStateGame::OnActivate(){
 	SDL_WM_SetCaption("Game State", NULL);
 
-	//b2Vec2 gravity(0.0f, -10.0f);
-	doSleep = true;
-	//b2World world(gravity);
-	world.SetAllowSleeping(doSleep);
-	b2BodyDef groundBodyDef;
-
-	groundBodyDef.position.Set(320.0f, 375.0f);
-	b2Body* groundBody = world.CreateBody(&groundBodyDef);
-
-	b2PolygonShape groundBox;
-	groundBox.SetAsBox(60.0f, 5.0f);
-	groundBodyDef.userData = floor.getThis();
-	groundBody->CreateFixture(&groundBox,0.0f);
-	floor.body = groundBody;
-
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(320.0f, 240.0f);
-	bodyDef.fixedRotation = true;
-	b2Body* body = world.CreateBody(&bodyDef);
-	//bodyDef.awake = true;
-	bodyDef.userData = player.getThis();
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(16.0f, 16.0f);
-
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicBox;
-	fixtureDef.density = 3.0f;
-	fixtureDef.friction = 0.3f;
-	
-	body->CreateFixture(&fixtureDef);
-	player.body = body;
 	//player.body->GetPosition();
 	our_font.init("Assets/Fonts/Arial.ttf",16);
 
@@ -86,35 +54,35 @@ void CAppStateGame::OnActivate(){
 
 	//b2Body* dbody = world.CreateBody(&Pbody);
 	//player.body = dbody;
-
+	player.SetPos(Vector2(200,300));
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);
 	player.Animation.Add("16", 16, 16, 8.0);
 	player.Add();
-	//CEntity::EntityList.push_back(&player);
-	//CEntity::EntityList.push_back(&floor);
+	//Entity::EntityList.push_back(&player);
+	//Entity::EntityList.push_back(&floor);
 }
 
 void CAppStateGame::OnDeactivate(){
-	for(int i = 0;i < CEntity::EntityList.size(); i++){
-		if(!CEntity::EntityList[i])continue;
-		CEntity::EntityList[i]->OnCleanup();
+	for(int i = 0;i < Entity::EntityList.size(); i++){
+		if(!Entity::EntityList[i])continue;
+		Entity::EntityList[i]->OnCleanup();
 	}
-	CEntity::EntityList.clear();
+	Entity::EntityList.clear();
 
 	our_font.clean();
 }
 
 void CAppStateGame::OnLoop(){
 	keys = SDL_GetKeyState( NULL );
-	for(int i = 0;i < CEntity::EntityList.size(); i++){
-		if(!CEntity::EntityList[i])continue;
-		CEntity::EntityList[i]->OnLoop(keys);
+	for(int i = 0;i < Entity::EntityList.size(); i++){
+		if(!Entity::EntityList[i])continue;
+		Entity::EntityList[i]->OnLoop(keys);
 	}
 
-	for(int i = 0; i < CEntityCol::EntityColList.size(); i++){
-		CEntity* EntityA = CEntityCol::EntityColList[i].EntityA;
-		CEntity* EntityB = CEntityCol::EntityColList[i].EntityB;
+	for(int i = 0; i < EntityCol::EntityColList.size(); i++){
+		Entity* EntityA = EntityCol::EntityColList[i].EntityA;
+		Entity* EntityB = EntityCol::EntityColList[i].EntityB;
 
 		if(EntityA == NULL || EntityB == NULL)continue;
 
@@ -123,15 +91,14 @@ void CAppStateGame::OnLoop(){
 		}
 
 	}
-	CEntityCol::EntityColList.clear();
+	EntityCol::EntityColList.clear();
 
-	world.Step((2.0f / 60.0f), 6, 2);
 }
 
 void CAppStateGame::OnRender(){
-	for(int i = 0;i < CEntity::EntityList.size(); i++){
-		if(!CEntity::EntityList[i])continue;
-		CEntity::EntityList[i]->OnRender();
+	for(int i = 0;i < Entity::EntityList.size(); i++){
+		if(!Entity::EntityList[i])continue;
+		Entity::EntityList[i]->OnRender();
 	}
 
 	char *test = "the quick brown fox\njumped over the lazy dog.\nYay this is on the last line now! :D";

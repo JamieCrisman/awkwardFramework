@@ -1,6 +1,6 @@
-#include "CEntity.h"
+#include "Entity.h"
 
-std::vector<CEntity*> CEntity::EntityList;
+std::vector<Entity*> Entity::EntityList;
 
 EntityTagData::EntityTagData()
 {
@@ -17,15 +17,15 @@ EntityTagData::EntityTagData(const EntityTagData &entityTagData)
 {
 }
 
-void CEntity::Add(){
+void Entity::Add(){
 	EntityList.push_back(this);
 }
 
-void *CEntity::getThis(){
+void *Entity::getThis(){
 	return this;
 }
 
-CEntity::CEntity(){
+Entity::Entity(){
 	//X = Y = 0.0f;
 	Width = Height = 0;
 
@@ -34,58 +34,66 @@ CEntity::CEntity(){
 	Sprite();
 }
 
-CEntity::~CEntity(){
+Entity::~Entity(){
 }
 
-bool CEntity::OnLoad(char* File, float Width, float Height, int MaxFrames){
+bool Entity::OnLoad(char* File, float Width, float Height, int MaxFrames){
 	
 	//Anim_Control.MaxFrames = MaxFrames;
 
 	return true;
 }
 
-void CEntity::OnLoop(Uint8 *keys){
+void Entity::OnLoop(Uint8 *keys){
 	
 }
 
-void CEntity::SetPos(Vector2 pos){
+void Entity::SetPos(Vector2 pos){
 	position = pos;
 }
 
-float CEntity::getX(){
+float Entity::getX(){
 	return position.x;
 }
-float CEntity::getY(){
+float Entity::getY(){
 	return position.y;
 }
 
-void CEntity::OnRender(){
+Collider Entity::getCollider(){
+	return collider;
 }
 
-void CEntity::OnCleanup(){
+void Entity::handleCollision(){
+
 }
 
-void CEntity::OnAnimate(){
+void Entity::OnRender(){
 }
 
-bool CEntity::OnCollision(CEntity* Entity){
+void Entity::OnCleanup(){
+}
+
+void Entity::OnAnimate(){
+}
+
+bool Entity::OnCollision(Entity* Entity){
 	return true;
 }
 
-void CEntity::OnMove(float MoveX, float MoveY)
+void Entity::OnMove(float MoveX, float MoveY)
 {
 }
-void CEntity::StopMove(){
+void Entity::StopMove(){
 
 }
 
 
-const std::string& CEntity::GetTag(int index)
+const std::string& Entity::GetTag(int index)
 {
 	return tags[index].name;
 }
 
-void CEntity::AddTag(const std::string& tag, bool save)
+void Entity::AddTag(const std::string& tag, bool save)
 {
 	if (!HasTag(tag))
 	{
@@ -95,7 +103,7 @@ void CEntity::AddTag(const std::string& tag, bool save)
 	}
 }
 
-void CEntity::RemoveTag(const std::string& tag)
+void Entity::RemoveTag(const std::string& tag)
 {
 	for (EntityTags::iterator i = tags.begin(); i != tags.end(); ++i)
 	{
@@ -109,7 +117,7 @@ void CEntity::RemoveTag(const std::string& tag)
 	//	scene->EntityRemoveTag(this, tag);
 }
 
-bool CEntity::HasTag(const std::string& tag)
+bool Entity::HasTag(const std::string& tag)
 {
 	for (EntityTags::iterator i = tags.begin(); i != tags.end(); ++i)
 	{
@@ -120,7 +128,7 @@ bool CEntity::HasTag(const std::string& tag)
 	return false;
 }
 
-int CEntity::GetNumberOfTags()
+int Entity::GetNumberOfTags()
 {
 	return static_cast<int>(tags.size());
 }

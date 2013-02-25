@@ -2,14 +2,14 @@
 
 
 CPlayer::CPlayer(){
-	CEntity::Add();
+	Entity::Add();
 }
 
 CPlayer::CPlayer(Shashin t, float width, float height){
 	sprite.texture.set(t);
 	Width = width;
 	Height = height;
-	CEntity::Add();
+	Entity::Add();
 }
 
 bool CPlayer::OnLoad(char* File, float width, float height){
@@ -23,7 +23,6 @@ bool CPlayer::OnLoad(char* File, float width, float height){
 
 void CPlayer::OnLoop(Uint8 *keys){
 
-	b2Vec2 vel = body->GetLinearVelocity();
 	float desiredVelX = 0;
 	float baseSpeed = 30.0f;
 	if(keys[SDLK_LEFT]){
@@ -50,34 +49,29 @@ void CPlayer::OnLoop(Uint8 *keys){
 	if(keys[SDLK_DOWN]){
 		//SetPos(Vector2((getX()), (getY() + 5.0)));
 	}
-	float deltaVelocity = desiredVelX - vel.x;
-	float impulse = body->GetMass() * deltaVelocity;
-	body->ApplyLinearImpulse(b2Vec2(impulse, 0.0f), body->GetWorldCenter());
-
+	//float deltaVelocity = desiredVelX - vel.x;
 	//gradual
 	/*
 	case desiredVel = b2Max( vel.x - 0.1f, -5.0f ); break;
     case MS_STOP:  desiredVel = vel.x * 0.98f; break;
     case MS_RIGHT: desiredVel = b2Min( vel.x + 0.1f,  5.0f ); break;
 	*/
-	CEntity::OnLoop(keys);
+	Entity::OnLoop(keys);
 
 }
 
 void CPlayer::OnRender(){
-	//Animation.Render(this->position, this->rotation, this->scale);
-	//Animation.Render(this->body->GetPosition(), this->rotation, this->scale);
-	//Animation.Render(this->body->GetPosition(), this->rotation, this->scale);
-	Animation.Render(this->body->GetPosition(), this->body->GetAngle(), this->scale);
+	Animation.Render(this->position, this->rotation, this->scale);
+	//Animation.Render(this->body->GetPosition(), this->body->GetAngle(), this->scale);
 }
 
 void CPlayer::OnCleanup(){
-	CEntity::OnCleanup();
+	Entity::OnCleanup();
 }
 
 void CPlayer::OnAnimate(){
 
-	CEntity::OnAnimate();
+	Entity::OnAnimate();
 }
 
 bool CPlayer::OnCollision(CEntity* Entity){

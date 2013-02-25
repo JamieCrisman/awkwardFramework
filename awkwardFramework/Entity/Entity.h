@@ -1,5 +1,5 @@
-#ifndef _CENTITY_H_
-	#define _CENTITY_H_
+#ifndef _ENTITY_H_
+	#define _ENTITY_H_
 
 #include "../Util/Transform.h"
 #include "../Util/CFPS.h"
@@ -7,8 +7,8 @@
 //#include <SDL_opengl.h>
 //#include <SDL_image.h>
 #include "../Graphics/Sprite.h"
+#include "Collider\Collider.h"
 #include <vector>
-#include <Box2D\Box2D.h>
 
 class Sprite;
 
@@ -25,9 +25,9 @@ public:
 
 typedef std::vector<EntityTagData> EntityTags;
 
-class CEntity : public Transform{
+class Entity : public Transform{
 public:
-	static std::vector<CEntity*> EntityList;
+	static std::vector<Entity*> EntityList;
 
 protected:
 	//float SpeedX;
@@ -36,11 +36,10 @@ protected:
 	float AccelX;
 	float AccelY;
 	Sprite sprite;
-
+	Collider collider;
 	std::vector<EntityTagData> tags;
 
 public:
-	b2Body *body;
 	void *getThis();
 	void Add();
 	float X;
@@ -68,16 +67,21 @@ public:
 	//! Gets the number of tags associated with this entity
 	int GetNumberOfTags();
 
+	//returns a collider obj
+	Collider getCollider();
+	//sets the collider duh
+	void setCollider(Collider c);
 
-	CEntity();
-	virtual ~CEntity();
+	Entity();
+	virtual ~Entity();
 
+	virtual void handleCollision();
 	virtual bool OnLoad(char* File, float width, float height, int MaxFrames);
 	virtual void OnLoop(Uint8 *keys);
 	virtual void OnRender();
 	virtual void OnCleanup();
 	virtual void OnAnimate();
-	virtual bool OnCollision(CEntity* Entity);
+	virtual bool OnCollision(Entity* Entity);
 
 
 	void OnMove(float MoveX, float MoveY);
@@ -88,12 +92,12 @@ public:
 };
 
 
-class CEntityCol{
+class EntityCol{
 public:
-	static std::vector<CEntityCol> EntityColList;
-	CEntity* EntityA;
-	CEntity* EntityB;
-	CEntityCol();
+	static std::vector<EntityCol> EntityColList;
+	Entity* EntityA;
+	Entity* EntityB;
+	EntityCol();
 };
 
 #endif

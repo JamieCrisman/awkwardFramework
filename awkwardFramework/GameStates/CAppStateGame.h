@@ -4,12 +4,11 @@
 
 //#include "CArea.h"
 #include "../Util/CCamera.h"
-#include "../Entity/CEntity.h"
+#include "../Entity/Entity.h"
 //#include "CSurface.h"
 #include "../Entity/CPlayer.h"
 #include "../Graphics/Fonts/FreeTypeFont.h"
 #include "../Entity/WorldEntity.h"
-#include <Box2D/Box2D.h>
 
 class CAppStateGame : public CAppState{
 private:
@@ -22,7 +21,6 @@ private:
 		//CEntity Entity;
 		//CEntity Entity2;
 		//b2Vec2 gravity(0.0f, -10.0f);
-		b2World world;
 		freetype::font_data our_font;
 		b2Vec2 x;
 		char* msg;

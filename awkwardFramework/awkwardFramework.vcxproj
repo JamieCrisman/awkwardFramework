@@ -79,7 +79,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Entity\CEntityCol.cpp" />
+    <ClCompile Include="Entity\EntityCol.cpp" />
+    <ClCompile Include="Entity\Collider\Collider.cpp" />
+    <ClCompile Include="Entity\Collider\CollisionPolice.cpp" />
     <ClCompile Include="Graphics\Shashin.cpp" />
     <ClCompile Include="Youkozo.cpp" />
     <ClCompile Include="GameStates\CAppState.cpp" />
@@ -87,7 +89,7 @@
     <ClCompile Include="GameStates\CAppStateIntro.cpp" />
     <ClCompile Include="GameStates\CAppStateManager.cpp" />
     <ClCompile Include="Util\CCamera.cpp" />
-    <ClCompile Include="Entity\CEntity.cpp" />
+    <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="Core\CEvent.cpp" />
     <ClCompile Include="Util\CFPS.cpp" />
     <ClCompile Include="Entity\CPlayer.cpp" />
@@ -103,6 +105,8 @@
     <ClCompile Include="Entity\WorldEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Entity\Collider\Collider.h" />
+    <ClInclude Include="Entity\Collider\CollisionPolice.h" />
     <ClInclude Include="Graphics\Shashin.h" />
     <ClInclude Include="Youkozo.h" />
     <ClInclude Include="GameStates\CAppState.h" />
@@ -110,7 +114,7 @@
     <ClInclude Include="GameStates\CAppStateIntro.h" />
     <ClInclude Include="GameStates\CAppStateManager.h" />
     <ClInclude Include="Util\CCamera.h" />
-    <ClInclude Include="Entity\CEntity.h" />
+    <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="Core\CEvent.h" />
     <ClInclude Include="Util\CFPS.h" />
     <ClInclude Include="Entity\CPlayer.h" />

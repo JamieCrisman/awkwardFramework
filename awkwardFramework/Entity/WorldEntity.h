@@ -5,11 +5,11 @@
 #include "../Util/Transform.h"
 #include "../Util/CFPS.h"
 #include "../Graphics/Sprite.h"
-#include "../Entity/CEntity.h"
+#include "../Entity/Entity.h"
 
 class Sprite;
 
-class WorldEntity : public CEntity{
+class WorldEntity : public Entity{
 public:
 	//static std::vector<WorldEntity*> WorldEntityList;
 
