@@ -47,22 +47,3 @@ void CollisionPolice::SquareCircleCollision(Entity one, Entity two){
 void CollisionPolice::CircleCircleCollision(Entity one, Entity two){
 	return; //not handling this right now
 }
-
-
-
-
-
-
-CollisionVector::CollisionVector(){
-	ResponseVector = glm::vec2(0.0f, 0.0f);
-}
-CollisionVector::CollisionVector(glm::vec2 v){
-	ResponseVector = v;
-}
-glm::vec2 CollisionVector::getResponseVector(){
-	return ResponseVector;
-}
-void CollisionVector::setResponseVector(glm::vec2 v){
-	//might want to switch this to do it per component
-	ResponseVector = v;
-}

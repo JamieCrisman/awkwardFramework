@@ -17,15 +17,4 @@ private:
 	bool OneAxisCollisionBox();
 };
 
-//sends this to Entity on collision so it knows what to do.
-class CollisionVector{
-private:
-	glm::vec2 ResponseVector;
-public:
-	CollisionVector();
-	CollisionVector(glm::vec2 v);
-	void setResponseVector(glm::vec2 v);
-	glm::vec2 getResponseVector();
-};
-
 #endif

@@ -60,7 +60,6 @@ void Sprite::Render(glm::vec2 p, float r, glm::vec2 s){
 	if(texture.GL_texture == NULL)
 		return;
 
-	
 	r = r * (180/(4.0*atan(1.0)));
 	glLoadIdentity();
 	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
