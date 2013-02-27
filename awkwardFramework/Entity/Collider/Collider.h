@@ -14,7 +14,9 @@ public:
 	glm::vec2 colliderPosition();
 	glm::vec2 getPosition();
 	glm::vec2 getOffset();
-private:
+	void setPosition(glm::vec2 &pos);
+	void setOffset(glm::vec2 off);
+protected:
 	//position is xy of entity, and offset is xy from topleft
 	glm::vec2 position, offset;
 	int shape;
@@ -23,7 +25,9 @@ private:
 
 class BlockCollider : public Collider{
 public:
+	BlockCollider();
 	glm::vec2 getDimensions();
+	void setDimensions(glm::vec2 dim);
 private:
 	glm::vec2 dimensions;
 };

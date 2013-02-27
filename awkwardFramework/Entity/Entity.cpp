@@ -63,6 +63,15 @@ Collider Entity::getCollider(){
 	return collider;
 }
 
+void Entity::setCollider(int type, glm::vec2 offset){
+	//TODO add in support for other collision types
+	if(type == COLLIDER_TYPE_SQUARE){
+		this->collider = BlockCollider();
+		this->collider.setOffset(offset);
+		this->collider.setPosition(position);
+	}
+}
+
 void Entity::handleCollision(){
 
 }

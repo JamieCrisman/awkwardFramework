@@ -1,5 +1,6 @@
 #include "CAppStateGame.h"
 #include "CAppStateManager.h"
+#define NO_STDIO_REDIRECT
 
 CAppStateGame CAppStateGame::Instance;
 
@@ -54,7 +55,7 @@ void CAppStateGame::OnActivate(){
 	//b2Body* dbody = world.CreateBody(&Pbody);
 	//player.body = dbody;
 
-	player.SetPos(glm::vec2(10,10));
+	player.SetPos(glm::vec2(64,1));
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);
 	player.Animation.Add("16", 16, 16, 8.0);
@@ -92,7 +93,6 @@ void CAppStateGame::OnLoop(){
 
 	}
 	EntityCol::EntityColList.clear();
-
 }
 
 void CAppStateGame::OnRender(){
@@ -100,9 +100,14 @@ void CAppStateGame::OnRender(){
 		if(!Entity::EntityList[i])continue;
 		Entity::EntityList[i]->OnRender();
 	}
-
-	char *test = "the quick brown fox\njumped over the lazy dog.\nYay this is on the last line now! :D";
-	freetype::print(our_font, 200,200, test);
+	//char x = player.getX();
+	char* tttt = new char[30];
+	sprintf(tttt, "%.4g", player.getX() ); 
+	std::string test = "Player: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
+	test += tttt;
+	delete tttt;
+	//char *beep = test << posx;
+	freetype::print(our_font, 200,200, test.c_str());
 }
 
 CAppStateGame* CAppStateGame::GetInstance(){
