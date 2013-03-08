@@ -1,5 +1,5 @@
 #include "CPlayer.h"
-
+#include "Collider\Collider.h"
 
 CPlayer::CPlayer(){
 	Entity::Add();
@@ -9,6 +9,7 @@ CPlayer::CPlayer(Shashin t, float width, float height){
 	sprite.texture.set(t);
 	Width = width;
 	Height = height;
+	collider = new BlockCollider(getThis());
 	Entity::Add();
 }
 
@@ -26,7 +27,7 @@ void CPlayer::OnLoop(Uint8 *keys){
 	float desiredVelX = 0;
 	float baseSpeed = 30.0f;
 	if(keys[SDLK_LEFT]){
-		//SetPos(Vector2((getX() - 5.0), (getY())));
+		SetPos(glm::vec2(position.x - 5.0, (position.y)));
 		Animation.Play("walk");
 		if(scale.x > 0)
 			scale.x *= -1;
@@ -34,12 +35,12 @@ void CPlayer::OnLoop(Uint8 *keys){
 		desiredVelX += -baseSpeed;
 	}
 	if(keys[SDLK_UP]){
-		//SetPos(Vector2((getX()), (getY() - 5.0)));
+		SetPos(glm::vec2(position.x, (position.y - 5.0)));
 		//player.body->SetTransform(b2Vec2(10.0f, 20.0f), 0.0f);
 		//player.body->ApplyForce(b2Vec2(0.0f, 10.0f), b2Vec2(0.0f, 0.0f));
 	}
 	if(keys[SDLK_RIGHT]){
-		//SetPos(Vector2((getX() + 5.0), (getY())));
+		SetPos(glm::vec2((position.x + 5.0), (position.y)));
 		Animation.Play("walk");
 		if(scale.x < 0)
 			scale.x *= -1;
@@ -47,7 +48,7 @@ void CPlayer::OnLoop(Uint8 *keys){
 		desiredVelX += baseSpeed;
 	}
 	if(keys[SDLK_DOWN]){
-		//SetPos(Vector2((getX()), (getY() + 5.0)));
+		SetPos(glm::vec2((position.x), (position.y + 5.0)));
 	}
 	//float deltaVelocity = desiredVelX - vel.x;
 	//gradual

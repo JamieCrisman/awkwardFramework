@@ -54,7 +54,7 @@ void CAppStateGame::OnActivate(){
 
 	//b2Body* dbody = world.CreateBody(&Pbody);
 	//player.body = dbody;
-
+	player.setCollider(1, glm::vec2(0.0f, 0.0f)); //hard code collider enum
 	player.SetPos(glm::vec2(64,1));
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);
@@ -100,11 +100,21 @@ void CAppStateGame::OnRender(){
 		if(!Entity::EntityList[i])continue;
 		Entity::EntityList[i]->OnRender();
 	}
+	std::string test,test2;
 	//char x = player.getX();
 	char* tttt = new char[30];
-	sprintf(tttt, "%.4g", player.getX() ); 
-	std::string test = "Player: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
+	sprintf(tttt, "%.4g", player.getPosition().x ); 
+	test = "Player X: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
 	test += tttt;
+	sprintf(tttt, "%.4g", player.getPosition().y ); 
+	test2 = "Player Y: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
+	test += "\n"+test2 + tttt;
+	sprintf(tttt, "%.4g", player.getCollider()->getPosition().x ); 
+	test += "\nCollider X: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
+	test += tttt;
+	sprintf(tttt, "%.4g", player.getCollider()->getPosition().y ); 
+	test2 = "Collider Y: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
+	test += "\n"+test2 + tttt;
 	delete tttt;
 	//char *beep = test << posx;
 	freetype::print(our_font, 200,200, test.c_str());

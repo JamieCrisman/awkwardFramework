@@ -1,5 +1,5 @@
 #include "Entity.h"
-
+#include "Collider\Collider.h"
 std::vector<Entity*> Entity::EntityList;
 
 EntityTagData::EntityTagData()
@@ -21,20 +21,22 @@ void Entity::Add(){
 	EntityList.push_back(this);
 }
 
-void *Entity::getThis(){
+Entity* Entity::getThis(){
 	return this;
 }
 
 Entity::Entity(){
 	//X = Y = 0.0f;
 	Width = Height = 0;
-
+	//collider.setPosition(this->position);
 	Speed = glm::vec2(0.0f, 0.0f);
 	maxSpeed = glm::vec2(5.0f, 0.0f);
 	Sprite();
+	collider = NULL;
 }
 
 Entity::~Entity(){
+	delete collider;
 }
 
 bool Entity::OnLoad(char* File, float Width, float Height, int MaxFrames){
@@ -51,24 +53,35 @@ void Entity::OnLoop(Uint8 *keys){
 void Entity::SetPos(glm::vec2 pos){
 	position = pos;
 }
-
+/*
 float Entity::getX(){
 	return position.x;
 }
 float Entity::getY(){
 	return position.y;
 }
+*/
+glm::vec2 Entity::getPosition(){
+	return position;
+}
 
-Collider Entity::getCollider(){
+int Entity::getWidth(){
+	return Width;
+}
+int Entity::getHeight(){
+	return Height;
+}
+
+Collider* Entity::getCollider(){
 	return collider;
 }
 
 void Entity::setCollider(int type, glm::vec2 offset){
 	//TODO add in support for other collision types
 	if(type == COLLIDER_TYPE_SQUARE){
-		this->collider = BlockCollider();
-		this->collider.setOffset(offset);
-		this->collider.setPosition(position);
+		collider = new BlockCollider(this);
+		//this->collider.setOffset(offset);
+		//this->collider.setPosition(position);
 	}
 }
 

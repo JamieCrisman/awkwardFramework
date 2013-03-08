@@ -5,8 +5,8 @@ CollisionPolice::CollisionPolice(){
 
 void CollisionPolice::CheckCollision(Entity one, Entity two){
 	//figure out what collision types and the run the correct function to manage them
-	int ichi = one.getCollider().getShape();
-	int ni = two.getCollider().getShape();
+	int ichi = one.getCollider()->getShape();
+	int ni = two.getCollider()->getShape();
 
 	if(ichi == COLLIDER_TYPE_NONE || ni == COLLIDER_TYPE_NONE){
 		return; //don't waste time checking collision on things without colliders
@@ -34,8 +34,8 @@ void CollisionPolice::CheckCollision(Entity one, Entity two){
 }
 
 void CollisionPolice::SquareSquareCollision(Entity one, Entity two){
-	Collider ichi = one.getCollider();
-	Collider ni = two.getCollider();
+	//Collider ichi(one.getCollider());// = one.getCollider();
+	//Collider ni = two.getCollider().getThis();
 
 
 }

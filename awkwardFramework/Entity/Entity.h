@@ -7,11 +7,10 @@
 //#include <SDL_opengl.h>
 //#include <SDL_image.h>
 #include "../Graphics/Sprite.h"
-#include "Collider/Collider.h"
 #include <vector>
 
 class Sprite;
-
+class Collider;
 class EntityTagData
 {
 public:
@@ -33,19 +32,20 @@ protected:
 	glm::vec2 Speed;
 	glm::vec2 acceleration;
 	Sprite sprite;
-	Collider collider;
+	Collider* collider;
 	std::vector<EntityTagData> tags;
 public:
-	void *getThis();
+	Entity* getThis();
 	void Add();
-	float getX();
-	float getY();
+	glm::vec2 getPosition();
 	void SetPos(glm::vec2 pos);
 	int Width;
 	int Height;
 	glm::vec2 maxSpeed;
-	//float MaxSpeedX;
-	//float MaxSpeedY;
+
+	int getWidth();
+	int getHeight();
+
 
 	int AnimState;
 
@@ -61,7 +61,7 @@ public:
 	int GetNumberOfTags();
 
 	//returns a collider obj
-	Collider getCollider();
+	Collider* getCollider();
 	//sets the collider duh
 	void setCollider(int type, glm::vec2 offset);
 

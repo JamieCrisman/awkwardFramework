@@ -1,5 +1,6 @@
 #ifndef _COLLIDER_H_
 	#define _COLLIDER_H_
+
 #include "../../Util/glm/glm.hpp"
 enum {
 	COLLIDER_TYPE_NONE = 0,
@@ -7,6 +8,7 @@ enum {
 	COLLIDER_TYPE_CIRCLE = 2,
 	COLLIDER_TYPE_POLYGON = 3
 };
+class Entity;
 class Collider {
 public:
 	Collider();
@@ -16,9 +18,11 @@ public:
 	glm::vec2 getOffset();
 	void setPosition(glm::vec2 &pos);
 	void setOffset(glm::vec2 off);
+	Collider* getThis();
 protected:
 	//position is xy of entity, and offset is xy from topleft
 	glm::vec2 position, offset;
+	Entity* entity;
 	int shape;
 };
 
@@ -26,8 +30,9 @@ protected:
 class BlockCollider : public Collider{
 public:
 	BlockCollider();
+	BlockCollider(Entity* e);
 	glm::vec2 getDimensions();
-	void setDimensions(glm::vec2 dim);
+	void setDimensions(glm::vec2 &dim);
 private:
 	glm::vec2 dimensions;
 };

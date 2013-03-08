@@ -7,6 +7,7 @@
 #include "../Entity/Entity.h"
 //#include "CSurface.h"
 #include "../Entity/CPlayer.h"
+#include "../Entity/Collider/Collider.h"
 #include "../Graphics/Fonts/FreeTypeFont.h"
 #include "../Entity/WorldEntity.h"
 
