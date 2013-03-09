@@ -39,9 +39,11 @@ public:
 	void Add();
 	glm::vec2 getPosition();
 	void SetPos(glm::vec2 pos);
-	int Width;
-	int Height;
+	float Width;
+	float Height;
 	glm::vec2 maxSpeed;
+
+	virtual glm::vec2 getDimensions();
 
 	int getWidth();
 	int getHeight();
@@ -63,12 +65,12 @@ public:
 	//returns a collider obj
 	Collider* getCollider();
 	//sets the collider duh
-	void setCollider(int type, glm::vec2 offset);
+	void setCollider(int type, glm::vec2 dimensions, glm::vec2 offset);
 
 	Entity();
 	virtual ~Entity();
 
-	virtual void handleCollision();
+	virtual void handleCollision(glm::vec2 pVec);
 	virtual bool OnLoad(char* File, float width, float height, int MaxFrames);
 	virtual void OnLoop(Uint8 *keys);
 	virtual void OnRender();

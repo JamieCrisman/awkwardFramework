@@ -44,6 +44,10 @@ void Sprite::setTexture(Shashin t){
 	texture.set(t);
 }
 
+glm::vec2 Sprite::getDimensions(){
+	return glm::vec2(this->width * this->scale.x, this->height * this->scale.y);
+}
+
 void Sprite::setColor(float r, float g, float b){
 	RGB[0] = r;
 	RGB[1] = g;

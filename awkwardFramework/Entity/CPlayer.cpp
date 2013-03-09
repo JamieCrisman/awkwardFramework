@@ -60,7 +60,9 @@ void CPlayer::OnLoop(Uint8 *keys){
 	Entity::OnLoop(keys);
 
 }
-
+glm::vec2 CPlayer::getDimensions(){
+	return Animation.getDimensions();
+}
 void CPlayer::OnRender(){
 	Animation.Render(this->position, this->rotation, this->scale);
 	//Animation.Render(this->body->GetPosition(), this->body->GetAngle(), this->scale);
@@ -75,7 +77,12 @@ void CPlayer::OnAnimate(){
 	Entity::OnAnimate();
 }
 
-bool CPlayer::OnCollision(CEntity* Entity){
+void CPlayer::handleCollision(glm::vec2 pVec){
+	SetPos(getPosition() + pVec);
+}
+
+
+bool CPlayer::OnCollision(Entity* Entity){
 	return true;
 }
 

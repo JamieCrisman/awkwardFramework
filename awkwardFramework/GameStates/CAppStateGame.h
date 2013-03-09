@@ -8,6 +8,7 @@
 //#include "CSurface.h"
 #include "../Entity/CPlayer.h"
 #include "../Entity/Collider/Collider.h"
+#include "../Entity/Collider/CollisionPolice.h"
 #include "../Graphics/Fonts/FreeTypeFont.h"
 #include "../Entity/WorldEntity.h"
 
@@ -17,6 +18,7 @@ private:
 		Shashin texture;
 		CPlayer player;
 		WorldEntity floor;
+		CollisionPolice CP;
 		bool doSleep;
 		//CPlayer player2;
 		//CEntity Entity;

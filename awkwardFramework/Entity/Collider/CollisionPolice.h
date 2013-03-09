@@ -6,8 +6,8 @@
 class CollisionPolice{
 public:
 	CollisionPolice();
-private:
 	void CheckCollision(Collider* ichi, Collider* ni);
+private:
 	void SquareSquareCollision(BlockCollider* ichi, BlockCollider* ni);
 	//not going to bother with these for now.. but it'll be possible atleast
 	/*

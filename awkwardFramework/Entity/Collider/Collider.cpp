@@ -27,6 +27,9 @@ Collider* Collider::getThis(){
 void Collider::setOffset(glm::vec2 off){
 	offset = off;
 }
+Entity* Collider::getEntity(){
+	return entity;
+}
 glm::vec2 Collider::colliderPosition(){
 	//TODO:: make this do entity position + offset if there's an entity
 	return glm::vec2(position.x + offset.x, position.y + offset.y);
@@ -34,10 +37,10 @@ glm::vec2 Collider::colliderPosition(){
 int Collider::getShape(){
 	return shape;
 }
-BlockCollider::BlockCollider(){
+BlockCollider::BlockCollider() : Collider(){
 	shape = COLLIDER_TYPE_SQUARE;
 }
-BlockCollider::BlockCollider(Entity* e){
+BlockCollider::BlockCollider(Entity* e) : Collider(){
 	shape = COLLIDER_TYPE_SQUARE;
 	entity = e;
 	dimensions = glm::vec2(e->getWidth(), e->getHeight());
@@ -45,10 +48,19 @@ BlockCollider::BlockCollider(Entity* e){
 	offset = glm::vec2(0.0f, 0.0f);
 }
 
+BlockCollider::BlockCollider(Entity* e, glm::vec2 dim, glm::vec2 off) : Collider(){
+	shape = COLLIDER_TYPE_SQUARE;
+	entity = e;
+	dimensions = dim;
+	position = glm::vec2(0.0f, 0.0f); //should output from entity anyways
+	offset = off;
+}
+
+
 glm::vec2 BlockCollider::getDimensions(){
 	return dimensions;
 }
-void BlockCollider::setDimensions(glm::vec2 &dim){
+void BlockCollider::setDimensions(glm::vec2 dim){
 	dimensions = dim;
 }
 

@@ -14,18 +14,17 @@ public:
 	//static std::vector<WorldEntity*> WorldEntityList;
 
 protected:
-	Sprite sprite;
+	//Sprite sprite;
 public:
 	float getX();
 	float getY();
 	void SetPos(glm::vec2 pos);
-	int Width;
-	int Height;
 	glm::vec2 maxSpeed;
+	//glm::vec2 getDimensions();
 	Shashin worldTexture;
 	//float MaxSpeedX;
 	//float MaxSpeedY;
-
+	virtual glm::vec2 getDimensions();
 
 
 	WorldEntity();

@@ -13,7 +13,7 @@
 #include "../Core/Define.h"
 //#include "Box2D\Box2D.h"
 
-class CEntity;
+class Entity;
 class Sprite : public Transform{
 public:
 	Sprite(Shashin &texture, float width=-1, float height=-1);
@@ -25,6 +25,7 @@ public:
 	void setColor(float r, float g, float b);
 	Shashin texture;
 	float width, height;
+	glm::vec2 getDimensions();
 	glm::vec2 textureOffset;
 	glm::vec2 textureScale;
 	float RGB[3];

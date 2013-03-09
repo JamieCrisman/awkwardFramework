@@ -33,8 +33,35 @@ void CollisionPolice::CheckCollision(Collider* ichi, Collider* ni){
 }
 
 void CollisionPolice::SquareSquareCollision(BlockCollider* ichi, BlockCollider* ni){
-	//ichi->getDimensions();
-
+	//this will need to be revised to use less placeholder obj, but this will help
+	//sort out what needs to happen
+	//xxxD is (dimensions/2)
+	//xxxP is position (including offset)
+	//xxxH is xxxP + xxxD being the center point of the collider
+	glm::vec2 oneD = ichi->getDimensions();
+	oneD = glm::vec2(oneD.x/2, oneD.y/2);
+	glm::vec2 twoD = ni->getDimensions();
+	twoD = glm::vec2(twoD.x/2, twoD.y/2);
+	glm::vec2 oneP = glm::vec2(ichi->getPosition().x + ichi->getOffset().x,
+								ichi->getPosition().y + ichi->getOffset().y);
+	glm::vec2 twoP = glm::vec2(ni->getPosition().x + ni->getOffset().x,
+								ni->getPosition().y + ni->getOffset().y);
+	glm::vec2 oneH = glm::vec2(oneD.x + oneP.x, oneD.y + oneP.y);
+	glm::vec2 twoH = glm::vec2(twoD.x + twoP.x, twoD.y + twoP.y);
+	if(glm::abs(oneH.x - twoH.x) > (oneD.x + twoD.x)){
+		return;
+	}
+	if(glm::abs(oneH.y - twoH.y) > (oneD.y + twoD.y)){
+		return;
+	}
+	//this point we know we have a collision
+	float pX = ( oneH.x < twoH.x)? -1*(glm::abs(oneH.x - twoH.x) - glm::abs(oneD.x + twoD.x))
+		: (glm::abs(oneH.x - twoH.x) - glm::abs(oneD.x + twoD.x));
+	float pY = ( oneH.y < twoH.y)? -1*(glm::abs(oneH.y - twoH.y) - glm::abs(oneD.y + twoD.y))
+		: (glm::abs(oneH.y - twoH.y) - glm::abs(oneD.y + twoD.y));
+	if(ichi->getEntity() != NULL){
+		ichi->getEntity()->handleCollision(glm::vec2(pX, pY));
+	}
 	return;
 }
 /*

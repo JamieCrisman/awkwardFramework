@@ -5,7 +5,6 @@
 CAppStateGame CAppStateGame::Instance;
 
 CAppStateGame::CAppStateGame(){
-
 }
 
 void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
@@ -37,10 +36,10 @@ void CAppStateGame::OnActivate(){
 	floor.Add();
 	//floor.scale.x = 1.0;
 	//floor.scale.y = 1.0;
-
 	player.Animation.setTexture(texture, 32, 32);
 
 	player.Animation.setColor(1.0, 1.0, 1.0);
+	floor.setCollider(COLLIDER_TYPE_SQUARE, floor.getDimensions(), glm::vec2(0.0f, 0.0f));
 	//player.SetPos(Vector2(1, 1));
 	
 	//player.scale.x = 5.0;
@@ -54,11 +53,11 @@ void CAppStateGame::OnActivate(){
 
 	//b2Body* dbody = world.CreateBody(&Pbody);
 	//player.body = dbody;
-	player.setCollider(COLLIDER_TYPE_SQUARE, glm::vec2(0.0f, 0.0f));
 	player.SetPos(glm::vec2(64,1));
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);
 	player.Animation.Add("16", 16, 16, 8.0);
+	player.setCollider(COLLIDER_TYPE_SQUARE, player.getDimensions(), glm::vec2(0.0f, 0.0f));
 	player.Add();
 	//Entity::EntityList.push_back(&player);
 	//Entity::EntityList.push_back(&floor);
@@ -76,11 +75,12 @@ void CAppStateGame::OnDeactivate(){
 
 void CAppStateGame::OnLoop(){
 	keys = SDL_GetKeyState( NULL );
+	
 	for(int i = 0;i < Entity::EntityList.size(); i++){
 		if(!Entity::EntityList[i])continue;
 		Entity::EntityList[i]->OnLoop(keys);
 	}
-
+	/*
 	for(int i = 0; i < EntityCol::EntityColList.size(); i++){
 		Entity* EntityA = EntityCol::EntityColList[i].EntityA;
 		Entity* EntityB = EntityCol::EntityColList[i].EntityB;
@@ -93,6 +93,8 @@ void CAppStateGame::OnLoop(){
 
 	}
 	EntityCol::EntityColList.clear();
+	*/
+	CP.CheckCollision(player.getCollider(), floor.getCollider());
 }
 
 void CAppStateGame::OnRender(){

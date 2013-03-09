@@ -11,10 +11,11 @@ public:
 	void OnLoop(Uint8 *keys);
 
 	void OnRender();
-
+	void handleCollision(glm::vec2 pVec);
 	void OnCleanup();
 	void OnAnimate();
-	bool OnCollision(CEntity* Entity);
+	bool OnCollision(Entity* Entity);
+	virtual glm::vec2 getDimensions();
 	Shashin texture;
 	AnimControl Animation;
 	//Sprite sprite;
