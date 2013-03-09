@@ -54,7 +54,7 @@ void CAppStateGame::OnActivate(){
 
 	//b2Body* dbody = world.CreateBody(&Pbody);
 	//player.body = dbody;
-	player.setCollider(1, glm::vec2(0.0f, 0.0f)); //hard code collider enum
+	player.setCollider(COLLIDER_TYPE_SQUARE, glm::vec2(0.0f, 0.0f));
 	player.SetPos(glm::vec2(64,1));
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);

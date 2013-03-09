@@ -7,12 +7,13 @@ class CollisionPolice{
 public:
 	CollisionPolice();
 private:
-	void CheckCollision(Entity one, Entity two);
-	void SquareSquareCollision(Entity one, Entity two);
+	void CheckCollision(Collider* ichi, Collider* ni);
+	void SquareSquareCollision(BlockCollider* ichi, BlockCollider* ni);
 	//not going to bother with these for now.. but it'll be possible atleast
-	void SquareCircleCollision(Entity one, Entity two);
-	void CircleCircleCollision(Entity one, Entity two);
-	
+	/*
+	void SquareCircleCollision(Collider* ichi, Collider* ni);
+	void CircleCircleCollision(Collider* ichi, Collider* ni);
+	*/
 	//collision on a single axis for box
 	bool OneAxisCollisionBox();
 };
