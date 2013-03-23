@@ -67,8 +67,12 @@ void Sprite::Render(glm::vec2 p, float r, glm::vec2 s){
 	r = r * (180/(4.0*atan(1.0)));
 	glLoadIdentity();
 	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
-	float halfWidth = width*0.5f*s.x;
-	float halfHeight = height*0.5f*s.y;
+	float w = width*s.x;
+	float h = height*s.y;
+	if(s.x < 0){
+		p.x += width * glm::abs(s.x);
+	}
+
 	if(r != 0.0){ //no idea how much this will actually trim off but lettuce try it.
 		glTranslatef((p.x), (p.y), 0); //allows rotation to occur at center rather than at top left
 		glRotatef(r, 0,0, 1.0);
@@ -82,23 +86,23 @@ void Sprite::Render(glm::vec2 p, float r, glm::vec2 s){
 			// bottom left
 			glColor3f(RGB[0], RGB[1], RGB[2]);
 			glTexCoord2f(textureOffset.x, textureOffset.y + textureScale.y);
-			glVertex3f(-halfWidth + p.x, halfHeight + p.y, 0.0f);
+			glVertex3f(p.x, h + p.y, 0.0f);
 
 
 			// top left
 			glTexCoord2f(textureOffset.x, textureOffset.y);
 			glColor3f(RGB[0], RGB[1], RGB[2]);
-			glVertex3f(-halfWidth + p.x, -halfHeight + p.y, 0.0f);
+			glVertex3f(p.x, p.y, 0.0f);
 
 			// top right
 			glTexCoord2f(textureOffset.x + textureScale.x, textureOffset.y);
 			glColor3f(RGB[0], RGB[1], RGB[2]);
-			glVertex3f(halfWidth + p.x, -halfHeight + p.y, 0.0f);
+			glVertex3f(w + p.x, p.y, 0.0f);
 
 			// bottom right
 			glTexCoord2f(textureOffset.x + textureScale.x, textureOffset.y + textureScale.y);
 			glColor3f(RGB[0], RGB[1], RGB[2]);
-			glVertex3f(halfWidth + p.x, halfHeight + p.y, 0.0f);
+			glVertex3f(w + p.x, h + p.y, 0.0f);
 			
 		glEnd();
 			

@@ -3,6 +3,7 @@
 #include "../../Util/glm/glm.hpp"
 #include "../Entity.h"
 #include "Collider.h"
+
 class CollisionPolice{
 public:
 	CollisionPolice();
@@ -15,7 +16,7 @@ private:
 	void CircleCircleCollision(Collider* ichi, Collider* ni);
 	*/
 	//collision on a single axis for box
-	bool OneAxisCollisionBox();
+	float penetrationAmount(float aH, float aD, float bH, float bD);
 };
 
 #endif
