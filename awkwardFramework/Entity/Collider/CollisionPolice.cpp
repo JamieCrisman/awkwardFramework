@@ -40,14 +40,28 @@ void CollisionPolice::SquareSquareCollision(BlockCollider* ichi, BlockCollider* 
 	//xxxH is xxxP + xxxD being the center point of the collider
 	glm::vec2 aS = ichi->getEntity()->scale;
 	glm::vec2 bS = ni->getEntity()->scale;
+	float aLeftOffset = ichi->getOffset().x * glm::abs(aS.x);
+	float aTopOffset = ichi->getOffset().y * glm::abs(aS.y);
+	float aRightOffset = ichi->getOffset().z * glm::abs(aS.x);
+	float aBottomOffset = ichi->getOffset().w * glm::abs(aS.y);
+
+	//half dimensions
 	glm::vec2 oneD = ichi->getDimensions();
-	oneD = glm::vec2(oneD.x/2 * glm::abs(aS.x), oneD.y/2 * glm::abs(aS.y));
+	oneD = glm::vec2((oneD.x * glm::abs(aS.x) - (aLeftOffset + aRightOffset)) * 0.5,
+		(oneD.y * glm::abs(aS.y) - (aTopOffset + aBottomOffset)) * 0.5);
+
+	float bLeftOffset = ni->getOffset().x * glm::abs(bS.x);
+	float bTopOffset = ni->getOffset().y * glm::abs(bS.y);
+	float bRightOffset = ni->getOffset().z * glm::abs(bS.x);
+	float bBottomOffset = ni->getOffset().w * glm::abs(bS.y);
+
+	//half dimensions
 	glm::vec2 twoD = ni->getDimensions();
-	twoD = glm::vec2(twoD.x/2 * glm::abs(bS.x), twoD.y/2 * glm::abs(bS.y));
-	glm::vec2 oneP = glm::vec2(ichi->getPosition().x + ichi->getOffset().x,
-								ichi->getPosition().y + ichi->getOffset().y);
-	glm::vec2 twoP = glm::vec2(ni->getPosition().x + ni->getOffset().x,
-								ni->getPosition().y + ni->getOffset().y);
+	twoD = glm::vec2(twoD.x * 0.5 * glm::abs(bS.x), twoD.y * 0.5 * glm::abs(bS.y));
+
+
+	glm::vec2 oneP = glm::vec2(ichi->getPosition().x + aLeftOffset, ichi->getPosition().y + aTopOffset);
+	glm::vec2 twoP = glm::vec2(ni->getPosition().x + bLeftOffset,	ni->getPosition().y + bTopOffset);
 	glm::vec2 oneH = glm::vec2(oneD.x + oneP.x, oneD.y + oneP.y);
 	glm::vec2 twoH = glm::vec2(twoD.x + twoP.x, twoD.y + twoP.y);
 	if(glm::abs(oneH.y - twoH.y) > (oneD.y + twoD.y)){

@@ -80,7 +80,7 @@ Collider* Entity::getCollider(){
 	return collider;
 }
 
-void Entity::setCollider(int type, glm::vec2 dimensions, glm::vec2 offset){
+void Entity::setCollider(int type, glm::vec2 dimensions, glm::vec4 offset){
 	//TODO add in support for other collision types
 	if(type == COLLIDER_TYPE_SQUARE){
 		collider = new BlockCollider(this, dimensions, offset);

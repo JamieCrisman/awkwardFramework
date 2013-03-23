@@ -15,14 +15,15 @@ public:
 	int getShape();
 	glm::vec2 colliderPosition();
 	glm::vec2 getPosition();
-	glm::vec2 getOffset();
+	glm::vec4 getOffset();
 	void setPosition(glm::vec2 &pos);
-	void setOffset(glm::vec2 off);
+	void setOffset(glm::vec4 off);
 	Entity* getEntity();
 	Collider* getThis();
 protected:
 	//position is xy of entity, and offset is xy from topleft
-	glm::vec2 position, offset;
+	glm::vec2 position;
+	glm::vec4 offset;
 	Entity* entity;
 	int shape;
 };
@@ -32,7 +33,7 @@ class BlockCollider : public Collider{
 public:
 	BlockCollider();
 	BlockCollider(Entity* e);
-	BlockCollider(Entity* e, glm::vec2 dim, glm::vec2 off);
+	BlockCollider(Entity* e, glm::vec2 dim, glm::vec4 off);
 	glm::vec2 getDimensions();
 	void setDimensions(glm::vec2 dim);
 private:

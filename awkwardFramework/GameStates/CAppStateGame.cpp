@@ -39,11 +39,11 @@ void CAppStateGame::OnActivate(){
 	player.Animation.setTexture(texture, 32, 32);
 
 	player.Animation.setColor(1.0, 1.0, 1.0);
-	floor.setCollider(COLLIDER_TYPE_SQUARE, floor.getDimensions(), glm::vec2(0.0f, 0.0f));
+	floor.setCollider(COLLIDER_TYPE_SQUARE, floor.getDimensions(), glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
 	//player.SetPos(Vector2(1, 1));
 	
-	player.scale.x = 2.0;
-	player.scale.y = 2.0;
+	//player.scale.x = 2.0;
+	//player.scale.y = 2.0;
 
 	//b2BodyDef Pbody;
 
@@ -57,7 +57,7 @@ void CAppStateGame::OnActivate(){
 	player.Animation.Add("idle", 0, 0, 1.0);
 	player.Animation.Add("walk", 8, 15, 10.0);
 	player.Animation.Add("16", 16, 16, 8.0);
-	player.setCollider(COLLIDER_TYPE_SQUARE, player.getDimensions(), glm::vec2(0.0f, 0.0f));
+	player.setCollider(COLLIDER_TYPE_SQUARE, player.getDimensions(), glm::vec4(12.0f, 4.0f, 12.0f, 0.0f));
 	player.Add();
 	//Entity::EntityList.push_back(&player);
 	//Entity::EntityList.push_back(&floor);

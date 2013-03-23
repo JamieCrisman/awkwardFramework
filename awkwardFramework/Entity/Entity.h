@@ -65,7 +65,7 @@ public:
 	//returns a collider obj
 	Collider* getCollider();
 	//sets the collider duh
-	void setCollider(int type, glm::vec2 dimensions, glm::vec2 offset);
+	void setCollider(int type, glm::vec2 dimensions, glm::vec4 offset);
 
 	Entity();
 	virtual ~Entity();
