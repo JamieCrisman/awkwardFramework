@@ -15,6 +15,13 @@ glm::vec2 Collider::getPosition(){
 	}
 	
 }
+glm::vec2 Collider::getActualPosition(){
+	if(entity != nullptr){
+		return glm::vec2(entity->getPosition().x + offset.x, entity->getPosition().y + offset.y);
+	}else{
+		return position;
+	}
+}
 glm::vec4 Collider::getOffset(){
 	return offset;
 }
@@ -57,10 +64,10 @@ BlockCollider::BlockCollider(Entity* e, glm::vec2 dim, glm::vec4 off) : Collider
 }
 
 
-glm::vec2 BlockCollider::getDimensions(){
+glm::vec2 Collider::getDimensions(){
 	return dimensions;
 }
-void BlockCollider::setDimensions(glm::vec2 dim){
+void Collider::setDimensions(glm::vec2 dim){
 	dimensions = dim;
 }
 
