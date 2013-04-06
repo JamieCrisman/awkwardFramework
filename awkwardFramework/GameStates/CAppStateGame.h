@@ -11,6 +11,7 @@
 #include "../Entity/Collider/CollisionPolice.h"
 #include "../Graphics/Fonts/FreeTypeFont.h"
 #include "../Entity/WorldEntity.h"
+#include "../Util/Quadtree.h"
 
 class CAppStateGame : public CAppState{
 private:
@@ -19,6 +20,7 @@ private:
 		CPlayer player;
 		WorldEntity floor;
 		CollisionPolice CP;
+		Quadtree QTree;
 		bool doSleep;
 		//CPlayer player2;
 		//CEntity Entity;
