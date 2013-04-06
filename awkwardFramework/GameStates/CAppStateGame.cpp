@@ -4,7 +4,7 @@
 
 CAppStateGame CAppStateGame::Instance;
 
-CAppStateGame::CAppStateGame(){
+CAppStateGame::CAppStateGame() : QTree(0, WWIDTH, 0, WHEIGHT){
 }
 
 void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
@@ -77,6 +77,7 @@ void CAppStateGame::OnLoop(){
 	keys = SDL_GetKeyState( NULL );
 	
 	for(int i = 0;i < Entity::EntityList.size(); i++){
+		QTree.AddObject(Entity::EntityList[i]->getCollider());
 		if(!Entity::EntityList[i])continue;
 		Entity::EntityList[i]->OnLoop(keys);
 	}
@@ -94,7 +95,19 @@ void CAppStateGame::OnLoop(){
 	}
 	EntityCol::EntityColList.clear();
 	*/
-	CP.CheckCollision(player.getCollider(), floor.getCollider());
+	for(int i = 0; i < Entity::EntityList.size(); i++){
+		vector<Collider*> Objs = QTree.GetObjectsAt(Entity::EntityList[i]->getPosition().x, Entity::EntityList[i]->getPosition().y);
+		for(int q = 0; q < Objs.size(); q++){
+			if(Entity::EntityList[i]->getCollider() == Objs[q]){ //don't check yourself
+				continue;
+			}else{
+				CP.CheckCollision(Entity::EntityList[i]->getCollider(), Objs[q]);
+			}
+		}
+	}
+	QTree.Clear();
+
+	//CP.CheckCollision(player.getCollider(), floor.getCollider());
 }
 
 void CAppStateGame::OnRender(){

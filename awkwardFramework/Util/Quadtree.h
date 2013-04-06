@@ -1,40 +1,60 @@
 #pragma once
 #ifndef __QUADTREE_H__
-	#define __QUADTREE_H__
-
+#define __QUADTREE_H__
+//https://github.com/veeableful/Adaptive_Quadtree_Minimal
 #include <vector>
+using std::vector;
 
-using namespace std;
-
-class Quadtree;
 class Collider;
 
 class Quadtree {
+
+enum Node {
+	NW = 0,
+	NE,
+	SW,
+	SE,
+	NodeCount
+};
+
 public:
-	Quadtree(float x, float y, float width, float height, int level, int maxLevel);
+	Quadtree();
+
+	Quadtree( double left, double right, double top, double down, unsigned int numObjectsToGrow = 3 );
 
 	~Quadtree();
 
-	void AddObject(Collider *object);
-	vector<Collider*> GetObjectsAt(float x, float y);
+	void AddObject( Collider *object );
+
 	void Clear();
 
+	vector<Collider*> GetObjectsAt( double x, double y );
+
 private:
-	float x;
-	float y;
-	float width;
-	float height;
-	int level;
-	int maxLevel;
+	double left;
+
+	double right;
+
+	double top;
+
+	double down;
+
+	unsigned int numObjectsToGrow;
+
 	vector<Collider*> objects;
 
-	Quadtree * parent;
-	Quadtree * NW;
-	Quadtree * NE;
-	Quadtree * SW;
-	Quadtree * SE;
+	Quadtree * nodes;
 
-	bool contains(Quadtree *child, Collider *object);
+	bool isLeaf;
+
+	bool contains( Collider *object );
+
+	bool contains( double x, double y );
+
+	void createLeaves();
+
+	void moveObjectsToLeaves();
+
 };
 
 #endif

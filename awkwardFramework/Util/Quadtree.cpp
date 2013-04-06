@@ -1,112 +1,121 @@
 #include "Quadtree.h"
 #include "../Entity/Collider/Collider.h"
 
-using namespace std;
+Quadtree::Quadtree() :
+	left( 0 ),
+	right( 0 ),
+	top( 0 ),
+	down( 0 ),
+	numObjectsToGrow( 4 ),
+	nodes( 0 ),
+	isLeaf( true )
+{}
 
-Quadtree::Quadtree(float _x, float _y, float _width, float _height, int _level, int _maxLevel) :
-	x		(_x),
-	y		(_y),
-	width	(_width),
-	height	(_height),
-	level	(_level),
-	maxLevel(_maxLevel)
-{
-	if (level == maxLevel)
-		return;
-
-	NW = new Quadtree(x, y, width / 2.0f, height / 2.0f, level+1, maxLevel);
-	NE = new Quadtree(x + width / 2.0f, y, width / 2.0f, height / 2.0f, level+1, maxLevel);
-	SW = new Quadtree(x, y + height / 2.0f, width / 2.0f, height / 2.0f, level+1, maxLevel);
-	SE = new Quadtree(x + width / 2.0f, y + height / 2.0f, width / 2.0f, height / 2.0f, level+1, maxLevel);
-}
+Quadtree::Quadtree( double _left, double _right, double _top, double _down, unsigned int _numObjectsToGrow ) :
+	left( _left ),
+	right( _right ),
+	top( _top ),
+	down( _down ),
+	numObjectsToGrow( _numObjectsToGrow ),
+	nodes( 0 ),
+	isLeaf( true )
+{}
 
 Quadtree::~Quadtree()
 {
-	if (level == maxLevel)
-		return;
-
-	delete NW;
-	delete NE;
-	delete SW;
-	delete SE;
+	if ( !isLeaf )
+		delete [] nodes;
 }
 
-void Quadtree::AddObject(Collider *object) {
-	if (level == maxLevel) {
-		objects.push_back(object);
+void Quadtree::AddObject( Collider *object )
+{
+	if ( isLeaf ) {
+		objects.push_back( object );
+		bool reachedMaxObjects = ( objects.size() == numObjectsToGrow );
+		if ( reachedMaxObjects ) {
+			createLeaves();
+			moveObjectsToLeaves();
+			isLeaf = false;
+		}
 		return;
 	}
 
-	if (contains(NW, object)) {
-		NW->AddObject(object); return;
-	} else if (contains(NE, object)) {
-		NE->AddObject(object); return;
-	} else if (contains(SW, object)) {
-		SW->AddObject(object); return;
-	} else if (contains(SE, object)) {
-		SE->AddObject(object); return;
+	for ( int n = 0; n < NodeCount; ++n ) {
+		if ( nodes[n].contains( object ) ) {
+			nodes[n].AddObject( object );
+			return;
+		}
 	}
-	if (contains(this, object)) {
-		objects.push_back(object);
+
+	objects.push_back( object );
+}
+
+void Quadtree::Clear()
+{
+	objects.clear();
+
+	if ( !isLeaf ) {
+		for ( int n = 0; n < NodeCount; ++n ) {
+			nodes[n].Clear();
+		}
 	}
 }
 
-vector<Collider*> Quadtree::GetObjectsAt(float _x, float _y) {
-	if (level == maxLevel)
+vector<Collider*> Quadtree::GetObjectsAt( double x, double y )
+{
+	if ( isLeaf ) {
 		return objects;
-
-	vector<Collider*> returnObjects, childReturnObjects;
-	if (!objects.empty()) {
-		returnObjects = objects;
 	}
-	if (_x > x + width / 2.0f && _x < x + width) {
-		if (_y > y + height / 2.0f && _y < y + height) {
-			childReturnObjects = SE->GetObjectsAt(_x, _y);
-			returnObjects.insert(returnObjects.end(), childReturnObjects.begin(), childReturnObjects.end());
-			return returnObjects;
-		} else if (_y > y && _y <= y + height / 2.0f) {
-			childReturnObjects = NE->GetObjectsAt(_x, _y);
-			returnObjects.insert(returnObjects.end(), childReturnObjects.begin(), childReturnObjects.end());
-			return returnObjects;
-		}
-	} else if (_x > x && _x <= x + width / 2.0f) {
-		if (_y > y + height / 2.0f && _y < y + height) {
-			childReturnObjects = SW->GetObjectsAt(_x, _y);
-			returnObjects.insert(returnObjects.end(), childReturnObjects.begin(), childReturnObjects.end());
-			return returnObjects;
-		} else if (_y > y && _y <= y + height / 2.0f) {
-			childReturnObjects = NW->GetObjectsAt(_x, _y);
-			returnObjects.insert(returnObjects.end(), childReturnObjects.begin(), childReturnObjects.end());
-			return returnObjects;
+
+	vector<Collider*> returnedObjects;
+	vector<Collider*> childObjects;
+
+	if ( !objects.empty() )
+		returnedObjects.insert( returnedObjects.end(), objects.begin(), objects.end() );
+
+	for ( int n = 0; n < NodeCount; ++n ) {
+		if ( nodes[n].contains( x, y ) ) {
+			childObjects = nodes[n].GetObjectsAt( x, y );
+			returnedObjects.insert( returnedObjects.end(), childObjects.begin(), childObjects.end() );
+			break;
 		}
 	}
 
-	return returnObjects;
+	return returnedObjects;
 }
 
-void Quadtree::Clear() {
-	if (level == maxLevel) {
-		objects.clear();
-		return;
-	} else {
-		NW->Clear();
-		NE->Clear();
-		SW->Clear();
-		SE->Clear();
-	}
-
-	if (!objects.empty()) {
-		objects.clear();
-	}
+bool Quadtree::contains( Collider *object )
+{
+	return 	object->getActualPosition().x > left &&
+		object->getActualPosition().x + object->getDimensions().x < right &&
+		object->getActualPosition().y > top &&
+		object->getActualPosition().y + object->getDimensions().y < down;
 }
 
-bool Quadtree::contains(Quadtree *child, Collider *object) {
-	return	 !(object->getActualPosition().x < child->x ||
-		   object->getActualPosition().y < child->y ||
-		   object->getActualPosition().x > child->x + child->width  ||
-		   object->getActualPosition().y > child->y + child->height ||
-		   object->getActualPosition().x + object->getDimensions().x < child->x ||
-		   object->getActualPosition().y + object->getDimensions().y < child->y ||
-		   object->getActualPosition().x + object->getDimensions().x > child->x + child->width ||
-		   object->getActualPosition().y + object->getDimensions().y > child->y + child->height);
+bool Quadtree::contains( double x, double y )
+{
+	return 	( x >= left && x <= right ) &&
+		( y >= top && y <= down );
+}
+
+void Quadtree::createLeaves()
+{
+	nodes = new Quadtree[4];
+	nodes[NW] = Quadtree( left, (left+right)/2, top, (top+down)/2, numObjectsToGrow );
+	nodes[NE] = Quadtree( (left+right)/2, right, top, (top+down)/2, numObjectsToGrow );
+	nodes[SW] = Quadtree( left, (left+right)/2, (top+down)/2, down, numObjectsToGrow );
+	nodes[SE] = Quadtree( (left+right)/2, right, (top+down)/2, down, numObjectsToGrow );
+}
+
+void Quadtree::moveObjectsToLeaves()
+{
+	for ( int n = 0; n < NodeCount; ++n ) {
+		for ( unsigned int m = 0; m < objects.size(); ++m ) {
+			if ( nodes[n].contains( objects[m] ) ) {
+				nodes[n].AddObject( objects[m] );
+				objects.erase( objects.begin() + m );
+				--m;
+			}
+		}
+	}
 }
