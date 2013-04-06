@@ -32,11 +32,20 @@ void CAppStateGame::OnActivate(){
 		return;
 	}
 
-	floor.Load("Assets/Images/World/placeholder_grass.png", 140, 10, glm::vec2(400, 100));
+
+	spire.Load("Assets/Images/World/spire.png", 32, 96, glm::vec2(40, 354));
+	spire.Add();
+	floor.Load("Assets/Images/World/placeholder_grass.png", 640, 30, glm::vec2(0, 450));
 	floor.Add();
 	//floor.scale.x = 1.0;
 	//floor.scale.y = 1.0;
 	player.Animation.setTexture(texture, 32, 32);
+
+	for(int zz = 0; zz < 10; zz++){
+		block[zz].Load("Assets/Images/World/block.png", 32, 32, glm::vec2(40 * (zz+1) + 40, 418));
+		block[zz].Add();
+		block[zz].setCollider(COLLIDER_TYPE_SQUARE, block[zz].getDimensions(), glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
+	}
 
 	player.Animation.setColor(1.0, 1.0, 1.0);
 	floor.setCollider(COLLIDER_TYPE_SQUARE, floor.getDimensions(), glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
@@ -97,6 +106,9 @@ void CAppStateGame::OnLoop(){
 	*/
 	for(int i = 0; i < Entity::EntityList.size(); i++){
 		vector<Collider*> Objs = QTree.GetObjectsAt(Entity::EntityList[i]->getPosition().x, Entity::EntityList[i]->getPosition().y);
+		if(Entity::EntityList[i]->getCollider() == nullptr){
+			continue;
+		}
 		for(int q = 0; q < Objs.size(); q++){
 			if(Entity::EntityList[i]->getCollider() == Objs[q]){ //don't check yourself
 				continue;

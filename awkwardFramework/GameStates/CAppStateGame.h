@@ -18,7 +18,8 @@ private:
 	static CAppStateGame Instance;
 		Shashin texture;
 		CPlayer player;
-		WorldEntity floor;
+		WorldEntity floor, spire;
+		WorldEntity block[10];
 		CollisionPolice CP;
 		Quadtree QTree;
 		bool doSleep;

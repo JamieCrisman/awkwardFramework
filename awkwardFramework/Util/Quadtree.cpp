@@ -29,6 +29,9 @@ Quadtree::~Quadtree()
 
 void Quadtree::AddObject( Collider *object )
 {
+	if(object == nullptr){
+		return;
+	}
 	if ( isLeaf ) {
 		objects.push_back( object );
 		bool reachedMaxObjects = ( objects.size() == numObjectsToGrow );
