@@ -89,10 +89,10 @@ vector<Collider*> Quadtree::GetObjectsAt( double x, double y )
 
 bool Quadtree::contains( Collider *object )
 {
-	return 	object->getActualPosition().x > left &&
-		object->getActualPosition().x + object->getDimensions().x < right &&
-		object->getActualPosition().y > top &&
-		object->getActualPosition().y + object->getDimensions().y < down;
+	return 	object->getPosition().x > left &&
+		object->getPosition().x + object->getDimensions().x < right &&
+		object->getPosition().y > top &&
+		object->getPosition().y + object->getDimensions().y < down;
 }
 
 bool Quadtree::contains( double x, double y )

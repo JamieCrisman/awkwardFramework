@@ -5,8 +5,8 @@
 
 Sprite::Sprite(Shashin &texture, float width, float height){
 	this->texture = texture;
-	width = texture.width;
-	height = texture.height;
+	width = texture.textureWidth;
+	height = texture.textureHeight;
 	textureOffset = glm::vec2(0.0f, 0.0f);
 	textureScale = glm::vec2(1.0f, 1.0f);
 	RGB[0] = 1.0;
@@ -17,8 +17,8 @@ Sprite::Sprite(Shashin &texture, float width, float height){
 //need one with textureoffset for static sprites that share a sheet
 Sprite::Sprite(Shashin &texture, glm::vec2 offset, float width, float height){
 	this->texture = texture;
-	width = texture.width;
-	height = texture.height;
+	width = texture.textureWidth;
+	height = texture.textureHeight;
 	textureOffset = offset;
 	textureScale = glm::vec2(1.0f, 1.0f);
 	RGB[0] = 1.0;
@@ -39,9 +39,9 @@ Sprite::Sprite(){
 }
 
 void Sprite::setTexture(Shashin t){
-	width = t.width;
-	height = t.height;
-	texture.set(t);
+	width = t.textureWidth;
+	height = t.textureHeight;
+	texture.set(t.getThis());
 }
 
 glm::vec2 Sprite::getDimensions(){
@@ -55,15 +55,19 @@ void Sprite::setColor(float r, float g, float b){
 	
 }
 
+void Sprite::setDimensions(glm::vec2 dim){
+	width = dim.x;
+	height = dim.y;
+}
+
 Sprite::~Sprite(){
 	glDeleteTextures(1, &texture.GL_texture);
 }
 
 //r (rotation) should come in as a radian, but GL uses degree
 void Sprite::Render(glm::vec2 p, float r, glm::vec2 s){
-	if(texture.GL_texture == NULL)
-		return;
-
+	bool hasTexture = (texture.GL_texture != NULL);
+	
 	r = r * (180/(4.0*atan(1.0)));
 	glLoadIdentity();
 	glBindTexture( GL_TEXTURE_2D, texture.GL_texture);
@@ -79,15 +83,16 @@ void Sprite::Render(glm::vec2 p, float r, glm::vec2 s){
 		glTranslatef(-(p.x), -(p.y), 0); //allows rotation to occur at center rather than at top left
 	}
 	//renders a quad
-	glEnable(GL_BLEND); 
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glPushMatrix();
+	if(hasTexture){
 		glBegin(GL_QUADS);
 			// bottom left
 			glColor3f(RGB[0], RGB[1], RGB[2]);
 			glTexCoord2f(textureOffset.x, textureOffset.y + textureScale.y);
 			glVertex3f(p.x, h + p.y, 0.0f);
-
+			
 
 			// top left
 			glTexCoord2f(textureOffset.x, textureOffset.y);
@@ -105,7 +110,24 @@ void Sprite::Render(glm::vec2 p, float r, glm::vec2 s){
 			glVertex3f(w + p.x, h + p.y, 0.0f);
 			
 		glEnd();
+	}
+	if(!hasTexture){ //|| debugmode == true
+		glColor3f( RGB[0], RGB[1], RGB[2] );
+		glBegin(GL_QUADS);
+			// bottom left
+			glVertex3f(p.x, h + p.y, 0.0f);
+
+			// top left
+			glVertex3f(p.x, p.y, 0.0f);
+
+			// top right
+			glVertex3f(w + p.x, p.y, 0.0f);
+
+			// bottom right
+			glVertex3f(w + p.x, h + p.y, 0.0f);
 			
+		glEnd();
+	}
 	glPopMatrix();
 	
 
@@ -133,7 +155,7 @@ AnimControl::AnimControl() : Sprite(){
 void AnimControl::setTexture(Shashin t, float width, float height){
 	this->width = width;
 	this->height = height;
-	this->texture.set(t);
+	this->texture.set(t.getThis());
 }
 void AnimControl::setTexture(Shashin t){
 	//this->width = width;
@@ -171,11 +193,11 @@ void AnimControl::Render(glm::vec2 p, float r, glm::vec2 s)
 			anim->frame += anim->speed * CFPS::FPSControl.GetDeltaTime();
 			if(anim->frame > anim->end) { anim->frame = anim->start; }
 		}
-		x = (int) anim->frame % (int) (texture.width / width);
-		y = (int) anim->frame / (texture.width / width);
+		x = (int) anim->frame % (int) (texture.textureWidth / width);
+		y = (int) anim->frame / (texture.textureWidth / width);
 	}
-	textureOffset = glm::vec2((x * width) / texture.width, (y * height) / texture.height);
-	textureScale = glm::vec2(width / texture.width, height / texture.height);
+	textureOffset = glm::vec2((x * width) / texture.textureWidth, (y * height) / texture.textureHeight);
+	textureScale = glm::vec2(width / texture.textureWidth, height / texture.textureHeight);
 
 	Sprite::Render(p, r, s);
 }

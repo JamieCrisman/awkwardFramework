@@ -11,6 +11,7 @@ public:
 	//Vector2 position;
 	//float rotation;
 	//Vector2 scale;
+	float depth;
 	glm::vec2 position;
 	glm::vec2 scale;
 	float rotation;

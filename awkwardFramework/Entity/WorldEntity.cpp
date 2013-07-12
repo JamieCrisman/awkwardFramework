@@ -10,18 +10,14 @@ WorldEntity::WorldEntity(){
 	//Type= come up with types?;
 
 
-	Sprite();
-}
-
-glm::vec2 WorldEntity::getDimensions(){
-	return sprite.getDimensions();
+	//Sprite();
 }
 
 WorldEntity::WorldEntity(char* File, float width, float height, glm::vec2 pos){
-	Sprite();
-	worldTexture.Load(File, width, height);
+	//Sprite();
+	worldTexture.Load(File);
 	if(worldTexture.GL_texture != NULL){
-		sprite.setTexture(worldTexture);
+		graphic->setTexture(worldTexture.getThis());
 		position = pos;
 	}
 }
@@ -32,10 +28,9 @@ WorldEntity::~WorldEntity(){
 
 
 bool WorldEntity::Load(char* File, float width, float height, glm::vec2 pos){
-	worldTexture.Load(File, width, height);
-	if(worldTexture.GL_texture != NULL){
-		sprite.setTexture(worldTexture);
-		position = pos;
+	if(worldTexture.Load(File)){
+		graphic->setTexture(worldTexture.getThis());
+		//position = pos;
 		return true;
 	}else{
 		return false;
@@ -43,6 +38,5 @@ bool WorldEntity::Load(char* File, float width, float height, glm::vec2 pos){
 }
 
 void WorldEntity::OnRender(){
-	sprite.Render(this->position, this->rotation, this->scale);
-	//sprite.Render(this->body->GetPosition(), this->body->GetAngle(), this->scale);
+	Entity::OnRender();
 }

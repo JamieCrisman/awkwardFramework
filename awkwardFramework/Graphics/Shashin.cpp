@@ -4,21 +4,24 @@
 #include "Shashin.h"
 
 Shashin::Shashin(const char *fileName, float width=-1, float height=-1){
-	Load(fileName, width, height);
+	Load(fileName);
 }
 Shashin::Shashin(){
 	GL_texture = NULL;
-	width = 0;
-	height = 0;
+	textureWidth = 0;
+	textureHeight = 0;
 }
 
-void Shashin::set(Shashin t){
-	GL_texture = t.GL_texture;
-	width = t.width;
-	height = t.height;
+void Shashin::set(Shashin *t){
+	GL_texture = t->GL_texture;
+	textureWidth = t->textureWidth;
+	textureWidth = t->textureWidth;
 }
 
-bool Shashin::Load(const char *fileName, float width, float height){
+Shashin::~Shashin(){
+	glDeleteTextures(1, &GL_texture);
+}
+bool Shashin::Load(const char *fileName){
 	SDL_Surface *textureTest;
 	GLenum texture_format;
 	GLint nOfColors;
@@ -48,8 +51,8 @@ bool Shashin::Load(const char *fileName, float width, float height){
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, nOfColors, textureTest->w, textureTest->h,0, texture_format, GL_UNSIGNED_BYTE, textureTest->pixels);
-		this->width = width;
-		this->height = height;
+		textureWidth = textureTest->w;
+		textureHeight = textureTest->h;
 	
 	}else{
 		GL_texture = NULL;
@@ -61,4 +64,8 @@ bool Shashin::Load(const char *fileName, float width, float height){
 	}
 	return true;
 
+}
+
+Shashin *Shashin::getThis(){
+	return this;
 }

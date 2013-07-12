@@ -7,9 +7,9 @@
 class CollisionPolice{
 public:
 	CollisionPolice();
-	void CheckCollision(Collider* ichi, Collider* ni);
+	glm::vec2 CheckCollision(Collider* ichi, Collider* ni);
 private:
-	void SquareSquareCollision(BlockCollider* ichi, BlockCollider* ni);
+	glm::vec2 SquareSquareCollision(BlockCollider* ichi, BlockCollider* ni);
 	//not going to bother with these for now.. but it'll be possible atleast
 	/*
 	void SquareCircleCollision(Collider* ichi, Collider* ni);

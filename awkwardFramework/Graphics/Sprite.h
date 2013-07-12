@@ -26,6 +26,7 @@ public:
 	Shashin texture;
 	float width, height;
 	glm::vec2 getDimensions();
+	void setDimensions(glm::vec2);
 	glm::vec2 textureOffset;
 	glm::vec2 textureScale;
 	float RGB[3];

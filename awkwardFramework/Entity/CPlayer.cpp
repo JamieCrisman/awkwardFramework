@@ -3,18 +3,27 @@
 
 CPlayer::CPlayer(){
 	Entity::Add();
+	sY, aY, sX, aX = 0.0f;
 }
 
-CPlayer::CPlayer(Shashin t, float width, float height){
-	sprite.texture.set(t);
+CPlayer::CPlayer(Shashin *t, float width, float height){
+	//sprite.texture.set(t);
+	graphic->setTexture(t);
 	Width = width;
 	Height = height;
 	collider = new BlockCollider(getThis());
+	sY, aY, sX, aX = 0.0f;
 	Entity::Add();
 }
 
+void CPlayer::setDimensions(glm::vec2 dim){
+	Width = dim.x;
+	Height = dim.y;
+	//Animation.setDimensions(dim);
+}
+
 bool CPlayer::OnLoad(char* File, float width, float height){
-	if(!texture.Load(File, width, height)){
+	if(!texture.Load(File)){
 		return false;
 	}else{
 		//Animation.SetTexture(texture);
@@ -23,49 +32,52 @@ bool CPlayer::OnLoad(char* File, float width, float height){
 }
 
 void CPlayer::OnLoop(Uint8 *keys){
+	float maxXAccel = 4.0f;
+	float maxYAccel = 4.0f;
+	float maxXVel = 20.0f;
+	float maxYVel = 50.0f;
+	float accelRate = 4.0f;
+	float jumpSpeed = GRAVITY + 5.0f;
+	//decreases acceleration
+	sX = sX * 0.5;
+	sY = sY * 0.5;
+	//just clean it up if it's less than 1
+	sX = (glm::abs(sX) < 1.0)? 0 : sX;
+	sY = (glm::abs(sY) < 1.0)? 0 : sY;
 
-	float desiredVelX = 0;
-	float baseSpeed = 30.0f;
 	if(keys[SDLK_LEFT]){
-		SetPos(glm::vec2(position.x - 5.0, (position.y)));
-		Animation.Play("walk");
+		//SetPos(glm::vec2(position.x - 5.0, (position.y)));
+		//Animation.Play("walk");
 		if(scale.x > 0)
 			scale.x *= -1;
+
+		sX -= accelRate * CFPS::FPSControl.GetSpeedFactor();
 		
-		desiredVelX += -baseSpeed;
 	}
 	if(keys[SDLK_UP]){
-		SetPos(glm::vec2(position.x, (position.y - 5.0)));
-		//player.body->SetTransform(b2Vec2(10.0f, 20.0f), 0.0f);
-		//player.body->ApplyForce(b2Vec2(0.0f, 10.0f), b2Vec2(0.0f, 0.0f));
+		sY -= jumpSpeed * CFPS::FPSControl.GetSpeedFactor();
 	}
 	if(keys[SDLK_RIGHT]){
-		SetPos(glm::vec2((position.x + 5.0), (position.y)));
-		Animation.Play("walk");
+		//SetPos(glm::vec2((position.x + 5.0), (position.y)));
+		//Animation.Play("walk");
 		if(scale.x < 0)
 			scale.x *= -1;
 
-		desiredVelX += baseSpeed;
+		sX += accelRate * CFPS::FPSControl.GetSpeedFactor();
 	}
 	if(keys[SDLK_DOWN]){
-		SetPos(glm::vec2((position.x), (position.y + 5.0)));
+		sY += accelRate * CFPS::FPSControl.GetSpeedFactor();
 	}
-	//float deltaVelocity = desiredVelX - vel.x;
-	//gradual
-	/*
-	case desiredVel = b2Max( vel.x - 0.1f, -5.0f ); break;
-    case MS_STOP:  desiredVel = vel.x * 0.98f; break;
-    case MS_RIGHT: desiredVel = b2Min( vel.x + 0.1f,  5.0f ); break;
-	*/
+	//sY += GRAVITY * CFPS::FPSControl.GetSpeedFactor();
+
+	sX = (sX < maxXVel)? sX : maxXVel;
+	sX = (sX > -maxXVel)? sX : -maxXVel;
+	sY = (sY < maxYVel)? sY : maxYVel;
+	sY = (sY > -maxYVel)? sY : -maxYVel;
+	
+	SetPos(glm::vec2(position.x + sX, position.y+ sY));
 	Entity::OnLoop(keys);
 
-}
-glm::vec2 CPlayer::getDimensions(){
-	return Animation.getDimensions();
-}
-void CPlayer::OnRender(){
-	Animation.Render(this->position, this->rotation, this->scale);
-	//Animation.Render(this->body->GetPosition(), this->body->GetAngle(), this->scale);
 }
 
 void CPlayer::OnCleanup(){
@@ -77,15 +89,25 @@ void CPlayer::OnAnimate(){
 	Entity::OnAnimate();
 }
 
-void CPlayer::handleCollision(glm::vec2 pVec){
-	SetPos(getPosition() + pVec);
+void CPlayer::handleCollision(std::vector<glm::vec2> pVec){
+	//SetPos(getPosition() + pVec);
+	float tX = 0, tY = 0; //total x/y
+	for(int i = 0; i < pVec.size(); i++){
+		if(pVec[i].x == 0 && pVec[i].y == 0)
+			continue;
+		
+		if(glm::abs(pVec[i].x) < glm::abs(pVec[i].y)){
+			tX += pVec[i].x;
+		}else{
+			tY += pVec[i].y;
+		}
+		
+	}
+	SetPos(glm::vec2(position.x + tX, position.y + tY));
+	
 }
 
 
 bool CPlayer::OnCollision(Entity* Entity){
 	return true;
-}
-
-void CPlayer::setTexture(Shashin t){
-	Animation.setTexture(t);
 }

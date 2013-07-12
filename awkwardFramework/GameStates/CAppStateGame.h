@@ -13,25 +13,27 @@
 #include "../Entity/WorldEntity.h"
 #include "../Util/Quadtree.h"
 
+
 class CAppStateGame : public CAppState{
 private:
 	static CAppStateGame Instance;
 		Shashin texture;
 		CPlayer player;
-		WorldEntity floor, spire;
-		WorldEntity block[10];
+		//WorldEntity floor, spire;
+		//WorldEntity block[10];
 		CollisionPolice CP;
-		Quadtree QTree;
 		bool doSleep;
 		//CPlayer player2;
 		//CEntity Entity;
 		//CEntity Entity2;
 		//b2Vec2 gravity(0.0f, -10.0f);
+		int mousex, mousey;
 		freetype::font_data our_font;
 		char* msg;
 	CAppStateGame();
 
 public:
+	static Quadtree QTree;
 	Uint8 *keys;
 	void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
 	void OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode);

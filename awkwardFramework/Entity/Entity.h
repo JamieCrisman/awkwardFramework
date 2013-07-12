@@ -6,10 +6,13 @@
 #include "../Util/CCamera.h"
 //#include <SDL_opengl.h>
 //#include <SDL_image.h>
-#include "../Graphics/Sprite.h"
+//#include "../Graphics/Sprite.h"
+#include "../Graphics/graphic.h"
 #include <vector>
+#include "../Graphics/Shashin.h"
 
-class Sprite;
+//class Sprite;
+class Graphic;
 class Collider;
 class EntityTagData
 {
@@ -31,7 +34,8 @@ public:
 protected:
 	glm::vec2 Speed;
 	glm::vec2 acceleration;
-	Sprite sprite;
+	//Sprite sprite;
+	Graphic *graphic;
 	Collider* collider;
 	std::vector<EntityTagData> tags;
 public:
@@ -42,8 +46,11 @@ public:
 	float Width;
 	float Height;
 	glm::vec2 maxSpeed;
+	glm::vec4 offset;
+	glm::vec2 getDimensions();
 
-	virtual glm::vec2 getDimensions();
+	glm::vec4 getOffset();
+	void setOffset(glm::vec4 off);
 
 	int getWidth();
 	int getHeight();
@@ -65,12 +72,12 @@ public:
 	//returns a collider obj
 	Collider* getCollider();
 	//sets the collider duh
-	void setCollider(int type, glm::vec2 dimensions, glm::vec4 offset);
+	void setCollider(int type);
 
 	Entity();
 	virtual ~Entity();
 
-	virtual void handleCollision(glm::vec2 pVec);
+	virtual void handleCollision(std::vector<glm::vec2> pVec);
 	virtual bool OnLoad(char* File, float width, float height, int MaxFrames);
 	virtual void OnLoop(Uint8 *keys);
 	virtual void OnRender();

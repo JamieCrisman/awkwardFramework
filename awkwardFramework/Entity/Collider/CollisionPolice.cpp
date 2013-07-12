@@ -3,16 +3,15 @@
 CollisionPolice::CollisionPolice(){
 }
 
-void CollisionPolice::CheckCollision(Collider* ichi, Collider* ni){
+glm::vec2 CollisionPolice::CheckCollision(Collider* ichi, Collider* ni){
 	//figure out what collision types and the run the correct function to manage them
 
 	if(ichi->getShape() == COLLIDER_TYPE_NONE || ni->getShape() == COLLIDER_TYPE_NONE){
-		return; //don't waste time checking collision on things without colliders
+		return glm::vec2(0,0); //don't waste time checking collision on things without colliders
 	}
 	if(ichi->getShape() == COLLIDER_TYPE_SQUARE && ni->getShape() == COLLIDER_TYPE_SQUARE){
 		//we're expecting this type in most cases so do it first
-		SquareSquareCollision((BlockCollider*)ichi, (BlockCollider*)ni);
-		return;
+		return SquareSquareCollision((BlockCollider*)ichi, (BlockCollider*)ni);
 	}
 	/*
 	//there's not that many cases, we can make this better if it gets too complicated
@@ -30,9 +29,10 @@ void CollisionPolice::CheckCollision(Collider* ichi, Collider* ni){
 	}
 	*/
 	//if we get to here there's a collision type/pairing I didn't handle correctly
+	return glm::vec2(0.0);
 }
 
-void CollisionPolice::SquareSquareCollision(BlockCollider* ichi, BlockCollider* ni){
+glm::vec2 CollisionPolice::SquareSquareCollision(BlockCollider* ichi, BlockCollider* ni){
 	//this will need to be revised to use less placeholder obj, but this will help
 	//sort out what needs to happen
 	//xxxD is (dimensions/2)
@@ -65,10 +65,10 @@ void CollisionPolice::SquareSquareCollision(BlockCollider* ichi, BlockCollider* 
 	glm::vec2 oneH = glm::vec2(oneD.x + oneP.x, oneD.y + oneP.y);
 	glm::vec2 twoH = glm::vec2(twoD.x + twoP.x, twoD.y + twoP.y);
 	if(glm::abs(oneH.y - twoH.y) > (oneD.y + twoD.y)){
-		return;
+		return glm::vec2(0, 0);
 	}
 	if(glm::abs(oneH.x - twoH.x) > (oneD.x + twoD.x)){
-		return;
+		return glm::vec2(0, 0);
 	}
 	//this point we know we have a collision
 	float pX = penetrationAmount(oneH.x, oneD.x, twoH.x, twoD.x);
@@ -76,17 +76,10 @@ void CollisionPolice::SquareSquareCollision(BlockCollider* ichi, BlockCollider* 
 	float pY = penetrationAmount(oneH.y, oneD.y, twoH.y, twoD.y);
 	pY = (oneP.y < twoP.y)? -1 * pY : pY;
 	if(ichi->getEntity() != NULL){
-		//we choose the lower of the two displacements and only go on one axis
-		if(glm::abs(pX) < glm::abs(pY)){
-			//if x mag is less than y mag
-			ichi->getEntity()->handleCollision(glm::vec2(pX, 0.0f));
-		}else{
-			//if y mag is less than x mag
-			ichi->getEntity()->handleCollision(glm::vec2(0.0f, pY));
-		}
-		
+		return glm::vec2(pX, pY);
+	}else{
+		return glm::vec2(0, 0);
 	}
-	return;
 }
 
 //for AABB SAT

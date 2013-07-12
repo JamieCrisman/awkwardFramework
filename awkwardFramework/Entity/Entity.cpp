@@ -25,14 +25,15 @@ Entity* Entity::getThis(){
 	return this;
 }
 
-Entity::Entity(){
+Entity::Entity() {
 	//X = Y = 0.0f;
 	Width = Height = 0;
 	//collider.setPosition(this->position);
 	Speed = glm::vec2(0.0f, 0.0f);
 	maxSpeed = glm::vec2(5.0f, 0.0f);
-	Sprite();
 	collider = NULL;
+	offset = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+	graphic = Graphic(this).getThis();
 }
 
 Entity::~Entity(){
@@ -72,28 +73,40 @@ int Entity::getHeight(){
 	return Height;
 }
 
+glm::vec4 Entity::getOffset(){
+	return offset;
+}
+
+void Entity::setOffset(glm::vec4 off){
+	offset = off;
+}
+
 glm::vec2 Entity::getDimensions(){
-	return glm::vec2(); //sprite.getDimensions();
+	glm::vec2 d = graphic->getFrameDimensions();
+	float dimx = (d.x - (offset.x + offset.z)) * this->scale.x;
+	float dimy = (d.y - (offset.y + offset.w)) * this->scale.y;
+	return glm::vec2(dimx, dimy); //sprite.getDimensions();
 }
 
 Collider* Entity::getCollider(){
 	return collider;
 }
 
-void Entity::setCollider(int type, glm::vec2 dimensions, glm::vec4 offset){
+void Entity::setCollider(int type){
 	//TODO add in support for other collision types
 	if(type == COLLIDER_TYPE_SQUARE){
-		collider = new BlockCollider(this, dimensions, offset);
+		collider = new BlockCollider(this);
 		//this->collider.setOffset(offset);
 		//this->collider.setPosition(position);
 	}
 }
 
-void Entity::handleCollision(glm::vec2 pVec){
+void Entity::handleCollision(std::vector<glm::vec2> pVec){
 
 }
 
 void Entity::OnRender(){
+	graphic->render();
 }
 
 void Entity::OnCleanup(){

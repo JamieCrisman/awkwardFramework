@@ -3,8 +3,9 @@
 #define NO_STDIO_REDIRECT
 
 CAppStateGame CAppStateGame::Instance;
+Quadtree CAppStateGame::QTree = Quadtree(0, WWIDTH, 0, WHEIGHT);
 
-CAppStateGame::CAppStateGame() : QTree(0, WWIDTH, 0, WHEIGHT){
+CAppStateGame::CAppStateGame(){
 }
 
 void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
@@ -13,13 +14,17 @@ void CAppStateGame::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode){
 			CAppStateManager::SetActiveAppState(APPSTATE_INTRO);
 			break;
 		}
+		case SDL_MOUSEBUTTONDOWN: {
+			SDL_GetMouseState(&mousex, &mousey);
+			break;						  
+		}
 		default:{
 		}
 	}
 
 }
 void CAppStateGame::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode){
-	player.Animation.Play("idle");
+	//player.Animation.Play("idle");
 }
 
 void CAppStateGame::OnActivate(){
@@ -28,48 +33,36 @@ void CAppStateGame::OnActivate(){
 	//player.body->GetPosition();
 	our_font.init("Assets/Fonts/Arial.ttf",16);
 
-	if( !texture.Load("Assets/Images/Sprites/placeholder_player.png", 256, 64) ){
+	/*if( !texture.Load("Assets/Images/Sprites/placeholder_player.png", 256, 64) ){
 		return;
-	}
+	}*/
 
-
-	spire.Load("Assets/Images/World/spire.png", 32, 96, glm::vec2(40, 354));
-	spire.Add();
-	floor.Load("Assets/Images/World/placeholder_grass.png", 640, 30, glm::vec2(0, 450));
+	/*floor.Load("Assets/Images/World/placeholder_grass.png", 640, 30, glm::vec2(0, 450));
 	floor.Add();
-	//floor.scale.x = 1.0;
-	//floor.scale.y = 1.0;
-	player.Animation.setTexture(texture, 32, 32);
-
-	for(int zz = 0; zz < 10; zz++){
+	*/
+	//player.Animation.setTexture(texture, 32, 32);
+	player.setDimensions(glm::vec2(32, 32));
+	/*for(int zz = 0; zz < 10; zz++){
 		block[zz].Load("Assets/Images/World/block.png", 32, 32, glm::vec2(40 * (zz+1) + 40, 418));
 		block[zz].Add();
-		block[zz].setCollider(COLLIDER_TYPE_SQUARE, block[zz].getDimensions(), glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
+		block[zz].setCollider(COLLIDER_TYPE_SQUARE);
 	}
+	*/
 
-	player.Animation.setColor(1.0, 1.0, 1.0);
-	floor.setCollider(COLLIDER_TYPE_SQUARE, floor.getDimensions(), glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
-	//player.SetPos(Vector2(1, 1));
-	
-	//player.scale.x = 2.0;
-	//player.scale.y = 2.0;
+	//player.Animation.setColor(1.0, 1.0, 1.0);
+	//floor.setCollider(COLLIDER_TYPE_SQUARE);
 
-	//b2BodyDef Pbody;
+	//LOOK HERE
+	//
+	// MAKE IT SO IT WON'T RENDER IF THERE'S NO POINTER TO GRAPHIC IN ENTITY
+	//
+	//
 
-	//Pbody.userData = player.getThis();
-	//Pbody.position.Set(1, 2);
-	//Pbody.fixedRotation = true;
 
-	//b2Body* dbody = world.CreateBody(&Pbody);
-	//player.body = dbody;
 	player.SetPos(glm::vec2(0,0));
-	player.Animation.Add("idle", 0, 0, 1.0);
-	player.Animation.Add("walk", 8, 15, 10.0);
-	player.Animation.Add("16", 16, 16, 8.0);
-	player.setCollider(COLLIDER_TYPE_SQUARE, player.getDimensions(), glm::vec4(12.0f, 4.0f, 12.0f, 0.0f));
+	player.setOffset(glm::vec4(12.0f, 4.0f, 12.0f, 0.0f));
+	player.setCollider(COLLIDER_TYPE_SQUARE);
 	player.Add();
-	//Entity::EntityList.push_back(&player);
-	//Entity::EntityList.push_back(&floor);
 }
 
 void CAppStateGame::OnDeactivate(){
@@ -86,9 +79,9 @@ void CAppStateGame::OnLoop(){
 	keys = SDL_GetKeyState( NULL );
 	
 	for(int i = 0;i < Entity::EntityList.size(); i++){
-		QTree.AddObject(Entity::EntityList[i]->getCollider());
 		if(!Entity::EntityList[i])continue;
 		Entity::EntityList[i]->OnLoop(keys);
+		QTree.AddObject(Entity::EntityList[i]->getCollider());
 	}
 	/*
 	for(int i = 0; i < EntityCol::EntityColList.size(); i++){
@@ -109,13 +102,19 @@ void CAppStateGame::OnLoop(){
 		if(Entity::EntityList[i]->getCollider() == nullptr){
 			continue;
 		}
+		vector<glm::vec2> pierce;
 		for(int q = 0; q < Objs.size(); q++){
 			if(Entity::EntityList[i]->getCollider() == Objs[q]){ //don't check yourself
 				continue;
 			}else{
-				CP.CheckCollision(Entity::EntityList[i]->getCollider(), Objs[q]);
+				glm::vec2 t = CP.CheckCollision(Entity::EntityList[i]->getCollider(), Objs[q]);
+				if(t.x != 0 || t.y != 0){
+					pierce.push_back(t);
+				}
 			}
 		}
+		if(pierce.size() > 0)
+			Entity::EntityList[i]->handleCollision(pierce);///TODO MAKE HANDLE COLLISION TAKE ALL THE COLLISIONS
 	}
 	QTree.Clear();
 
@@ -136,11 +135,11 @@ void CAppStateGame::OnRender(){
 	sprintf(tttt, "%.4g", player.getPosition().y ); 
 	test2 = "Player Y: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
 	test += "\n"+test2 + tttt;
-	sprintf(tttt, "%.4g", player.getCollider()->getPosition().x ); 
-	test += "\nCollider X: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
-	test += tttt;
-	sprintf(tttt, "%.4g", player.getCollider()->getPosition().y ); 
-	test2 = "Collider Y: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
+	//sprintf(tttt, "%.4g", player.getCollider()->getPosition().x ); 
+	//test += "\nCollider X: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
+	//test += tttt;
+	sprintf(tttt, "%.4g", CFPS::FPSControl.GetSpeedFactor() ); 
+	test2 = "SP FACT: ";// + posx;// +"\njumped over the lazy dog.\nYay this is on the last line now! :D";
 	test += "\n"+test2 + tttt;
 	delete tttt;
 	//char *beep = test << posx;

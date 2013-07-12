@@ -3,72 +3,42 @@
 Collider::Collider(){
 	entity = NULL;
 	shape = COLLIDER_TYPE_NONE;
-	position = glm::vec2(0.0f, 0.0f);
-	offset = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
 glm::vec2 Collider::getPosition(){
 	if(entity != nullptr){
-		return entity->getPosition();
+		return glm::vec2(entity->getPosition().x + entity->offset.x, entity->getPosition().y + entity->offset.y);
 	}else{
-		return position;
-	}
-	
-}
-glm::vec2 Collider::getActualPosition(){
-	if(entity != nullptr){
-		return glm::vec2(entity->getPosition().x + offset.x, entity->getPosition().y + offset.y);
-	}else{
-		return position;
+		return glm::vec2(-1,-1);
 	}
 }
 glm::vec4 Collider::getOffset(){
-	return offset;
+	return entity->getOffset();
 }
-void Collider::setPosition(glm::vec2 &pos){
-	position = pos;
-}
+
 Collider* Collider::getThis(){
 	return this;
 }
-void Collider::setOffset(glm::vec4 off){
-	offset = off;
-}
+
 Entity* Collider::getEntity(){
 	return entity;
 }
-glm::vec2 Collider::colliderPosition(){
-	//TODO:: make this do entity position + offset if there's an entity
-	return glm::vec2(position.x + offset.x, position.y + offset.y);
-}
+
 int Collider::getShape(){
 	return shape;
 }
+
 BlockCollider::BlockCollider() : Collider(){
 	shape = COLLIDER_TYPE_SQUARE;
 }
 BlockCollider::BlockCollider(Entity* e) : Collider(){
 	shape = COLLIDER_TYPE_SQUARE;
 	entity = e;
-	dimensions = glm::vec2(e->getWidth(), e->getHeight());
-	position = glm::vec2(0.0f, 0.0f);
-	offset = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
-}
-
-BlockCollider::BlockCollider(Entity* e, glm::vec2 dim, glm::vec4 off) : Collider(){
-	shape = COLLIDER_TYPE_SQUARE;
-	entity = e;
-	dimensions = dim;
-	position = glm::vec2(0.0f, 0.0f); //should output from entity anyways
-	offset = off;
 }
 
 
 glm::vec2 Collider::getDimensions(){
-	return dimensions;
-}
-void Collider::setDimensions(glm::vec2 dim){
-	dimensions = dim;
+	return entity->getDimensions();
 }
 
 float CircleCollider::getRadius(){

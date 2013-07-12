@@ -11,6 +11,6 @@
 #define WWIDTH 640
 #define WHEIGHT 480
 
-
+#define GRAVITY 5.0f
 
 #endif

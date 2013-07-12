@@ -4,23 +4,22 @@
 #include "Entity.h"
 
 class CPlayer : public Entity {
+private:
+	float aY, aX;
+	float sY, sX;
 public:
 	CPlayer();
-	CPlayer(Shashin t, float width, float height );
+	CPlayer(Shashin* t, float width, float height );
 	bool OnLoad(char* File, float width, float height);
 	void OnLoop(Uint8 *keys);
-
-	void OnRender();
-	void handleCollision(glm::vec2 pVec);
+	void setDimensions(glm::vec2 dim);
+	void handleCollision(std::vector<glm::vec2> pVecs);
 	void OnCleanup();
 	void OnAnimate();
 	bool OnCollision(Entity* Entity);
-	virtual glm::vec2 getDimensions();
 	Shashin texture;
-	AnimControl Animation;
+	//AnimControl Animation;
 	//Sprite sprite;
-
-	void setTexture(Shashin t);
 
 };
 
